@@ -1,0 +1,2598 @@
+{
+  "universities": [
+    {
+      "id": "UNIA",
+      "name": "Universitaet Augsburg",
+      "shortCode": "UNIA",
+      "city": "Augsburg",
+      "color": "#163C66"
+    },
+    {
+      "id": "TUM",
+      "name": "Technische Universitaet Muenchen",
+      "shortCode": "TUM",
+      "city": "Muenchen",
+      "color": "#0065BD"
+    },
+    {
+      "id": "LMU",
+      "name": "Ludwig-Maximilians-Universitaet Muenchen",
+      "shortCode": "LMU",
+      "city": "Muenchen",
+      "color": "#007C41"
+    },
+    {
+      "id": "REIM",
+      "name": "Hochschule Augsburg Reimlingen Campus",
+      "shortCode": "REIM",
+      "city": "Augsburg",
+      "color": "#9C1A1C"
+    }
+  ],
+  "professors": [
+    {
+      "id": "prof-knapp",
+      "name": "Alexander Knapp",
+      "universityId": "UNIA",
+      "email": "knapp@unia.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-reif",
+      "name": "Wolfgang Reif",
+      "universityId": "UNIA",
+      "email": "reif@unia.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-kemper",
+      "name": "Alfons Kemper",
+      "universityId": "TUM",
+      "email": "kemper@tum.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-bauer",
+      "name": "Bernhard Bauer",
+      "universityId": "UNIA",
+      "email": "bauer@unia.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-andre",
+      "name": "Elisabeth Andre",
+      "universityId": "UNIA",
+      "email": "andre@unia.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-ruppert",
+      "name": "Michael Ruppert",
+      "universityId": "TUM",
+      "email": "ruppert@tum.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-fischer",
+      "name": "Claudia Fischer",
+      "universityId": "LMU",
+      "email": "fischer@lmu.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-stein",
+      "name": "Katharina Stein",
+      "universityId": "UNIA",
+      "email": "stein@unia.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-lechner",
+      "name": "Thomas Lechner",
+      "universityId": "REIM",
+      "email": "lechner@reim.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-zimmer",
+      "name": "Florian Zimmer",
+      "universityId": "UNIA",
+      "email": "zimmer@unia.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-huber",
+      "name": "Sabrina Huber",
+      "universityId": "LMU",
+      "email": "huber@lmu.example",
+      "isActive": true
+    },
+    {
+      "id": "prof-meier",
+      "name": "Nina Meier",
+      "universityId": "TUM",
+      "email": "meier@tum.example",
+      "isActive": true
+    }
+  ],
+  "courseDefinitions": [
+    {
+      "id": "cd-fm-formale-methoden",
+      "name": "Formale Methoden",
+      "shortCode": "FM",
+      "category": "FM",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-knapp"
+      ],
+      "color": "#F5A623",
+      "description": "Pflichtmodul Formale Methoden",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-software-engineering",
+      "name": "Software Engineering",
+      "shortCode": "SE",
+      "category": "SE",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-reif"
+      ],
+      "color": "#4A90D9",
+      "description": "Pflichtmodul Software Engineering",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-db-datenbanksysteme",
+      "name": "Datenbanksysteme",
+      "shortCode": "DBS",
+      "category": "DB",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-kemper"
+      ],
+      "color": "#9B59B6",
+      "description": "Pflichtmodul Datenbanksysteme",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ds-verteilte-systeme",
+      "name": "Verteilte Systeme",
+      "shortCode": "VS",
+      "category": "DS",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-bauer"
+      ],
+      "color": "#27AE60",
+      "description": "Pflichtmodul Verteilte Systeme",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-hci-human-computer-interaction",
+      "name": "Human-Computer Interaction",
+      "shortCode": "HCI",
+      "category": "HCI",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-andre"
+      ],
+      "color": "#E91E8C",
+      "description": "Pflichtmodul HCI",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-pr-industriepraktikum",
+      "name": "Industriepraktikum",
+      "shortCode": "PRAK",
+      "category": "SS",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 10,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-lechner"
+      ],
+      "color": "#95A5A6",
+      "description": "Pflichtpraktikum in der Industrie",
+      "isArchived": false,
+      "tags": [
+        "praktikum"
+      ]
+    },
+    {
+      "id": "cd-th-masterarbeit",
+      "name": "Masterarbeit",
+      "shortCode": "MA",
+      "category": "SE",
+      "isMandatory": true,
+      "isSeminar": false,
+      "credits": 30,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-reif"
+      ],
+      "color": "#4A90D9",
+      "description": "Master thesis",
+      "isArchived": false,
+      "tags": [
+        "thesis"
+      ]
+    },
+    {
+      "id": "cd-fm-reaktive-systeme",
+      "name": "Modellierung, Spezifikation und Verifikation reaktiver Systeme",
+      "shortCode": "MSV",
+      "category": "FM",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-knapp"
+      ],
+      "color": "#F5A623",
+      "description": "Elective FM",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-fm-sicherheitsanalyse",
+      "name": "Modellbasierte Sicherheitsanalyse",
+      "shortCode": "MSA",
+      "category": "FM",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-ruppert"
+      ],
+      "color": "#F5A623",
+      "description": "Elective FM",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-fm-it-sicherheit",
+      "name": "Praktische IT-Sicherheit",
+      "shortCode": "ITS",
+      "category": "FM",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-ruppert"
+      ],
+      "color": "#F5A623",
+      "description": "Elective FM",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-fm-semantik",
+      "name": "Semantik von Programmiersprachen",
+      "shortCode": "SEM",
+      "category": "FM",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "LMU",
+      "professorIds": [
+        "prof-fischer"
+      ],
+      "color": "#F5A623",
+      "description": "Elective FM",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-fm-seminar-it",
+      "name": "Seminar FM und IT-Sicherheit",
+      "shortCode": "SEM-FM",
+      "category": "FM",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-knapp"
+      ],
+      "color": "#F5A623",
+      "description": "Seminar FM",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-projektmanagement",
+      "name": "Projektmanagement",
+      "shortCode": "PM",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-reif"
+      ],
+      "color": "#4A90D9",
+      "description": "Elective SE",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-testen",
+      "name": "Testen",
+      "shortCode": "TEST",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-zimmer"
+      ],
+      "color": "#4A90D9",
+      "description": "Elective SE",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-requirements",
+      "name": "Requirements Engineering",
+      "shortCode": "REQ",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-zimmer"
+      ],
+      "color": "#4A90D9",
+      "description": "Elective SE",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-modellbasiert",
+      "name": "Modellbasierte Softwareentwicklung",
+      "shortCode": "MSE",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-meier"
+      ],
+      "color": "#4A90D9",
+      "description": "Elective SE",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-embedded",
+      "name": "SE fuer Embedded Systems",
+      "shortCode": "EMB",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-meier"
+      ],
+      "color": "#4A90D9",
+      "description": "Elective SE",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-ki",
+      "name": "Kuenstliche Intelligenz",
+      "shortCode": "KI",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "LMU",
+      "professorIds": [
+        "prof-huber"
+      ],
+      "color": "#4A90D9",
+      "description": "Elective SE",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-seminar-puli",
+      "name": "Projektseminar PuLi",
+      "shortCode": "PULI",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-bauer"
+      ],
+      "color": "#4A90D9",
+      "description": "SE Seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-seminar-softwaretechnik",
+      "name": "Seminar Softwaretechnik",
+      "shortCode": "SEM-SE",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-reif"
+      ],
+      "color": "#4A90D9",
+      "description": "SE Seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-seminar-automotive",
+      "name": "Seminar Automotive SE",
+      "shortCode": "AUTO-SE",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-meier"
+      ],
+      "color": "#4A90D9",
+      "description": "SE Seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-se-seminar-grundlagen",
+      "name": "Seminar Grundlagen SE",
+      "shortCode": "GR-SE",
+      "category": "SE",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-zimmer"
+      ],
+      "color": "#4A90D9",
+      "description": "SE Seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ds-se-fuer-vs",
+      "name": "SE fuer Verteilte Systeme",
+      "shortCode": "SE-VS",
+      "category": "DS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-bauer"
+      ],
+      "color": "#27AE60",
+      "description": "DS elective",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ds-seminar-vs",
+      "name": "Seminar Verteilte Systeme",
+      "shortCode": "SEM-DS",
+      "category": "DS",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-bauer"
+      ],
+      "color": "#27AE60",
+      "description": "DS seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-db-cpu",
+      "name": "Datenbanksysteme und moderne CPU-Architekturen",
+      "shortCode": "DB-CPU",
+      "category": "DB",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-kemper"
+      ],
+      "color": "#9B59B6",
+      "description": "DB elective",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-db-web",
+      "name": "Web-Datenbanken",
+      "shortCode": "WEBDB",
+      "category": "DB",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "LMU",
+      "professorIds": [
+        "prof-fischer"
+      ],
+      "color": "#9B59B6",
+      "description": "DB elective",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-db-data-engineering",
+      "name": "Grundlagen Data Engineering",
+      "shortCode": "DE",
+      "category": "DB",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-kemper"
+      ],
+      "color": "#9B59B6",
+      "description": "DB elective",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-db-seminar",
+      "name": "Seminar Datenbanken",
+      "shortCode": "SEM-DB",
+      "category": "DB",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "TUM",
+      "professorIds": [
+        "prof-kemper"
+      ],
+      "color": "#9B59B6",
+      "description": "DB Seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-hci-usability",
+      "name": "Usability Engineering",
+      "shortCode": "USE",
+      "category": "HCI",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 6,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-andre"
+      ],
+      "color": "#E91E8C",
+      "description": "HCI elective",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-hci-seminar",
+      "name": "Seminar HCI",
+      "shortCode": "SEM-HCI",
+      "category": "HCI",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "UNIA",
+      "professorIds": [
+        "prof-andre"
+      ],
+      "color": "#E91E8C",
+      "description": "HCI seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-hci-seminar-ml",
+      "name": "Seminar Maschinelles Lernen und innovative Interaktionstechniken",
+      "shortCode": "ML-HCI",
+      "category": "HCI",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "LMU",
+      "professorIds": [
+        "prof-huber"
+      ],
+      "color": "#E91E8C",
+      "description": "HCI seminar",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-erfolg-team",
+      "name": "Erfolg im Team",
+      "shortCode": "TEAM",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 3,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-praesentation",
+      "name": "Praesentationstraining",
+      "shortCode": "PRAE",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 3,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-schreibtraining",
+      "name": "Schreibtraining",
+      "shortCode": "WRITE",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 2,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-change",
+      "name": "Change-Prozesse",
+      "shortCode": "CHANGE",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 3,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-moderation",
+      "name": "Moderationstechniken",
+      "shortCode": "MOD",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 3,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-interkulturell",
+      "name": "Interkulturelle Kommunikation",
+      "shortCode": "INTK",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 3,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-fuehrung",
+      "name": "Fuehrungskompetenz",
+      "shortCode": "LEAD",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": false,
+      "credits": 3,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-stein"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill",
+      "isArchived": false,
+      "tags": []
+    },
+    {
+      "id": "cd-ss-soziales-engagement",
+      "name": "Projektseminar Soziales Engagement",
+      "shortCode": "SOC",
+      "category": "SS",
+      "isMandatory": false,
+      "isSeminar": true,
+      "credits": 5,
+      "universityId": "REIM",
+      "professorIds": [
+        "prof-lechner"
+      ],
+      "color": "#95A5A6",
+      "description": "Softskill seminar",
+      "isArchived": false,
+      "tags": []
+    }
+  ],
+  "courseOfferings": [
+    {
+      "id": "off-2026-winter-fm-formale-methoden",
+      "courseDefinitionId": "cd-fm-formale-methoden",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2027-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-fm-formale-methoden-written",
+          "type": "written",
+          "date": "2027-02-06T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-fm-formale-methoden-oral",
+          "type": "oral",
+          "date": "2027-02-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2026-11-03T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-software-engineering",
+      "courseDefinitionId": "cd-se-software-engineering",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-05T00:00:00.000Z",
+      "endDate": "2027-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-software-engineering-written",
+          "type": "written",
+          "date": "2027-02-08T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-db-datenbanksysteme",
+      "courseDefinitionId": "cd-db-datenbanksysteme",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-08T00:00:00.000Z",
+      "endDate": "2027-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-db-datenbanksysteme-written",
+          "type": "written",
+          "date": "2027-02-10T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-ds-verteilte-systeme",
+      "courseDefinitionId": "cd-ds-verteilte-systeme",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-11T00:00:00.000Z",
+      "endDate": "2027-01-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-ds-verteilte-systeme-written",
+          "type": "written",
+          "date": "2027-02-12T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-ds-verteilte-systeme-oral",
+          "type": "oral",
+          "date": "2027-02-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-hci-human-computer-interaction",
+      "courseDefinitionId": "cd-hci-human-computer-interaction",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-14T00:00:00.000Z",
+      "endDate": "2027-01-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-hci-human-computer-interaction-written",
+          "type": "written",
+          "date": "2027-02-14T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2026-11-15T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-pr-industriepraktikum",
+      "courseDefinitionId": "cd-pr-industriepraktikum",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-17T00:00:00.000Z",
+      "endDate": "2027-01-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-pr-industriepraktikum-project",
+          "type": "project",
+          "date": "2027-02-16T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-th-masterarbeit",
+      "courseDefinitionId": "cd-th-masterarbeit",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2027-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-th-masterarbeit-written",
+          "type": "written",
+          "date": "2027-02-18T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-th-masterarbeit-oral",
+          "type": "oral",
+          "date": "2027-02-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-testen",
+      "courseDefinitionId": "cd-se-testen",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-05T00:00:00.000Z",
+      "endDate": "2027-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-testen-written",
+          "type": "written",
+          "date": "2027-02-20T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-projektmanagement",
+      "courseDefinitionId": "cd-se-projektmanagement",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-08T00:00:00.000Z",
+      "endDate": "2027-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-projektmanagement-written",
+          "type": "written",
+          "date": "2027-02-06T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2026-11-09T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-db-web",
+      "courseDefinitionId": "cd-db-web",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-11T00:00:00.000Z",
+      "endDate": "2027-01-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-db-web-written",
+          "type": "written",
+          "date": "2027-02-08T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-db-web-oral",
+          "type": "oral",
+          "date": "2027-02-14T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-hci-usability",
+      "courseDefinitionId": "cd-hci-usability",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-14T00:00:00.000Z",
+      "endDate": "2027-01-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-hci-usability-written",
+          "type": "written",
+          "date": "2027-02-10T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-ss-erfolg-team",
+      "courseDefinitionId": "cd-ss-erfolg-team",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-17T00:00:00.000Z",
+      "endDate": "2027-01-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-ss-erfolg-team-written",
+          "type": "written",
+          "date": "2027-02-12T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-seminar-softwaretechnik",
+      "courseDefinitionId": "cd-se-seminar-softwaretechnik",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2027-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-seminar-softwaretechnik-written",
+          "type": "written",
+          "date": "2027-02-14T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-se-seminar-softwaretechnik-oral",
+          "type": "oral",
+          "date": "2027-02-20T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2026-11-03T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-db-seminar",
+      "courseDefinitionId": "cd-db-seminar",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-05T00:00:00.000Z",
+      "endDate": "2027-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-db-seminar-project",
+          "type": "project",
+          "date": "2027-02-16T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-fm-sicherheitsanalyse",
+      "courseDefinitionId": "cd-fm-sicherheitsanalyse",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-08T00:00:00.000Z",
+      "endDate": "2027-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-fm-sicherheitsanalyse-written",
+          "type": "written",
+          "date": "2027-02-18T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-fm-reaktive-systeme",
+      "courseDefinitionId": "cd-fm-reaktive-systeme",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-02T00:00:00.000Z",
+      "endDate": "2026-07-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-fm-reaktive-systeme-written",
+          "type": "written",
+          "date": "2026-08-06T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-summer-fm-reaktive-systeme-oral",
+          "type": "oral",
+          "date": "2026-08-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2026-05-04T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-fm-it-sicherheit",
+      "courseDefinitionId": "cd-fm-it-sicherheit",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-05T00:00:00.000Z",
+      "endDate": "2026-07-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-fm-it-sicherheit-written",
+          "type": "written",
+          "date": "2026-08-08T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-se-requirements",
+      "courseDefinitionId": "cd-se-requirements",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-08T00:00:00.000Z",
+      "endDate": "2026-07-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-se-requirements-written",
+          "type": "written",
+          "date": "2026-08-10T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-se-ki",
+      "courseDefinitionId": "cd-se-ki",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-11T00:00:00.000Z",
+      "endDate": "2026-07-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-se-ki-written",
+          "type": "written",
+          "date": "2026-08-12T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-summer-se-ki-oral",
+          "type": "oral",
+          "date": "2026-08-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ds-se-fuer-vs",
+      "courseDefinitionId": "cd-ds-se-fuer-vs",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-14T00:00:00.000Z",
+      "endDate": "2026-07-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ds-se-fuer-vs-written",
+          "type": "written",
+          "date": "2026-08-14T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2026-05-16T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-db-data-engineering",
+      "courseDefinitionId": "cd-db-data-engineering",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-17T00:00:00.000Z",
+      "endDate": "2026-07-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-db-data-engineering-written",
+          "type": "written",
+          "date": "2026-08-16T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-hci-seminar",
+      "courseDefinitionId": "cd-hci-seminar",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-02T00:00:00.000Z",
+      "endDate": "2026-07-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-hci-seminar-written",
+          "type": "written",
+          "date": "2026-08-18T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-summer-hci-seminar-oral",
+          "type": "oral",
+          "date": "2026-08-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ss-praesentation",
+      "courseDefinitionId": "cd-ss-praesentation",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-05T00:00:00.000Z",
+      "endDate": "2026-07-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ss-praesentation-written",
+          "type": "written",
+          "date": "2026-08-20T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ss-interkulturell",
+      "courseDefinitionId": "cd-ss-interkulturell",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-08T00:00:00.000Z",
+      "endDate": "2026-07-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ss-interkulturell-written",
+          "type": "written",
+          "date": "2026-08-06T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2026-05-10T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ss-soziales-engagement",
+      "courseDefinitionId": "cd-ss-soziales-engagement",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-11T00:00:00.000Z",
+      "endDate": "2026-07-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ss-soziales-engagement-written",
+          "type": "written",
+          "date": "2026-08-08T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-summer-ss-soziales-engagement-oral",
+          "type": "oral",
+          "date": "2026-08-14T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-se-seminar-puli",
+      "courseDefinitionId": "cd-se-seminar-puli",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-14T00:00:00.000Z",
+      "endDate": "2026-07-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-se-seminar-puli-project",
+          "type": "project",
+          "date": "2026-08-10T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ds-seminar-vs",
+      "courseDefinitionId": "cd-ds-seminar-vs",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-17T00:00:00.000Z",
+      "endDate": "2026-07-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ds-seminar-vs-project",
+          "type": "project",
+          "date": "2026-08-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-fm-formale-methoden",
+      "courseDefinitionId": "cd-fm-formale-methoden",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-02T00:00:00.000Z",
+      "endDate": "2026-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-fm-formale-methoden-written",
+          "type": "written",
+          "date": "2026-02-06T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-winter-fm-formale-methoden-oral",
+          "type": "oral",
+          "date": "2026-02-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2025-11-03T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-se-software-engineering",
+      "courseDefinitionId": "cd-se-software-engineering",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-05T00:00:00.000Z",
+      "endDate": "2026-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-se-software-engineering-written",
+          "type": "written",
+          "date": "2026-02-08T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-db-datenbanksysteme",
+      "courseDefinitionId": "cd-db-datenbanksysteme",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-08T00:00:00.000Z",
+      "endDate": "2026-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-db-datenbanksysteme-written",
+          "type": "written",
+          "date": "2026-02-10T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-ds-verteilte-systeme",
+      "courseDefinitionId": "cd-ds-verteilte-systeme",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-11T00:00:00.000Z",
+      "endDate": "2026-01-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-ds-verteilte-systeme-written",
+          "type": "written",
+          "date": "2026-02-12T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-winter-ds-verteilte-systeme-oral",
+          "type": "oral",
+          "date": "2026-02-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-hci-human-computer-interaction",
+      "courseDefinitionId": "cd-hci-human-computer-interaction",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-14T00:00:00.000Z",
+      "endDate": "2026-01-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-hci-human-computer-interaction-written",
+          "type": "written",
+          "date": "2026-02-14T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2025-11-15T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-se-modellbasiert",
+      "courseDefinitionId": "cd-se-modellbasiert",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-17T00:00:00.000Z",
+      "endDate": "2026-01-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-se-modellbasiert-written",
+          "type": "written",
+          "date": "2026-02-16T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-db-cpu",
+      "courseDefinitionId": "cd-db-cpu",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-02T00:00:00.000Z",
+      "endDate": "2026-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-db-cpu-written",
+          "type": "written",
+          "date": "2026-02-18T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-winter-db-cpu-oral",
+          "type": "oral",
+          "date": "2026-02-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-se-seminar-automotive",
+      "courseDefinitionId": "cd-se-seminar-automotive",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-05T00:00:00.000Z",
+      "endDate": "2026-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-se-seminar-automotive-project",
+          "type": "project",
+          "date": "2026-02-20T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-hci-seminar-ml",
+      "courseDefinitionId": "cd-hci-seminar-ml",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-08T00:00:00.000Z",
+      "endDate": "2026-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-hci-seminar-ml-project",
+          "type": "project",
+          "date": "2026-02-06T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2025-11-09T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-ss-change",
+      "courseDefinitionId": "cd-ss-change",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-11T00:00:00.000Z",
+      "endDate": "2026-01-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-ss-change-written",
+          "type": "written",
+          "date": "2026-02-08T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-winter-ss-change-oral",
+          "type": "oral",
+          "date": "2026-02-14T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-winter-ss-schreibtraining",
+      "courseDefinitionId": "cd-ss-schreibtraining",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-14T00:00:00.000Z",
+      "endDate": "2026-01-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-winter-ss-schreibtraining-written",
+          "type": "written",
+          "date": "2026-02-10T00:00:00.000Z",
+          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-fm-semantik",
+      "courseDefinitionId": "cd-fm-semantik",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": false,
+      "startDate": "2025-04-02T00:00:00.000Z",
+      "endDate": "2025-07-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-fm-semantik-written",
+          "type": "written",
+          "date": "2025-08-06T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-summer-fm-semantik-oral",
+          "type": "oral",
+          "date": "2025-08-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2025-05-04T00:00:00.000Z",
+      "notes": "Temporarily not offered this semester",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-fm-seminar-it",
+      "courseDefinitionId": "cd-fm-seminar-it",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-05T00:00:00.000Z",
+      "endDate": "2025-07-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-fm-seminar-it-project",
+          "type": "project",
+          "date": "2025-08-08T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-se-embedded",
+      "courseDefinitionId": "cd-se-embedded",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-08T00:00:00.000Z",
+      "endDate": "2025-07-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-se-embedded-written",
+          "type": "written",
+          "date": "2025-08-10T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-se-requirements",
+      "courseDefinitionId": "cd-se-requirements",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-11T00:00:00.000Z",
+      "endDate": "2025-07-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-se-requirements-written",
+          "type": "written",
+          "date": "2025-08-12T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-summer-se-requirements-oral",
+          "type": "oral",
+          "date": "2025-08-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-db-web",
+      "courseDefinitionId": "cd-db-web",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-14T00:00:00.000Z",
+      "endDate": "2025-07-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-db-web-written",
+          "type": "written",
+          "date": "2025-08-14T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2025-05-16T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-db-data-engineering",
+      "courseDefinitionId": "cd-db-data-engineering",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-17T00:00:00.000Z",
+      "endDate": "2025-07-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-db-data-engineering-written",
+          "type": "written",
+          "date": "2025-08-16T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-hci-usability",
+      "courseDefinitionId": "cd-hci-usability",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-02T00:00:00.000Z",
+      "endDate": "2025-07-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-hci-usability-written",
+          "type": "written",
+          "date": "2025-08-18T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-summer-hci-usability-oral",
+          "type": "oral",
+          "date": "2025-08-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-hci-seminar",
+      "courseDefinitionId": "cd-hci-seminar",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-05T00:00:00.000Z",
+      "endDate": "2025-07-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-hci-seminar-project",
+          "type": "project",
+          "date": "2025-08-20T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-ss-moderation",
+      "courseDefinitionId": "cd-ss-moderation",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-08T00:00:00.000Z",
+      "endDate": "2025-07-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-ss-moderation-written",
+          "type": "written",
+          "date": "2025-08-06T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2025-05-10T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2025-summer-ss-fuehrung",
+      "courseDefinitionId": "cd-ss-fuehrung",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2025-04-11T00:00:00.000Z",
+      "endDate": "2025-07-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2025-summer-ss-fuehrung-written",
+          "type": "written",
+          "date": "2025-08-08T00:00:00.000Z",
+          "reexamDate": "2025-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2025-summer-ss-fuehrung-oral",
+          "type": "oral",
+          "date": "2025-08-14T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-fm-formale-methoden",
+      "courseDefinitionId": "cd-fm-formale-methoden",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-02T00:00:00.000Z",
+      "endDate": "2025-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-fm-formale-methoden-written",
+          "type": "written",
+          "date": "2025-02-06T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-winter-fm-formale-methoden-oral",
+          "type": "oral",
+          "date": "2025-02-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2024-11-03T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-se-software-engineering",
+      "courseDefinitionId": "cd-se-software-engineering",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-05T00:00:00.000Z",
+      "endDate": "2025-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-se-software-engineering-written",
+          "type": "written",
+          "date": "2025-02-08T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-db-datenbanksysteme",
+      "courseDefinitionId": "cd-db-datenbanksysteme",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-08T00:00:00.000Z",
+      "endDate": "2025-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-db-datenbanksysteme-written",
+          "type": "written",
+          "date": "2025-02-10T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-ds-verteilte-systeme",
+      "courseDefinitionId": "cd-ds-verteilte-systeme",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-11T00:00:00.000Z",
+      "endDate": "2025-01-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-ds-verteilte-systeme-written",
+          "type": "written",
+          "date": "2025-02-12T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-winter-ds-verteilte-systeme-oral",
+          "type": "oral",
+          "date": "2025-02-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-hci-human-computer-interaction",
+      "courseDefinitionId": "cd-hci-human-computer-interaction",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-14T00:00:00.000Z",
+      "endDate": "2025-01-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-hci-human-computer-interaction-written",
+          "type": "written",
+          "date": "2025-02-14T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2024-11-15T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-se-projektmanagement",
+      "courseDefinitionId": "cd-se-projektmanagement",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-17T00:00:00.000Z",
+      "endDate": "2025-01-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-se-projektmanagement-written",
+          "type": "written",
+          "date": "2025-02-16T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-se-testen",
+      "courseDefinitionId": "cd-se-testen",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-02T00:00:00.000Z",
+      "endDate": "2025-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-se-testen-written",
+          "type": "written",
+          "date": "2025-02-18T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-winter-se-testen-oral",
+          "type": "oral",
+          "date": "2025-02-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-db-cpu",
+      "courseDefinitionId": "cd-db-cpu",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-05T00:00:00.000Z",
+      "endDate": "2025-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-db-cpu-written",
+          "type": "written",
+          "date": "2025-02-20T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-se-seminar-grundlagen",
+      "courseDefinitionId": "cd-se-seminar-grundlagen",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-08T00:00:00.000Z",
+      "endDate": "2025-01-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-se-seminar-grundlagen-project",
+          "type": "project",
+          "date": "2025-02-06T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2024-11-09T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-winter-ss-erfolg-team",
+      "courseDefinitionId": "cd-ss-erfolg-team",
+      "academicYear": 2024,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2024-10-11T00:00:00.000Z",
+      "endDate": "2025-01-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-winter-ss-erfolg-team-written",
+          "type": "written",
+          "date": "2025-02-08T00:00:00.000Z",
+          "reexamDate": "2025-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-winter-ss-erfolg-team-oral",
+          "type": "oral",
+          "date": "2025-02-14T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-fm-reaktive-systeme",
+      "courseDefinitionId": "cd-fm-reaktive-systeme",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-02T00:00:00.000Z",
+      "endDate": "2024-07-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-fm-reaktive-systeme-written",
+          "type": "written",
+          "date": "2024-08-06T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-summer-fm-reaktive-systeme-oral",
+          "type": "oral",
+          "date": "2024-08-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "midtermDate": "2024-05-04T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-fm-sicherheitsanalyse",
+      "courseDefinitionId": "cd-fm-sicherheitsanalyse",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-05T00:00:00.000Z",
+      "endDate": "2024-07-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-fm-sicherheitsanalyse-written",
+          "type": "written",
+          "date": "2024-08-08T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-se-ki",
+      "courseDefinitionId": "cd-se-ki",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-08T00:00:00.000Z",
+      "endDate": "2024-07-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-se-ki-written",
+          "type": "written",
+          "date": "2024-08-10T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-ds-se-fuer-vs",
+      "courseDefinitionId": "cd-ds-se-fuer-vs",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-11T00:00:00.000Z",
+      "endDate": "2024-07-16T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-ds-se-fuer-vs-written",
+          "type": "written",
+          "date": "2024-08-12T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-summer-ds-se-fuer-vs-oral",
+          "type": "oral",
+          "date": "2024-08-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-db-data-engineering",
+      "courseDefinitionId": "cd-db-data-engineering",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-14T00:00:00.000Z",
+      "endDate": "2024-07-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-db-data-engineering-written",
+          "type": "written",
+          "date": "2024-08-14T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2024-05-16T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-db-seminar",
+      "courseDefinitionId": "cd-db-seminar",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-17T00:00:00.000Z",
+      "endDate": "2024-07-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-db-seminar-project",
+          "type": "project",
+          "date": "2024-08-16T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-hci-seminar-ml",
+      "courseDefinitionId": "cd-hci-seminar-ml",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-02T00:00:00.000Z",
+      "endDate": "2024-07-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-hci-seminar-ml-written",
+          "type": "written",
+          "date": "2024-08-18T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2024-summer-hci-seminar-ml-oral",
+          "type": "oral",
+          "date": "2024-08-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-ss-interkulturell",
+      "courseDefinitionId": "cd-ss-interkulturell",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-05T00:00:00.000Z",
+      "endDate": "2024-07-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-ss-interkulturell-written",
+          "type": "written",
+          "date": "2024-08-20T00:00:00.000Z",
+          "reexamDate": "2024-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2024-summer-ss-soziales-engagement",
+      "courseDefinitionId": "cd-ss-soziales-engagement",
+      "academicYear": 2024,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2024-04-08T00:00:00.000Z",
+      "endDate": "2024-07-14T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2024-summer-ss-soziales-engagement-project",
+          "type": "project",
+          "date": "2024-08-06T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "midtermDate": "2024-05-10T00:00:00.000Z",
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    }
+  ],
+  "userPlans": [
+    {
+      "id": "plan-current-ws-2026",
+      "name": "Current Plan WS 2026/27",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "programRuleId": "rule-msc-se-2024",
+      "selectedOfferings": [
+        {
+          "offeringId": "off-2026-winter-fm-formale-methoden",
+          "selectedExamOptionId": "off-2026-winter-fm-formale-methoden-written",
+          "isIncluded": true,
+          "displayOrder": 0
+        },
+        {
+          "offeringId": "off-2026-winter-se-software-engineering",
+          "selectedExamOptionId": "off-2026-winter-se-software-engineering-written",
+          "isIncluded": true,
+          "displayOrder": 1
+        },
+        {
+          "offeringId": "off-2026-winter-db-datenbanksysteme",
+          "selectedExamOptionId": "off-2026-winter-db-datenbanksysteme-written",
+          "isIncluded": true,
+          "displayOrder": 2
+        },
+        {
+          "offeringId": "off-2026-winter-ds-verteilte-systeme",
+          "selectedExamOptionId": "off-2026-winter-ds-verteilte-systeme-written",
+          "isIncluded": true,
+          "displayOrder": 3
+        },
+        {
+          "offeringId": "off-2026-winter-hci-human-computer-interaction",
+          "selectedExamOptionId": "off-2026-winter-hci-human-computer-interaction-written",
+          "isIncluded": true,
+          "displayOrder": 4
+        },
+        {
+          "offeringId": "off-2026-winter-pr-industriepraktikum",
+          "selectedExamOptionId": "off-2026-winter-pr-industriepraktikum-project",
+          "isIncluded": true,
+          "displayOrder": 5
+        },
+        {
+          "offeringId": "off-2026-winter-th-masterarbeit",
+          "selectedExamOptionId": "off-2026-winter-th-masterarbeit-written",
+          "isIncluded": true,
+          "displayOrder": 6
+        },
+        {
+          "offeringId": "off-2026-winter-se-testen",
+          "selectedExamOptionId": "off-2026-winter-se-testen-written",
+          "isIncluded": false,
+          "displayOrder": 7
+        },
+        {
+          "offeringId": "off-2026-winter-se-projektmanagement",
+          "selectedExamOptionId": "off-2026-winter-se-projektmanagement-written",
+          "isIncluded": false,
+          "displayOrder": 8
+        },
+        {
+          "offeringId": "off-2026-winter-db-web",
+          "selectedExamOptionId": "off-2026-winter-db-web-written",
+          "isIncluded": false,
+          "displayOrder": 9
+        },
+        {
+          "offeringId": "off-2026-winter-hci-usability",
+          "selectedExamOptionId": "off-2026-winter-hci-usability-written",
+          "isIncluded": true,
+          "displayOrder": 10
+        },
+        {
+          "offeringId": "off-2026-winter-ss-erfolg-team",
+          "selectedExamOptionId": "off-2026-winter-ss-erfolg-team-written",
+          "isIncluded": false,
+          "displayOrder": 11
+        },
+        {
+          "offeringId": "off-2026-winter-se-seminar-softwaretechnik",
+          "selectedExamOptionId": "off-2026-winter-se-seminar-softwaretechnik-written",
+          "isIncluded": false,
+          "displayOrder": 12
+        },
+        {
+          "offeringId": "off-2026-winter-db-seminar",
+          "selectedExamOptionId": "off-2026-winter-db-seminar-project",
+          "isIncluded": false,
+          "displayOrder": 13
+        },
+        {
+          "offeringId": "off-2026-winter-fm-sicherheitsanalyse",
+          "selectedExamOptionId": "off-2026-winter-fm-sicherheitsanalyse-written",
+          "isIncluded": false,
+          "displayOrder": 14
+        }
+      ],
+      "createdAt": "2026-02-10T00:00:00.000Z",
+      "updatedAt": "2026-02-10T00:00:00.000Z"
+    },
+    {
+      "id": "plan-archive-ss-2025",
+      "name": "Archive Plan SS 2025",
+      "academicYear": 2025,
+      "semesterType": "summer",
+      "programRuleId": "rule-msc-se-2024",
+      "selectedOfferings": [
+        {
+          "offeringId": "off-2025-summer-fm-semantik",
+          "selectedExamOptionId": "off-2025-summer-fm-semantik-written",
+          "isIncluded": true,
+          "displayOrder": 0
+        },
+        {
+          "offeringId": "off-2025-summer-fm-seminar-it",
+          "selectedExamOptionId": "off-2025-summer-fm-seminar-it-project",
+          "isIncluded": false,
+          "displayOrder": 1
+        },
+        {
+          "offeringId": "off-2025-summer-se-embedded",
+          "selectedExamOptionId": "off-2025-summer-se-embedded-written",
+          "isIncluded": true,
+          "displayOrder": 2
+        },
+        {
+          "offeringId": "off-2025-summer-se-requirements",
+          "selectedExamOptionId": "off-2025-summer-se-requirements-written",
+          "isIncluded": false,
+          "displayOrder": 3
+        },
+        {
+          "offeringId": "off-2025-summer-db-web",
+          "selectedExamOptionId": "off-2025-summer-db-web-written",
+          "isIncluded": true,
+          "displayOrder": 4
+        },
+        {
+          "offeringId": "off-2025-summer-db-data-engineering",
+          "selectedExamOptionId": "off-2025-summer-db-data-engineering-written",
+          "isIncluded": false,
+          "displayOrder": 5
+        },
+        {
+          "offeringId": "off-2025-summer-hci-usability",
+          "selectedExamOptionId": "off-2025-summer-hci-usability-written",
+          "isIncluded": true,
+          "displayOrder": 6
+        },
+        {
+          "offeringId": "off-2025-summer-hci-seminar",
+          "selectedExamOptionId": "off-2025-summer-hci-seminar-project",
+          "isIncluded": false,
+          "displayOrder": 7
+        },
+        {
+          "offeringId": "off-2025-summer-ss-moderation",
+          "selectedExamOptionId": "off-2025-summer-ss-moderation-written",
+          "isIncluded": true,
+          "displayOrder": 8
+        },
+        {
+          "offeringId": "off-2025-summer-ss-fuehrung",
+          "selectedExamOptionId": "off-2025-summer-ss-fuehrung-written",
+          "isIncluded": false,
+          "displayOrder": 9
+        }
+      ],
+      "createdAt": "2025-04-01T00:00:00.000Z",
+      "updatedAt": "2025-08-03T00:00:00.000Z"
+    }
+  ],
+  "programRules": [
+    {
+      "id": "rule-msc-se-2024",
+      "programName": "MSc Software Engineering",
+      "version": "2024-WS",
+      "totalCreditsRequired": 120,
+      "mandatoryCourseDefinitionIds": [
+        "cd-fm-formale-methoden",
+        "cd-se-software-engineering",
+        "cd-db-datenbanksysteme",
+        "cd-ds-verteilte-systeme",
+        "cd-hci-human-computer-interaction",
+        "cd-pr-industriepraktikum",
+        "cd-th-masterarbeit"
+      ],
+      "categoryRequirements": [
+        {
+          "category": "FM",
+          "minCredits": 6,
+          "label": "FM: min. 6 LP elective needed"
+        },
+        {
+          "category": "SE",
+          "minCredits": 6,
+          "label": "SE: min. 6 LP elective needed"
+        },
+        {
+          "category": "SS",
+          "minCredits": 10,
+          "label": "Softskills: min. 10 LP needed"
+        }
+      ],
+      "seminarMinCount": 1,
+      "praktikumMinCount": 1,
+      "thesisRequired": true,
+      "electiveCreditsMin": 70,
+      "isActive": true,
+      "notes": "Rule set decoded from MSc SE checker screenshots"
+    }
+  ],
+  "adminChangelog": [
+    {
+      "id": "log-seed-1",
+      "entityType": "courseOfferings",
+      "entityId": "seed",
+      "action": "import",
+      "changedAt": "2026-02-01T00:00:00.000Z",
+      "changedBy": "seed-admin",
+      "diffSummary": "Initial seed dataset imported"
+    }
+  ]
+}

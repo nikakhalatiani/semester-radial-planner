@@ -1,6 +1,8 @@
 export function dateToAngle(date: Date, year: number): number {
-  const startOfYear = new Date(year, 0, 1).getTime();
-  const msInYear = new Date(year + 1, 0, 1).getTime() - startOfYear;
-  const t = (date.getTime() - startOfYear) / msInYear;
-  return (210 + t * 360) % 360;
+  // Anchor at Jan 15 so month labels align intuitively:
+  // Jan bottom-center, Apr right, Jul top-center, Oct left.
+  const anchor = Date.UTC(year, 0, 15);
+  const msInYear = Date.UTC(year + 1, 0, 15) - anchor;
+  const t = (date.getTime() - anchor) / msInYear;
+  return ((180 - t * 360) % 360 + 360) % 360;
 }

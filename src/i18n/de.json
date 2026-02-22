@@ -11,6 +11,9 @@
   "plan.search": "Kurse suchen",
   "plan.notOffered": "Dieses Jahr nicht angeboten",
   "plan.mandatory": "Pflicht",
+  "plan.included": "Enthalten",
+  "plan.excluded": "Ausgeschlossen",
+  "plan.drag": "Verschieben",
   "admin.loginTitle": "Admin Login",
   "admin.password": "Passwort",
   "admin.email": "E-Mail",
@@ -18,7 +21,7 @@
   "admin.logout": "Abmelden",
   "admin.sections.courses": "Kurse",
   "admin.sections.offerings": "Angebote",
-  "admin.sections.professors": "Professoren",
+  "admin.sections.professors": "Professoren/Dozierende",
   "admin.sections.rules": "Regeln",
   "admin.sections.universities": "Universitaeten",
   "admin.sections.data": "Daten"

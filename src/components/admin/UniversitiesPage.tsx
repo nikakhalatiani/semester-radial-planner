@@ -43,14 +43,14 @@ export function UniversitiesPage({ universities, canEdit, onSave, onDelete }: Un
             key={university.id}
             type="button"
             disabled={!canEdit}
-            className="rounded-xl border border-border bg-white p-3 text-left disabled:opacity-70 dark:border-border-dark dark:bg-neutral-900"
+            className="rounded-xl border border-border bg-white p-3 text-left disabled:opacity-70"
             onClick={() => {
               setForm(university);
               setOpen(true);
             }}
           >
             <p className="font-semibold">{university.name}</p>
-            <p className="text-xs text-text-secondary dark:text-text-darkSecondary">
+            <p className="text-xs text-text-secondary">
               {university.shortCode} • {university.city}
             </p>
           </button>
@@ -63,7 +63,7 @@ export function UniversitiesPage({ universities, canEdit, onSave, onDelete }: Un
             <label className="block text-sm">
               Name
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.name}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, name: event.target.value } : prev))}
               />
@@ -71,7 +71,7 @@ export function UniversitiesPage({ universities, canEdit, onSave, onDelete }: Un
             <label className="block text-sm">
               Code
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.shortCode}
                 onChange={(event) =>
                   setForm((prev) => (prev ? { ...prev, shortCode: event.target.value.toUpperCase() } : prev))
@@ -81,7 +81,7 @@ export function UniversitiesPage({ universities, canEdit, onSave, onDelete }: Un
             <label className="block text-sm">
               City
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.city}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, city: event.target.value } : prev))}
               />

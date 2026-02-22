@@ -7,6 +7,9 @@ import type {
   Professor,
   SemesterType,
 } from '../../types';
+import { ARCHIVE_YEAR_CHOICES_DESC, getAllowedSemestersForYear } from '../../utils/academicYears';
+import { getLectureSessions } from '../../utils/lectureSchedule';
+import { Dropdown } from '../ui/Dropdown';
 import { OfferingEditModal } from './OfferingEditModal';
 
 interface OfferingsPageProps {
@@ -38,7 +41,14 @@ export function OfferingsPage({
   const [editing, setEditing] = useState<CourseOffering | undefined>();
   const [modalVersion, setModalVersion] = useState(0);
 
-  const yearChoices = [2026, 2025, 2024, 2023];
+  const yearChoices = ARCHIVE_YEAR_CHOICES_DESC;
+  const yearOptions = yearChoices.map((choice) => ({ value: choice, label: String(choice) }));
+  const semesterOptions: Array<{ value: SemesterType; label: string }> = getAllowedSemestersForYear(year).map(
+    (value) => ({
+      value,
+      label: value === 'winter' ? 'Winter' : 'Summer',
+    }),
+  );
 
   const rows = useMemo(
     () =>
@@ -46,9 +56,11 @@ export function OfferingsPage({
         .filter((offering) => offering.academicYear === year && offering.semesterType === semester)
         .map((offering) => {
           const definition = definitions.find((item) => item.id === offering.courseDefinitionId);
+          const lectureSessionCount = getLectureSessions(offering).length;
           return {
             offering,
             definition,
+            lectureSessionCount,
           };
         }),
     [definitions, offerings, semester, year],
@@ -58,25 +70,18 @@ export function OfferingsPage({
     <section className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <select
-            className="h-10 rounded-xl border border-border px-2 dark:border-border-dark dark:bg-neutral-900"
+          <Dropdown
+            className="h-10 rounded-xl border border-border px-2"
             value={year}
-            onChange={(event) => onPeriodChange(Number(event.target.value), semester)}
-          >
-            {yearChoices.map((choice) => (
-              <option key={choice} value={choice}>
-                {choice}
-              </option>
-            ))}
-          </select>
-          <select
-            className="h-10 rounded-xl border border-border px-2 dark:border-border-dark dark:bg-neutral-900"
+            options={yearOptions}
+            onChange={(nextYear) => onPeriodChange(nextYear, semester)}
+          />
+          <Dropdown
+            className="h-10 rounded-xl border border-border px-2"
             value={semester}
-            onChange={(event) => onPeriodChange(year, event.target.value as SemesterType)}
-          >
-            <option value="winter">Winter</option>
-            <option value="summer">Summer</option>
-          </select>
+            options={semesterOptions}
+            onChange={(nextSemester) => onPeriodChange(year, nextSemester)}
+          />
         </div>
 
         <button
@@ -93,17 +98,23 @@ export function OfferingsPage({
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border dark:border-border-dark">
-        <table className="min-w-full divide-y divide-border text-sm dark:divide-border-dark">
-          <thead className="bg-surface dark:bg-surface-dark">
+      <p className="rounded-xl border border-neutral-200 bg-white px-3 py-2 text-xs text-neutral-600">
+        Month grid lecture events use explicit lecture sessions (date/time) when configured. If empty, they are
+        inferred weekly from `startDate`.
+      </p>
+
+      <div className="overflow-hidden rounded-2xl border border-border">
+        <table className="min-w-full divide-y divide-border bg-white text-sm text-text-primary">
+          <thead className="bg-surface">
             <tr>
               <th className="px-3 py-2 text-left">Course</th>
               <th className="px-3 py-2 text-left">Availability</th>
               <th className="px-3 py-2 text-left">Dates</th>
+              <th className="px-3 py-2 text-left">Lecture schedule</th>
               <th className="px-3 py-2 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border dark:divide-border-dark">
+          <tbody className="divide-y divide-border">
             {rows.map((row) => (
               <tr key={row.offering.id}>
                 <td className="px-3 py-2">{row.definition?.name ?? row.offering.courseDefinitionId}</td>
@@ -111,11 +122,16 @@ export function OfferingsPage({
                 <td className="px-3 py-2">
                   {row.offering.startDate.slice(0, 10)} - {row.offering.endDate.slice(0, 10)}
                 </td>
+                <td className="px-3 py-2">
+                  {row.lectureSessionCount > 0
+                    ? `${row.lectureSessionCount} sessions`
+                    : 'Inferred weekly'}
+                </td>
                 <td className="px-3 py-2 text-right">
                   <button
                     type="button"
                     disabled={!canEdit}
-                    className="rounded-lg border border-border px-2 py-1 text-xs dark:border-border-dark"
+                    className="rounded-lg border border-border px-2 py-1 text-xs"
                     onClick={() => {
                       setEditing(row.offering);
                       setModalVersion((prev) => prev + 1);

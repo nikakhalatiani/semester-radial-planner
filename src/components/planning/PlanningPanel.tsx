@@ -2,7 +2,6 @@ import {
   closestCenter,
   DndContext,
   PointerSensor,
-  TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -37,7 +36,6 @@ interface PlanningPanelProps {
   onSearch: (query: string) => void;
   onToggleCategory: (category: CourseCategory) => void;
   onToggleInclude: (offeringId: string, next: boolean) => void;
-  onSelectExam: (offeringId: string, examOptionId: string) => void;
   onDragReorder: (activeId: string, overId: string) => void;
 }
 
@@ -49,10 +47,15 @@ export function PlanningPanel({
   onSearch,
   onToggleCategory,
   onToggleInclude,
-  onSelectExam,
   onDragReorder,
 }: PlanningPanelProps) {
-  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+  );
 
   const onDragEnd = (event: DragEndEvent) => {
     if (!event.over || event.active.id === event.over.id) {
@@ -64,15 +67,16 @@ export function PlanningPanel({
   const includedIds = rows.filter((row) => row.selection?.isIncluded).map((row) => row.offering.id);
 
   return (
-    <section className="rounded-3xl bg-surface p-3 dark:bg-surface-dark">
+    <section className="rounded-3xl bg-surface p-3">
       <header className="mb-3 space-y-3">
         <CategoryFilterChips active={activeCategories} onToggle={onToggleCategory} />
         <input
-          className="h-11 w-full rounded-xl border border-border bg-white px-3 text-sm dark:border-border-dark dark:bg-neutral-900"
+          className="h-11 w-full rounded-xl border border-border bg-white px-3 text-sm"
           placeholder="Search courses"
           value={searchQuery}
           onChange={(event) => onSearch(event.target.value)}
         />
+        <p className="text-xs text-text-secondary">Included cards can be reordered by dragging the card.</p>
       </header>
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
@@ -87,7 +91,6 @@ export function PlanningPanel({
                 university={row.university}
                 professorNames={row.professorNames}
                 onToggleInclude={(next) => onToggleInclude(row.offering.id, next)}
-                onSelectExam={(examOptionId) => onSelectExam(row.offering.id, examOptionId)}
               />
             ))}
           </div>

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
 import type { AdminChangelogEntry, CourseDefinition, CourseOffering, Professor } from '../../types';
+import { deriveLectureDates, getLectureSessions } from '../../utils/lectureSchedule';
 import { BottomSheet } from '../ui/BottomSheet';
+import { Dropdown, MultiDropdown } from '../ui/Dropdown';
 import { ChangelogView } from './ChangelogView';
 import { ExamOptionsEditor } from './ExamOptionsEditor';
+import { LectureSessionsEditor } from './LectureSessionsEditor';
 
 interface OfferingEditModalProps {
   open: boolean;
@@ -36,6 +39,8 @@ export function OfferingEditModal({
     isAvailable: true,
     startDate: `${year}-${semester === 'winter' ? '10' : '04'}-01`,
     endDate: `${semester === 'winter' ? year + 1 : year}-${semester === 'winter' ? '01' : '07'}-15`,
+    lectureSessions: [],
+    lectureDates: [],
     examOptions: [
       {
         id: '',
@@ -50,29 +55,40 @@ export function OfferingEditModal({
     lastUpdatedBy: 'admin',
   });
 
-  const [form, setForm] = useState<CourseOffering>(initial ?? buildFallback());
+  const [form, setForm] = useState<CourseOffering>(() => {
+    const base = initial ?? buildFallback();
+    const lectureSessions = getLectureSessions(base);
+    return {
+      ...base,
+      lectureSessions,
+      lectureDates: deriveLectureDates(lectureSessions),
+    };
+  });
 
   const localChangelog = changelog.filter((log) => log.entityType === 'courseOfferings' && log.entityId === form.id);
+  const courseOptions = definitions.map((definition) => ({
+    value: definition.id,
+    label: definition.name,
+  }));
+  const professorOptions = professors.map((professor) => ({
+    value: professor.id,
+    label: professor.name,
+  }));
 
   return (
     <BottomSheet open={open} onClose={onClose} title={initial ? 'Edit Offering' : 'Create Offering'}>
       <div className="space-y-3">
         <label className="block text-sm">
           Course
-          <select
-            className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+          <Dropdown
+            className="mt-1 h-11 w-full rounded-xl border border-border px-3"
             value={form.courseDefinitionId}
-            onChange={(event) => setForm((prev) => ({ ...prev, courseDefinitionId: event.target.value }))}
-          >
-            {definitions.map((definition) => (
-              <option key={definition.id} value={definition.id}>
-                {definition.name}
-              </option>
-            ))}
-          </select>
+            options={courseOptions}
+            onChange={(courseDefinitionId) => setForm((prev) => ({ ...prev, courseDefinitionId }))}
+          />
         </label>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           <label className="inline-flex items-center gap-2 text-sm">
             <input
               type="checkbox"
@@ -81,16 +97,6 @@ export function OfferingEditModal({
             />
             Available
           </label>
-
-          <label className="block text-sm">
-            Midterm
-            <input
-              type="date"
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
-              value={form.midtermDate?.slice(0, 10) ?? ''}
-              onChange={(event) => setForm((prev) => ({ ...prev, midtermDate: event.target.value || undefined }))}
-            />
-          </label>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -98,7 +104,7 @@ export function OfferingEditModal({
             Start Date
             <input
               type="date"
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
               value={form.startDate.slice(0, 10)}
               onChange={(event) => setForm((prev) => ({ ...prev, startDate: event.target.value }))}
             />
@@ -107,30 +113,34 @@ export function OfferingEditModal({
             End Date
             <input
               type="date"
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
               value={form.endDate.slice(0, 10)}
               onChange={(event) => setForm((prev) => ({ ...prev, endDate: event.target.value }))}
             />
           </label>
         </div>
 
+        <LectureSessionsEditor
+          sessions={form.lectureSessions ?? []}
+          defaultStartDate={form.startDate}
+          defaultEndDate={form.endDate}
+          onChange={(lectureSessions) =>
+            setForm((prev) => ({
+              ...prev,
+              lectureSessions,
+              lectureDates: deriveLectureDates(lectureSessions),
+            }))
+          }
+        />
+
         <label className="block text-sm">
-          Professor override
-          <select
-            multiple
-            className="mt-1 min-h-20 w-full rounded-xl border border-border px-3 py-2 dark:border-border-dark dark:bg-neutral-900"
-            value={form.professorIds ?? []}
-            onChange={(event) => {
-              const ids = Array.from(event.target.selectedOptions).map((option) => option.value);
-              setForm((prev) => ({ ...prev, professorIds: ids }));
-            }}
-          >
-            {professors.map((professor) => (
-              <option key={professor.id} value={professor.id}>
-                {professor.name}
-              </option>
-            ))}
-          </select>
+          Professor/Lecturer override
+          <MultiDropdown
+            className="mt-1 min-h-20 w-full rounded-xl border border-border px-3 py-2"
+            values={form.professorIds ?? []}
+            options={professorOptions}
+            onChange={(professorIds) => setForm((prev) => ({ ...prev, professorIds }))}
+          />
         </label>
 
         <ExamOptionsEditor options={form.examOptions} onChange={(examOptions) => setForm((prev) => ({ ...prev, examOptions }))} />
@@ -138,7 +148,7 @@ export function OfferingEditModal({
         <label className="block text-sm">
           Notes
           <textarea
-            className="mt-1 min-h-20 w-full rounded-xl border border-border px-3 py-2 dark:border-border-dark dark:bg-neutral-900"
+            className="mt-1 min-h-20 w-full rounded-xl border border-border px-3 py-2"
             value={form.notes ?? ''}
             onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))}
           />
@@ -151,9 +161,17 @@ export function OfferingEditModal({
           className="h-11 w-full rounded-xl bg-neutral-900 text-sm font-semibold text-white"
           onClick={async () => {
             const generatedOfferingId = form.id || `offering-${Date.now()}`;
+            const lectureSessions = (form.lectureSessions ?? [])
+              .filter((session) => Boolean(session.date))
+              .map((session, index) => ({
+                ...session,
+                id: session.id || `${generatedOfferingId}-lecture-session-${index}`,
+              }));
             await onSave({
               ...form,
               id: generatedOfferingId,
+              lectureSessions,
+              lectureDates: deriveLectureDates(lectureSessions),
               examOptions: form.examOptions.map((option) => ({
                 ...option,
                 id: option.id || `${generatedOfferingId}-exam-${Math.random().toString(36).slice(2, 8)}`,

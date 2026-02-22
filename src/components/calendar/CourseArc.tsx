@@ -8,11 +8,9 @@ interface CourseArcProps {
   definition: CourseDefinition;
   offering: CourseOffering;
   selectedExamOption?: ExamOption;
-  examPoint: { x: number; y: number };
-  examAnchorPoint: { x: number; y: number };
+  examPoint: { x: number; y: number; angle: number };
+  reexamPoint?: { x: number; y: number };
   endPoint: { x: number; y: number };
-  examGuidePath?: string;
-  midtermPoint?: { x: number; y: number };
   onSelect: () => void;
   onHover: (event: React.MouseEvent<SVGGElement>) => void;
   onLeave: () => void;
@@ -24,21 +22,22 @@ export function CourseArc({
   offering,
   selectedExamOption,
   examPoint,
-  examAnchorPoint,
+  reexamPoint,
   endPoint,
-  examGuidePath,
-  midtermPoint,
   onSelect,
   onHover,
   onLeave,
 }: CourseArcProps) {
-  const examType = selectedExamOption?.type ?? 'written';
+  const examType = selectedExamOption?.type;
 
   return (
     <motion.g
       role="button"
       tabIndex={0}
       aria-label={`${definition.name} ${offering.academicYear} ${offering.semesterType}`}
+      onMouseDown={(event) => {
+        event.preventDefault();
+      }}
       onClick={onSelect}
       onMouseEnter={onHover}
       onMouseMove={onHover}
@@ -52,6 +51,7 @@ export function CourseArc({
       animate={{ opacity: 1, pathLength: 1 }}
       transition={{ duration: 0.35 }}
       className="cursor-pointer"
+      style={{ outline: 'none' }}
     >
       <motion.path
         d={path}
@@ -63,35 +63,12 @@ export function CourseArc({
         initial={{ opacity: 0.9 }}
       />
 
-      {examGuidePath ? (
-        <path
-          d={examGuidePath}
-          fill="none"
-          stroke={definition.color}
-          strokeWidth={1.6}
-          strokeDasharray="4 4"
-          opacity={0.7}
-        />
-      ) : null}
-
-      <line
-        x1={examAnchorPoint.x}
-        y1={examAnchorPoint.y}
-        x2={examPoint.x}
-        y2={examPoint.y}
-        stroke={definition.color}
-        strokeWidth={1.5}
-        opacity={0.7}
-      />
-
       <circle cx={endPoint.x} cy={endPoint.y} r={2.8} fill={definition.color} />
-      <ExamDot type={examType} x={examPoint.x} y={examPoint.y} color={definition.color} />
+      {examType ? <ExamDot type={examType} x={examPoint.x} y={examPoint.y} color={definition.color} /> : null}
 
-      {selectedExamOption?.reexamDate ? (
-        <ExamDot type={examType} x={examPoint.x + 12} y={examPoint.y + 12} color={definition.color} reexam />
+      {reexamPoint && examType ? (
+        <ExamDot type={examType} x={reexamPoint.x} y={reexamPoint.y} color={definition.color} reexam />
       ) : null}
-
-      {midtermPoint ? <circle cx={midtermPoint.x} cy={midtermPoint.y} r={5} fill={definition.color} opacity={0.7} /> : null}
     </motion.g>
   );
 }

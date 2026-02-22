@@ -2,7 +2,7 @@ export type CourseCategory = 'FM' | 'SE' | 'HCI' | 'DB' | 'DS' | 'SS';
 
 export type SemesterType = 'winter' | 'summer';
 
-export type ExamType = 'written' | 'oral' | 'project' | 'none';
+export type ExamType = 'written' | 'oral' | 'project';
 
 export type AppMode = 'full' | 'planning' | 'archive';
 
@@ -28,11 +28,11 @@ export interface CourseDefinition {
   id: string;
   name: string;
   shortCode: string;
-  category: CourseCategory;
+  category?: CourseCategory;
   isMandatory: boolean;
   isSeminar: boolean;
   credits: number;
-  universityId: string;
+  universityId?: string;
   professorIds: string[];
   color: string;
   description?: string;
@@ -49,6 +49,13 @@ export interface ExamOption {
   isDefault: boolean;
 }
 
+export interface LectureSession {
+  id: string;
+  date: string;
+  startTime?: string;
+  endTime?: string;
+}
+
 export interface CourseOffering {
   id: string;
   courseDefinitionId: string;
@@ -57,8 +64,9 @@ export interface CourseOffering {
   isAvailable: boolean;
   startDate: string;
   endDate: string;
+  lectureSessions?: LectureSession[];
+  lectureDates?: string[];
   examOptions: ExamOption[];
-  midtermDate?: string;
   notes?: string;
   professorIds?: string[];
   lastUpdatedAt: string;

@@ -3,12 +3,13 @@ import { polarToCartesian } from '../../utils/arcPath';
 interface MonthLabelProps {
   label: string;
   angle: number;
+  radius?: number;
   active?: boolean;
   onSelect?: () => void;
 }
 
-export function MonthLabel({ label, angle, active = false, onSelect }: MonthLabelProps) {
-  const point = polarToCartesian(400, 400, 322, angle);
+export function MonthLabel({ label, angle, radius = 322, active = false, onSelect }: MonthLabelProps) {
+  const point = polarToCartesian(400, 400, radius, angle);
 
   return (
     <text

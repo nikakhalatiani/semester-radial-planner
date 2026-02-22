@@ -13,7 +13,7 @@ export function MobileNavBar({ mode, onModeChange, onSettingsOpen }: MobileNavBa
   const { t } = useI18n();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-white/95 px-2 pb-safe pt-2 backdrop-blur dark:border-border-dark dark:bg-neutral-950/95 lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-white/95 px-2 pb-safe pt-2 backdrop-blur lg:hidden">
       <div className="mx-auto grid max-w-lg grid-cols-4 gap-2 pb-2">
         <button
           type="button"

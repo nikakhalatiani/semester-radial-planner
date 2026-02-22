@@ -20,11 +20,14 @@ export const CATEGORY_COLORS: Record<CourseCategory, string> = {
 
 export const CATEGORY_ORDER: CourseCategory[] = ['FM', 'SE', 'HCI', 'DB', 'DS', 'SS'];
 
+export const UNCATEGORIZED_LABEL = 'Uncategorized';
+export const UNCATEGORIZED_COLOR = '#7A808B';
+
 export const SEASON_LABELS = [
   { label: 'Summer', angle: 0, key: 'summer' },
   { label: 'Spring', angle: 90, key: 'spring' },
   { label: 'Winter', angle: 180, key: 'winter' },
-  { label: 'Autumn', angle: 270, key: 'autumn' },
+  { label: 'Fall', angle: 270, key: 'autumn' },
 ] as const;
 
 export const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

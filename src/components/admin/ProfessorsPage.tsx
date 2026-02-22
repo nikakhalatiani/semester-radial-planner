@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import type { Professor, University } from '../../types';
 import { BottomSheet } from '../ui/BottomSheet';
+import { Dropdown } from '../ui/Dropdown';
 
 interface ProfessorsPageProps {
   professors: Professor[];
@@ -14,11 +15,15 @@ interface ProfessorsPageProps {
 export function ProfessorsPage({ professors, universities, canEdit, onSave, onDelete }: ProfessorsPageProps) {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<Professor | null>(null);
+  const universityOptions = universities.map((university) => ({
+    value: university.id,
+    label: university.shortCode,
+  }));
 
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Professors</h3>
+        <h3 className="text-lg font-semibold">Professors/Lecturers</h3>
         <button
           type="button"
           disabled={!canEdit}
@@ -34,7 +39,7 @@ export function ProfessorsPage({ professors, universities, canEdit, onSave, onDe
             setOpen(true);
           }}
         >
-          Add Professor
+          Add Professor/Lecturer
         </button>
       </div>
 
@@ -44,25 +49,25 @@ export function ProfessorsPage({ professors, universities, canEdit, onSave, onDe
             key={professor.id}
             type="button"
             disabled={!canEdit}
-            className="rounded-xl border border-border bg-white p-3 text-left disabled:opacity-70 dark:border-border-dark dark:bg-neutral-900"
+            className="rounded-xl border border-border bg-white p-3 text-left disabled:opacity-70"
             onClick={() => {
               setForm(professor);
               setOpen(true);
             }}
           >
             <p className="font-semibold">{professor.name}</p>
-            <p className="text-xs text-text-secondary dark:text-text-darkSecondary">{professor.email || 'No email'}</p>
+            <p className="text-xs text-text-secondary">{professor.email || 'No email'}</p>
           </button>
         ))}
       </div>
 
-      <BottomSheet open={open} onClose={() => setOpen(false)} title="Professor">
+      <BottomSheet open={open} onClose={() => setOpen(false)} title="Professor/Lecturer">
         {form ? (
           <div className="space-y-3">
             <label className="block text-sm">
               Name
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.name}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, name: event.target.value } : prev))}
               />
@@ -70,26 +75,21 @@ export function ProfessorsPage({ professors, universities, canEdit, onSave, onDe
             <label className="block text-sm">
               Email
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.email ?? ''}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, email: event.target.value } : prev))}
               />
             </label>
             <label className="block text-sm">
               University
-              <select
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+              <Dropdown
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.universityId}
-                onChange={(event) =>
-                  setForm((prev) => (prev ? { ...prev, universityId: event.target.value } : prev))
+                options={universityOptions}
+                onChange={(universityId) =>
+                  setForm((prev) => (prev ? { ...prev, universityId } : prev))
                 }
-              >
-                {universities.map((university) => (
-                  <option key={university.id} value={university.id}>
-                    {university.shortCode}
-                  </option>
-                ))}
-              </select>
+              />
             </label>
             <label className="inline-flex items-center gap-2 text-sm">
               <input

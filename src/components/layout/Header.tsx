@@ -3,13 +3,20 @@ import { useState } from 'react';
 
 import { useI18n } from '../../hooks/useI18n';
 import type { AppMode, SemesterType } from '../../types';
+import { getAllowedSemestersForYear } from '../../utils/academicYears';
+import { Dropdown } from '../ui/Dropdown';
 
 interface HeaderProps {
   mode: AppMode;
   archiveYear: number;
   archiveSemester: SemesterType;
+  archiveYears: number[];
+  planOptions?: Array<{ value: string; label: string }>;
+  activePlanId?: string;
   onModeChange: (mode: AppMode) => void;
   onArchiveChange: (year: number, semester: SemesterType) => void;
+  onPlanChange?: (planId: string) => void;
+  onNewPlan?: () => void;
   onExportSvg: () => void;
   onExportPng: () => void;
   onExportPlan: () => void;
@@ -20,8 +27,13 @@ export function Header({
   mode,
   archiveYear,
   archiveSemester,
+  archiveYears,
+  planOptions = [],
+  activePlanId,
   onModeChange,
   onArchiveChange,
+  onPlanChange,
+  onNewPlan,
   onExportSvg,
   onExportPng,
   onExportPlan,
@@ -30,12 +42,19 @@ export function Header({
   const { t } = useI18n();
   const [exportOpen, setExportOpen] = useState(false);
 
-  const yearChoices = [2026, 2025, 2024, 2023];
+  const yearChoices = archiveYears.length > 0 ? archiveYears : [archiveYear];
+  const yearOptions = yearChoices.map((year) => ({ value: year, label: String(year) }));
+  const allowedSemesters = getAllowedSemestersForYear(archiveYear);
+  const selectedPlanId = activePlanId ?? planOptions[0]?.value;
+  const semesterOptions: Array<{ value: SemesterType; label: string }> = allowedSemesters.map((semester) => ({
+    value: semester,
+    label: semester === 'winter' ? 'WS' : 'SS',
+  }));
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-white/95 px-3 py-3 backdrop-blur">
       <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-2 lg:flex">
           {(['full', 'planning', 'archive'] as const).map((item) => (
             <button
               key={item}
@@ -54,27 +73,39 @@ export function Header({
         </div>
 
         <div className="flex items-center gap-2">
+          {mode !== 'archive' && planOptions.length > 0 && selectedPlanId && onPlanChange ? (
+            <Dropdown
+              className="h-10 min-w-[170px] max-w-[220px] rounded-xl border border-border bg-white px-2 text-sm"
+              value={selectedPlanId}
+              options={planOptions}
+              onChange={onPlanChange}
+            />
+          ) : null}
+
+          {mode !== 'archive' && onNewPlan ? (
+            <button
+              type="button"
+              className="h-10 rounded-xl border border-border px-3 text-sm font-medium"
+              onClick={onNewPlan}
+            >
+              New Plan
+            </button>
+          ) : null}
+
           {mode === 'archive' ? (
             <>
-              <select
+              <Dropdown
                 className="h-10 rounded-xl border border-border bg-white px-2 text-sm"
                 value={archiveYear}
-                onChange={(event) => onArchiveChange(Number(event.target.value), archiveSemester)}
-              >
-                {yearChoices.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-              <select
+                options={yearOptions}
+                onChange={(nextYear) => onArchiveChange(nextYear, archiveSemester)}
+              />
+              <Dropdown
                 className="h-10 rounded-xl border border-border bg-white px-2 text-sm"
                 value={archiveSemester}
-                onChange={(event) => onArchiveChange(archiveYear, event.target.value as SemesterType)}
-              >
-                <option value="winter">WS</option>
-                <option value="summer">SS</option>
-              </select>
+                options={semesterOptions}
+                onChange={(nextSemester) => onArchiveChange(archiveYear, nextSemester)}
+              />
             </>
           ) : null}
 

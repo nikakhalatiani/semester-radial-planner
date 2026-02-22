@@ -4,6 +4,7 @@ import { AdminLayout } from '../components/admin/AdminLayout';
 import { CoursesPage } from '../components/admin/CoursesPage';
 import { DataPage } from '../components/admin/DataPage';
 import { OfferingsPage } from '../components/admin/OfferingsPage';
+import { PlansPage } from '../components/admin/PlansPage';
 import { ProfessorsPage } from '../components/admin/ProfessorsPage';
 import { ProgramRulesPage } from '../components/admin/ProgramRulesPage';
 import { UniversitiesPage } from '../components/admin/UniversitiesPage';
@@ -16,6 +17,7 @@ export function AdminPage() {
     professors,
     courseDefinitions,
     courseOfferings,
+    userPlans,
     programRules,
     adminChangelog,
     adminSection,
@@ -31,6 +33,8 @@ export function AdminPage() {
     deleteCourseDefinition,
     saveOffering,
     deleteOffering,
+    savePlan,
+    deletePlan,
     saveProgramRule,
     deleteProgramRule,
     exportDatabase,
@@ -45,9 +49,9 @@ export function AdminPage() {
 
   if (!session) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-surface p-4 dark:bg-neutral-950">
+      <div className="flex min-h-screen items-center justify-center bg-surface p-4">
         <form
-          className="w-full max-w-sm space-y-3 rounded-3xl bg-white p-5 shadow-panel dark:bg-neutral-900"
+          className="w-full max-w-sm space-y-3 rounded-3xl bg-white p-5 shadow-panel"
           onSubmit={async (event) => {
             event.preventDefault();
             const ok = await login(email, password);
@@ -59,14 +63,14 @@ export function AdminPage() {
           }}
         >
           <h1 className="text-xl font-bold">Admin Login</h1>
-          <p className="text-sm text-text-secondary dark:text-text-darkSecondary">
+          <p className="text-sm text-text-secondary">
             Use `superadmin@planner.local` or `editor@planner.local`
           </p>
           <label className="block text-sm">
             Email
             <input
               type="email"
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-950"
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -75,7 +79,7 @@ export function AdminPage() {
             Password
             <input
               type="password"
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-950"
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -114,6 +118,18 @@ export function AdminPage() {
           onPeriodChange={setArchivePeriod}
           onSave={(offering) => saveOffering({ ...offering, lastUpdatedBy: session.email }, session.email)}
           onDelete={(offeringId) => deleteOffering(offeringId, session.email)}
+        />
+      ) : null}
+
+      {adminSection === 'plans' ? (
+        <PlansPage
+          plans={userPlans}
+          offerings={courseOfferings}
+          definitions={courseDefinitions}
+          rules={programRules}
+          canEdit={session.role === 'superadmin'}
+          onSave={(plan) => savePlan(plan, session.email)}
+          onDelete={(planId) => deletePlan(planId, session.email)}
         />
       ) : null}
 

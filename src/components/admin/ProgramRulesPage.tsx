@@ -52,7 +52,7 @@ export function ProgramRulesPage({ rules, canEdit, onSave, onDelete }: ProgramRu
           <button
             key={rule.id}
             type="button"
-            className="w-full rounded-xl border border-border bg-white p-3 text-left dark:border-border-dark dark:bg-neutral-900"
+            className="w-full rounded-xl border border-border bg-white p-3 text-left"
             onClick={() => {
               setForm(rule);
               setJsonDraft(JSON.stringify(rule, null, 2));
@@ -62,7 +62,7 @@ export function ProgramRulesPage({ rules, canEdit, onSave, onDelete }: ProgramRu
             <p className="font-semibold">
               {rule.programName} {rule.version} {rule.isActive ? '• Active' : ''}
             </p>
-            <p className="text-xs text-text-secondary dark:text-text-darkSecondary">
+            <p className="text-xs text-text-secondary">
               Total {rule.totalCreditsRequired} LP, elective min {rule.electiveCreditsMin} LP
             </p>
           </button>
@@ -75,7 +75,7 @@ export function ProgramRulesPage({ rules, canEdit, onSave, onDelete }: ProgramRu
             <label className="block text-sm">
               Program Name
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.programName}
                 disabled={!canEdit}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, programName: event.target.value } : prev))}
@@ -84,7 +84,7 @@ export function ProgramRulesPage({ rules, canEdit, onSave, onDelete }: ProgramRu
             <label className="block text-sm">
               Version
               <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.version}
                 disabled={!canEdit}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, version: event.target.value } : prev))}
@@ -103,7 +103,7 @@ export function ProgramRulesPage({ rules, canEdit, onSave, onDelete }: ProgramRu
             <label className="block text-sm">
               JSON Editor
               <textarea
-                className="mt-1 min-h-56 w-full rounded-xl border border-border px-3 py-2 font-mono text-xs dark:border-border-dark dark:bg-neutral-900"
+                className="mt-1 min-h-56 w-full rounded-xl border border-border px-3 py-2 font-mono text-xs"
                 value={jsonDraft}
                 disabled={!canEdit}
                 onChange={(event) => setJsonDraft(event.target.value)}

@@ -10,8 +10,8 @@ interface CalendarSwitcherProps {
 
 export function CalendarSwitcher({ plans, activePlanId, onSelect }: CalendarSwitcherProps) {
   return (
-    <section className="rounded-2xl bg-surface p-3 dark:bg-surface-dark">
-      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-secondary dark:text-text-darkSecondary">
+    <section className="rounded-2xl bg-surface p-3">
+      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-secondary">
         Plans
       </h3>
       <div className="space-y-2">
@@ -23,8 +23,8 @@ export function CalendarSwitcher({ plans, activePlanId, onSelect }: CalendarSwit
             className={clsx(
               'block w-full rounded-xl px-3 py-2 text-left text-sm',
               plan.id === activePlanId
-                ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
-                : 'bg-white text-text-secondary dark:bg-neutral-900 dark:text-text-darkSecondary',
+                ? 'bg-neutral-900 text-white'
+                : 'bg-white text-text-secondary',
             )}
           >
             <p className="font-semibold">{plan.name}</p>

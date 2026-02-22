@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand';
 
 import type { AppMode, SemesterType } from '../types';
+import { normalizeAcademicYear, normalizeSemesterForYear } from '../utils/academicYears';
 import type { AppStore } from './index';
 
 export interface CalendarSlice {
@@ -15,10 +16,16 @@ export interface CalendarSlice {
 
 export const createCalendarSlice: StateCreator<AppStore, [], [], CalendarSlice> = (set) => ({
   mode: 'full',
-  archiveYear: new Date().getFullYear() - 1,
+  archiveYear: 2025,
   archiveSemester: 'winter',
   selectedOfferingId: undefined,
   setMode: (mode) => set({ mode }),
-  setArchivePeriod: (archiveYear, archiveSemester) => set({ archiveYear, archiveSemester }),
+  setArchivePeriod: (archiveYear, archiveSemester) => {
+    const normalizedYear = normalizeAcademicYear(archiveYear);
+    set({
+      archiveYear: normalizedYear,
+      archiveSemester: normalizeSemesterForYear(normalizedYear, archiveSemester),
+    });
+  },
   setSelectedOfferingId: (selectedOfferingId) => set({ selectedOfferingId }),
 });

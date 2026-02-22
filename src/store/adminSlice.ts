@@ -3,7 +3,7 @@ import type { StateCreator } from 'zustand';
 import type { AdminSession } from '../types';
 import type { AppStore } from './index';
 
-export type AdminSection = 'courses' | 'offerings' | 'professors' | 'rules' | 'universities' | 'data';
+export type AdminSection = 'courses' | 'offerings' | 'plans' | 'professors' | 'rules' | 'universities' | 'data';
 
 export interface AdminSlice {
   adminSession: AdminSession | null;

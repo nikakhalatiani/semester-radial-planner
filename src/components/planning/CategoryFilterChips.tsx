@@ -22,7 +22,7 @@ export function CategoryFilterChips({ active, onToggle }: CategoryFilterChipsPro
               'rounded-full border px-3 py-1 text-xs font-semibold',
               enabled
                 ? 'border-transparent text-white'
-                : 'border-border bg-white text-text-secondary dark:border-border-dark dark:bg-neutral-900 dark:text-text-darkSecondary',
+                : 'border-border bg-white text-text-secondary',
             )}
             style={enabled ? { backgroundColor: CATEGORY_COLORS[category] } : undefined}
           >

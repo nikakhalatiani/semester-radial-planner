@@ -13,10 +13,8 @@ export interface ComputedArc {
   radius: number;
   color: string;
   endPoint: { x: number; y: number };
-  examAnchorPoint: { x: number; y: number };
   examPoint: { x: number; y: number; angle: number };
-  examGuidePath?: string;
-  midtermPoint?: { x: number; y: number; angle: number };
+  reexamPoint?: { x: number; y: number; angle: number };
 }
 
 const CENTER = { x: 400, y: 400 };
@@ -45,23 +43,16 @@ export function useRadialGeometry(
       const endAngle = transformAngle ? transformAngle(rawEndAngle) : rawEndAngle;
       const examAngle = transformAngle ? transformAngle(rawExamAngle) : rawExamAngle;
 
-      const examRadius = radius + 12;
-      const examAnchorPoint = polarToCartesian(CENTER.x, CENTER.y, radius, examAngle);
-      const examPoint = polarToCartesian(CENTER.x, CENTER.y, examRadius, examAngle);
+      // Keep markers centered on the exact course radius so dots sit on the painted course path.
+      const markerRadius = radius;
+      const examPoint = polarToCartesian(CENTER.x, CENTER.y, markerRadius, examAngle);
       const endPoint = polarToCartesian(CENTER.x, CENTER.y, radius, endAngle);
-
-      const angularDistance = Math.abs(((examAngle - endAngle + 540) % 360) - 180);
-      const examGuidePath =
-        angularDistance > 3
-          ? describeArc(CENTER.x, CENTER.y, radius, endAngle, examAngle)
-          : undefined;
-
-      const midtermPoint = item.offering.midtermDate
+      const reexamPoint = item.selectedExamOption?.reexamDate
         ? (() => {
-            const rawMidtermAngle = dateToAngle(new Date(item.offering.midtermDate), year);
-            const midtermAngle = transformAngle ? transformAngle(rawMidtermAngle) : rawMidtermAngle;
-            const point = polarToCartesian(CENTER.x, CENTER.y, radius, midtermAngle);
-            return { x: point.x, y: point.y, angle: midtermAngle };
+            const rawReexamAngle = dateToAngle(new Date(item.selectedExamOption.reexamDate), year);
+            const reexamAngle = transformAngle ? transformAngle(rawReexamAngle) : rawReexamAngle;
+            const point = polarToCartesian(CENTER.x, CENTER.y, markerRadius, reexamAngle);
+            return { x: point.x, y: point.y, angle: reexamAngle };
           })()
         : undefined;
 
@@ -74,10 +65,8 @@ export function useRadialGeometry(
         radius,
         color: item.definition.color,
         endPoint: { x: endPoint.x, y: endPoint.y },
-        examAnchorPoint: { x: examAnchorPoint.x, y: examAnchorPoint.y },
         examPoint: { x: examPoint.x, y: examPoint.y, angle: examAngle },
-        examGuidePath,
-        midtermPoint,
+        reexamPoint,
       } satisfies ComputedArc;
     });
   }, [offerings, year, transformAngle]);

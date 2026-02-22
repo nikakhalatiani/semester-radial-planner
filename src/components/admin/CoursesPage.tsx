@@ -45,9 +45,9 @@ export function CoursesPage({
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border dark:border-border-dark">
-        <table className="min-w-full divide-y divide-border text-sm dark:divide-border-dark">
-          <thead className="bg-surface dark:bg-surface-dark">
+      <div className="overflow-hidden rounded-2xl border border-border">
+        <table className="min-w-full divide-y divide-border bg-white text-sm text-text-primary">
+          <thead className="bg-surface">
             <tr>
               <th className="px-3 py-2 text-left">Name</th>
               <th className="px-3 py-2 text-left">Category</th>
@@ -56,7 +56,7 @@ export function CoursesPage({
               <th className="px-3 py-2 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border dark:divide-border-dark">
+          <tbody className="divide-y divide-border">
             {courses.map((course) => (
               <tr key={course.id}>
                 <td className="px-3 py-2">{course.name}</td>
@@ -69,7 +69,7 @@ export function CoursesPage({
                   <button
                     type="button"
                     disabled={!canEdit}
-                    className="rounded-lg border border-border px-2 py-1 text-xs dark:border-border-dark"
+                    className="rounded-lg border border-border px-2 py-1 text-xs"
                     onClick={() => {
                       setEditing(course);
                       setModalVersion((prev) => prev + 1);
@@ -81,7 +81,7 @@ export function CoursesPage({
                   <button
                     type="button"
                     disabled={!canEdit}
-                    className="ml-2 rounded-lg border border-border px-2 py-1 text-xs dark:border-border-dark"
+                    className="ml-2 rounded-lg border border-border px-2 py-1 text-xs"
                     onClick={() => void onSave({ ...course, isArchived: !course.isArchived })}
                   >
                     {course.isArchived ? 'Restore' : 'Archive'}

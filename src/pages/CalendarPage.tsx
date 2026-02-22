@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import clsx from 'clsx';
 
 import { RadialCalendar } from '../components/calendar/RadialCalendar';
 import { CalendarSwitcher } from '../components/layout/CalendarSwitcher';
@@ -14,15 +15,31 @@ import { useDragOrder } from '../hooks/useDragOrder';
 import { useProgramRules } from '../hooks/useProgramRules';
 import { useAppStore } from '../store';
 import type { AppMode, RadialDisplayOffering, SemesterType, UserPlan } from '../types';
+import {
+  ARCHIVE_YEAR_CHOICES_DESC,
+  PLANNING_YEAR,
+  isAllowedAcademicYear,
+  normalizeAcademicYear,
+} from '../utils/academicYears';
 import { exportActivePlan, exportFullDatabase, exportPng, exportSvg } from '../utils/export';
+import { formatTimeRange, getLectureSessions } from '../utils/lectureSchedule';
+const PLANNING_YEAR_CHOICES = [PLANNING_YEAR];
 
 function inferSemester(date: Date): SemesterType {
   const month = date.getMonth() + 1;
   return month >= 4 && month <= 9 ? 'summer' : 'winter';
 }
 
+function semesterRank(semester: SemesterType): number {
+  return semester === 'winter' ? 0 : 1;
+}
+
 function getPlanById(plans: UserPlan[], planId?: string) {
   return plans.find((plan) => plan.id === planId) ?? plans[0];
+}
+
+function isArchivePlanName(name: string): boolean {
+  return /^archive\b/i.test(name.trim());
 }
 
 export function CalendarPage() {
@@ -51,6 +68,7 @@ export function CalendarPage() {
     togglePlanningCategory,
     createPlan,
     upsertPlanSelection,
+    upsertPlanSelectionsBulk,
     reorderPlanSelections,
     exportDatabase,
   } = useAppStore((state) => state);
@@ -60,27 +78,68 @@ export function CalendarPage() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [newPlanOpen, setNewPlanOpen] = useState(false);
 
-  const activePlan = getPlanById(userPlans, activePlanId);
+  const planningEligiblePlans = useMemo(
+    () => userPlans.filter((plan) => plan.academicYear === PLANNING_YEAR),
+    [userPlans],
+  );
+  const activePlan = getPlanById(planningEligiblePlans, activePlanId);
   const activeRule = programRules.find((rule) => rule.id === (activePlan?.programRuleId ?? appSettings.activeProgramRuleId));
 
   useEffect(() => {
-    if (userPlans.length > 0 || courseOfferings.length === 0) {
+    const hasPlanningYearPlan = userPlans.some((plan) => plan.academicYear === PLANNING_YEAR);
+    if (hasPlanningYearPlan || courseOfferings.length === 0) {
       return;
     }
 
-    const now = new Date();
-    void createPlan('Current Plan', now.getFullYear(), inferSemester(now));
-  }, [courseOfferings.length, createPlan, userPlans.length]);
+    void createPlan('Current Plan', PLANNING_YEAR, inferSemester(new Date()));
+  }, [courseOfferings.length, createPlan, userPlans]);
+
+  useEffect(() => {
+    if (activePlan || planningEligiblePlans.length === 0) {
+      return;
+    }
+
+    const fallbackPlan = planningEligiblePlans[0];
+    setActivePlanId(fallbackPlan.id);
+    setActivePlanInSettings(fallbackPlan.id);
+  }, [activePlan, planningEligiblePlans, setActivePlanId, setActivePlanInSettings]);
+
+  useEffect(() => {
+    if (isAllowedAcademicYear(archiveYear)) {
+      return;
+    }
+
+    setArchivePeriod(normalizeAcademicYear(archiveYear), archiveSemester);
+  }, [archiveSemester, archiveYear, setArchivePeriod]);
 
   const planOfferings = useMemo(() => {
     if (!activePlan) {
       return [];
     }
-    return courseOfferings.filter(
-      (offering) =>
-        offering.academicYear === activePlan.academicYear && offering.semesterType === activePlan.semesterType,
-    );
+    return courseOfferings
+      .filter((offering) => offering.academicYear === activePlan.academicYear)
+      .sort((a, b) => {
+        const semesterDiff = semesterRank(a.semesterType) - semesterRank(b.semesterType);
+        if (semesterDiff !== 0) {
+          return semesterDiff;
+        }
+        const dateDiff = a.startDate.localeCompare(b.startDate);
+        if (dateDiff !== 0) {
+          return dateDiff;
+        }
+        return a.id.localeCompare(b.id);
+      });
   }, [activePlan, courseOfferings]);
+
+  const activeArchivePlan = useMemo(() => {
+    const matching = userPlans.filter(
+      (plan) =>
+        plan.academicYear === archiveYear &&
+        plan.semesterType === archiveSemester &&
+        isArchivePlanName(plan.name),
+    );
+    return matching[0];
+  }, [archiveSemester, archiveYear, userPlans]);
 
   useEffect(() => {
     if (!activePlan) {
@@ -88,24 +147,25 @@ export function CalendarPage() {
     }
 
     const selectionMap = new Map(activePlan.selectedOfferings.map((selection) => [selection.offeringId, selection]));
-    const definitionMap = new Map(courseDefinitions.map((definition) => [definition.id, definition]));
+    const missingSelections = planOfferings
+      .map((offering, index) => ({ offering, index }))
+      .filter(({ offering }) => !selectionMap.has(offering.id))
+      .map(({ offering, index }) => ({
+        offeringId: offering.id,
+        updates: {
+          selectedExamOptionId:
+            offering.examOptions.find((option) => option.isDefault)?.id ?? offering.examOptions[0]?.id ?? '',
+          isIncluded: false,
+          displayOrder: index,
+        },
+      }));
 
-    planOfferings.forEach((offering, index) => {
-      if (selectionMap.has(offering.id)) {
-        return;
-      }
+    if (missingSelections.length === 0) {
+      return;
+    }
 
-      const definition = definitionMap.get(offering.courseDefinitionId);
-      const defaultExamOptionId =
-        offering.examOptions.find((option) => option.isDefault)?.id ?? offering.examOptions[0]?.id ?? '';
-
-      void upsertPlanSelection(activePlan.id, offering.id, {
-        selectedExamOptionId: defaultExamOptionId,
-        isIncluded: definition?.isMandatory ?? false,
-        displayOrder: index,
-      });
-    });
-  }, [activePlan, courseDefinitions, planOfferings, upsertPlanSelection]);
+    void upsertPlanSelectionsBulk(activePlan.id, missingSelections);
+  }, [activePlan, planOfferings, upsertPlanSelectionsBulk]);
 
   const planningRows = useMemo<PlanningRow[]>(() => {
     if (!activePlan) {
@@ -127,7 +187,7 @@ export function CalendarPage() {
         return;
       }
 
-      if (!planningCategoryFilters.includes(definition.category)) {
+      if (definition.category && !planningCategoryFilters.includes(definition.category)) {
         return;
       }
 
@@ -151,15 +211,22 @@ export function CalendarPage() {
         definition,
         offering,
         selection: selectionByOfferingId.get(offering.id),
-        university: universityById.get(definition.universityId),
+        university: definition.universityId ? universityById.get(definition.universityId) : undefined,
         professorNames,
       });
     });
 
     return rows.sort((a, b) => {
+      const semesterDiff = semesterRank(a.offering.semesterType) - semesterRank(b.offering.semesterType);
+      if (semesterDiff !== 0) {
+        return semesterDiff;
+      }
       const orderA = a.selection?.displayOrder ?? Number.MAX_SAFE_INTEGER;
       const orderB = b.selection?.displayOrder ?? Number.MAX_SAFE_INTEGER;
-      return orderA - orderB;
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+      return a.definition.name.localeCompare(b.definition.name);
     });
   }, [
     activePlan,
@@ -175,24 +242,55 @@ export function CalendarPage() {
     const definitionById = new Map(courseDefinitions.map((definition) => [definition.id, definition]));
 
     if (mode === 'archive') {
-      const archiveRows: RadialDisplayOffering[] = [];
-      courseOfferings
-        .filter((offering) => offering.academicYear === archiveYear && offering.semesterType === archiveSemester)
-        .forEach((offering, index) => {
-          const definition = definitionById.get(offering.courseDefinitionId);
-          if (!definition) {
-            return;
-          }
+      const archiveOfferings = courseOfferings.filter(
+        (offering) => offering.academicYear === archiveYear && offering.semesterType === archiveSemester,
+      );
+      const archiveOfferingById = new Map(archiveOfferings.map((offering) => [offering.id, offering]));
 
-          archiveRows.push({
-            offering,
-            definition,
-            selectedExamOption: offering.examOptions.find((option) => option.isDefault) ?? offering.examOptions[0],
-            displayOrder: index,
+      if (activeArchivePlan) {
+        const rowsFromPlan: RadialDisplayOffering[] = [];
+        activeArchivePlan.selectedOfferings
+          .filter((selection) => selection.isIncluded)
+          .sort((a, b) => a.displayOrder - b.displayOrder)
+          .forEach((selection) => {
+            const offering = archiveOfferingById.get(selection.offeringId);
+            if (!offering) {
+              return;
+            }
+            const definition = definitionById.get(offering.courseDefinitionId);
+            if (!definition) {
+              return;
+            }
+
+            rowsFromPlan.push({
+              offering,
+              definition,
+              selectedExamOption:
+                offering.examOptions.find((option) => option.id === selection.selectedExamOptionId) ??
+                offering.examOptions.find((option) => option.isDefault) ??
+                offering.examOptions[0],
+              displayOrder: selection.displayOrder,
+            });
           });
-        });
 
-      return archiveRows;
+        return rowsFromPlan;
+      }
+
+      const rowsFromOfferings: RadialDisplayOffering[] = [];
+      archiveOfferings.forEach((offering, index) => {
+        const definition = definitionById.get(offering.courseDefinitionId);
+        if (!definition) {
+          return;
+        }
+
+        rowsFromOfferings.push({
+          offering,
+          definition,
+          selectedExamOption: offering.examOptions.find((option) => option.isDefault) ?? offering.examOptions[0],
+          displayOrder: index,
+        });
+      });
+      return rowsFromOfferings;
     }
 
     if (!activePlan) {
@@ -218,7 +316,10 @@ export function CalendarPage() {
       rows.push({
         offering,
         definition,
-        selectedExamOption: offering.examOptions.find((option) => option.id === selection.selectedExamOptionId),
+        selectedExamOption:
+          offering.examOptions.find((option) => option.id === selection.selectedExamOptionId) ??
+          offering.examOptions.find((option) => option.isDefault) ??
+          offering.examOptions[0],
         displayOrder: selection.displayOrder,
       });
     });
@@ -232,6 +333,7 @@ export function CalendarPage() {
     courseOfferings,
     mode,
     planOfferings,
+    activeArchivePlan,
   ]);
 
   const ruleResult = useProgramRules({
@@ -251,7 +353,9 @@ export function CalendarPage() {
       return undefined;
     }
 
-    const university = universities.find((entry) => entry.id === item.definition.universityId);
+    const university = item.definition.universityId
+      ? universities.find((entry) => entry.id === item.definition.universityId)
+      : undefined;
     const professorIds = item.offering.professorIds?.length ? item.offering.professorIds : item.definition.professorIds;
     const names = professorIds
       .map((id) => professors.find((professor) => professor.id === id)?.name)
@@ -261,6 +365,7 @@ export function CalendarPage() {
       ...item,
       university,
       professorNames: names,
+      lectureSessions: getLectureSessions(item.offering),
     };
   }, [fullViewOfferings, professors, selectedOfferingId, universities]);
 
@@ -269,10 +374,51 @@ export function CalendarPage() {
       ? archiveYear
       : activePlan?.academicYear ??
         fullViewOfferings[0]?.offering.academicYear ??
-        new Date().getFullYear();
+        PLANNING_YEAR;
+
+  const archiveAvailableYears = ARCHIVE_YEAR_CHOICES_DESC;
+
+  const availableYears = archiveAvailableYears;
+
+  useEffect(() => {
+    if (mode !== 'archive' || archiveAvailableYears.length === 0 || isAllowedAcademicYear(archiveYear)) {
+      return;
+    }
+    setArchivePeriod(normalizeAcademicYear(archiveYear), archiveSemester);
+  }, [archiveAvailableYears, archiveSemester, archiveYear, mode, setArchivePeriod]);
 
   const handleModeChange = (nextMode: AppMode) => {
     setMode(nextMode);
+  };
+
+  const isPlanningLayout = mode === 'planning';
+
+  const handleCalendarYearChange = (nextYear: number) => {
+    const normalizedYear = normalizeAcademicYear(nextYear);
+    if (mode === 'archive') {
+      setArchivePeriod(normalizedYear, archiveSemester);
+      return;
+    }
+
+    if (normalizedYear !== PLANNING_YEAR) {
+      setArchivePeriod(normalizedYear, archiveSemester);
+      setMode('archive');
+      return;
+    }
+
+    const preferredSemester = activePlan?.semesterType ?? 'winter';
+    const matchingPlan =
+      planningEligiblePlans.find((plan) => plan.semesterType === preferredSemester) ??
+      planningEligiblePlans[0];
+
+    if (matchingPlan) {
+      setActivePlanId(matchingPlan.id);
+      setActivePlanInSettings(matchingPlan.id);
+      return;
+    }
+
+    setArchivePeriod(normalizedYear, archiveSemester);
+    setMode('archive');
   };
 
   useEffect(() => {
@@ -316,6 +462,7 @@ export function CalendarPage() {
         mode={mode}
         archiveYear={archiveYear}
         archiveSemester={archiveSemester}
+        archiveYears={archiveAvailableYears}
         onModeChange={handleModeChange}
         onArchiveChange={setArchivePeriod}
         onExportSvg={() => {
@@ -338,26 +485,31 @@ export function CalendarPage() {
         onExportFullDb={useAppStore.getState().adminSession ? async () => exportFullDatabase(await exportDatabase()) : undefined}
       />
 
-      <div className="mx-auto grid w-full max-w-[1400px] gap-4 p-3 lg:grid-cols-[300px_1fr]">
-        <aside className="hidden space-y-3 lg:block">
-          <button
-            type="button"
-            className="h-11 w-full rounded-xl bg-neutral-900 text-sm font-semibold text-white"
-            onClick={() => setNewPlanOpen(true)}
-          >
-            New Plan (N)
-          </button>
+      <div
+        className={clsx(
+          'mx-auto w-full gap-4 p-3',
+          isPlanningLayout ? 'grid max-w-[1400px] lg:grid-cols-[300px_minmax(0,1fr)]' : 'max-w-[1800px]',
+        )}
+      >
+        {isPlanningLayout ? (
+          <aside className="hidden space-y-3 lg:block">
+            <button
+              type="button"
+              className="h-11 w-full rounded-xl bg-neutral-900 text-sm font-semibold text-white"
+              onClick={() => setNewPlanOpen(true)}
+            >
+              New Plan (N)
+            </button>
 
-          <CalendarSwitcher
-            plans={userPlans}
-            activePlanId={activePlan?.id}
-            onSelect={(planId) => {
-              setActivePlanId(planId);
-              setActivePlanInSettings(planId);
-            }}
-          />
+            <CalendarSwitcher
+              plans={planningEligiblePlans}
+              activePlanId={activePlan?.id}
+              onSelect={(planId) => {
+                setActivePlanId(planId);
+                setActivePlanInSettings(planId);
+              }}
+            />
 
-          {mode === 'planning' ? (
             <PlanningPanel
               rows={planningRows}
               searchQuery={planningSearchQuery}
@@ -370,18 +522,10 @@ export function CalendarPage() {
                   return;
                 }
                 const row = planningRows.find((item) => item.offering.id === offeringId);
-                if (!row || row.definition.isMandatory || !row.offering.isAvailable) {
+                if (!row || !row.offering.isAvailable) {
                   return;
                 }
                 void upsertPlanSelection(activePlan.id, offeringId, { isIncluded: next });
-              }}
-              onSelectExam={(offeringId, examOptionId) => {
-                if (!activePlan) {
-                  return;
-                }
-                void upsertPlanSelection(activePlan.id, offeringId, {
-                  selectedExamOptionId: examOptionId,
-                });
               }}
               onDragReorder={(activeId, overId) => {
                 if (!activePlan) {
@@ -391,14 +535,17 @@ export function CalendarPage() {
                 void reorderPlanSelections(activePlan.id, reordered);
               }}
             />
-          ) : null}
-        </aside>
+          </aside>
+        ) : null}
 
-        <section className="space-y-3">
+        <section className={clsx('space-y-3', !isPlanningLayout ? 'min-h-[calc(100vh-110px)]' : undefined)}>
           <RadialCalendar
             year={currentCalendarYear}
             offerings={fullViewOfferings}
             onSelectOffering={(offeringId) => setSelectedOfferingId(offeringId)}
+            availableYears={availableYears}
+            onYearChange={handleCalendarYearChange}
+            fullCanvas={!isPlanningLayout}
           />
 
           {mode === 'planning' ? (
@@ -416,18 +563,10 @@ export function CalendarPage() {
                       return;
                     }
                     const row = planningRows.find((item) => item.offering.id === offeringId);
-                    if (!row || row.definition.isMandatory || !row.offering.isAvailable) {
+                    if (!row || !row.offering.isAvailable) {
                       return;
                     }
                     void upsertPlanSelection(activePlan.id, offeringId, { isIncluded: next });
-                  }}
-                  onSelectExam={(offeringId, examOptionId) => {
-                    if (!activePlan) {
-                      return;
-                    }
-                    void upsertPlanSelection(activePlan.id, offeringId, {
-                      selectedExamOptionId: examOptionId,
-                    });
                   }}
                   onDragReorder={(activeId, overId) => {
                     if (!activePlan) {
@@ -461,7 +600,7 @@ export function CalendarPage() {
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold">Professors</h4>
+              <h4 className="text-sm font-semibold">Professors/Lecturers</h4>
               <p className="text-sm text-text-secondary">
                 {selectedDetail.professorNames.join(', ') || 'TBA'}
               </p>
@@ -473,14 +612,46 @@ export function CalendarPage() {
 
             <div>
               <h4 className="text-sm font-semibold">Exam options</h4>
-              <ul className="mt-2 space-y-1 text-sm text-text-secondary">
-                {selectedDetail.offering.examOptions.map((option) => (
-                  <li key={option.id}>
-                    {option.type} • {option.date.slice(0, 10)}
-                    {option.reexamDate ? ` • reexam ${option.reexamDate.slice(0, 10)}` : ''}
-                  </li>
-                ))}
-              </ul>
+              {selectedDetail.offering.examOptions.length > 0 ? (
+                <ul className="mt-2 space-y-1 text-sm text-text-secondary">
+                  {selectedDetail.offering.examOptions.map((option) => (
+                    <li key={option.id}>
+                      {option.type} • {option.date.slice(0, 10)}
+                      {option.reexamDate ? ` • reexam ${option.reexamDate.slice(0, 10)}` : ''}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-sm text-text-secondary">No exam configured for this offering.</p>
+              )}
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold">Lecture schedule</h4>
+              {selectedDetail.lectureSessions.length > 0 ? (
+                <div className="space-y-1">
+                  <p className="text-sm text-text-secondary">
+                    {selectedDetail.lectureSessions.length} explicit sessions configured in admin.
+                  </p>
+                  <ul className="text-xs text-text-secondary">
+                    {selectedDetail.lectureSessions
+                      .slice(0, 4)
+                      .map((session) => (
+                        <li key={session.id}>
+                          {session.date.slice(0, 10)}
+                          {formatTimeRange(session.startTime, session.endTime)
+                            ? ` • ${formatTimeRange(session.startTime, session.endTime)}`
+                            : ''}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ) : (
+                <p className="text-sm text-text-secondary">
+                  Weekly pattern inferred from {selectedDetail.offering.startDate.slice(0, 10)} to{' '}
+                  {selectedDetail.offering.endDate.slice(0, 10)}.
+                </p>
+              )}
             </div>
           </div>
         ) : null}
@@ -488,6 +659,7 @@ export function CalendarPage() {
 
       <NewPlanModal
         open={newPlanOpen}
+        allowedYears={PLANNING_YEAR_CHOICES}
         onClose={() => setNewPlanOpen(false)}
         onCreate={async (name, year, semester) => {
           await createPlan(name, year, semester);

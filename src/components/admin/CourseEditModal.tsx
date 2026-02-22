@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
-import type { CourseDefinition, CourseCategory, Professor, University } from '../../types';
-import { CATEGORY_COLORS, CATEGORY_ORDER } from '../../utils/constants';
+import type { CourseDefinition, Professor, University } from '../../types';
+import { CATEGORY_COLORS, CATEGORY_ORDER, UNCATEGORIZED_COLOR } from '../../utils/constants';
 import { BottomSheet } from '../ui/BottomSheet';
 import { ColorPicker } from '../ui/ColorPicker';
+import { Dropdown, MultiDropdown } from '../ui/Dropdown';
 
 interface CourseEditModalProps {
   open: boolean;
@@ -22,23 +23,41 @@ export function CourseEditModal({
   onClose,
   onSave,
 }: CourseEditModalProps) {
+  const isCourseCategory = (value: string): value is (typeof CATEGORY_ORDER)[number] =>
+    CATEGORY_ORDER.includes(value as (typeof CATEGORY_ORDER)[number]);
+
   const buildFallback = (): CourseDefinition => ({
     id: '',
     name: '',
     shortCode: '',
-    category: 'SE',
+    category: undefined,
     isMandatory: false,
     isSeminar: false,
     credits: 6,
-    universityId: universities[0]?.id ?? 'UNIA',
+    universityId: undefined,
     professorIds: [],
-    color: CATEGORY_COLORS.SE,
+    color: UNCATEGORIZED_COLOR,
     description: '',
     isArchived: false,
     tags: [],
   });
 
   const [form, setForm] = useState<CourseDefinition>(initial ?? buildFallback());
+  const categoryOptions = [
+    { value: '', label: 'Uncategorized' },
+    ...CATEGORY_ORDER.map((category) => ({ value: category, label: category })),
+  ];
+  const universityOptions = [
+    { value: '', label: 'Unassigned' },
+    ...universities.map((university) => ({
+      value: university.id,
+      label: university.shortCode,
+    })),
+  ];
+  const professorOptions = professors.map((professor) => ({
+    value: professor.id,
+    label: professor.name,
+  }));
 
   return (
     <BottomSheet open={open} onClose={onClose} title={initial ? 'Edit Course' : 'Create Course'}>
@@ -46,7 +65,7 @@ export function CourseEditModal({
         <label className="block text-sm">
           Name
           <input
-            className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+            className="mt-1 h-11 w-full rounded-xl border border-border px-3"
             value={form.name}
             onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
           />
@@ -56,7 +75,7 @@ export function CourseEditModal({
           <label className="block text-sm">
             Short Code
             <input
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
               value={form.shortCode}
               onChange={(event) => setForm((prev) => ({ ...prev, shortCode: event.target.value }))}
             />
@@ -66,7 +85,7 @@ export function CourseEditModal({
             Credits
             <input
               type="number"
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
               value={form.credits}
               onChange={(event) => setForm((prev) => ({ ...prev, credits: Number(event.target.value) }))}
             />
@@ -76,55 +95,42 @@ export function CourseEditModal({
         <div className="grid grid-cols-2 gap-3">
           <label className="block text-sm">
             Category
-            <select
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
-              value={form.category}
-              onChange={(event) => {
-                const category = event.target.value as CourseCategory;
-                setForm((prev) => ({ ...prev, category, color: CATEGORY_COLORS[category] }));
+            <Dropdown
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
+              value={form.category ?? ''}
+              options={categoryOptions}
+              onChange={(categoryValue) => {
+                const category = categoryValue && isCourseCategory(categoryValue) ? categoryValue : undefined;
+                setForm((prev) => ({
+                  ...prev,
+                  category,
+                  color: category ? CATEGORY_COLORS[category] : UNCATEGORIZED_COLOR,
+                }));
               }}
-            >
-              {CATEGORY_ORDER.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
+            />
           </label>
 
           <label className="block text-sm">
             University
-            <select
-              className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
-              value={form.universityId}
-              onChange={(event) => setForm((prev) => ({ ...prev, universityId: event.target.value }))}
-            >
-              {universities.map((university) => (
-                <option key={university.id} value={university.id}>
-                  {university.shortCode}
-                </option>
-              ))}
-            </select>
+            <Dropdown
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
+              value={form.universityId ?? ''}
+              options={universityOptions}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, universityId: event || undefined }))
+              }
+            />
           </label>
         </div>
 
         <label className="block text-sm">
-          Professors
-          <select
-            multiple
-            className="mt-1 min-h-24 w-full rounded-xl border border-border px-3 py-2 dark:border-border-dark dark:bg-neutral-900"
-            value={form.professorIds}
-            onChange={(event) => {
-              const professorIds = Array.from(event.target.selectedOptions).map((option) => option.value);
-              setForm((prev) => ({ ...prev, professorIds }));
-            }}
-          >
-            {professors.map((professor) => (
-              <option key={professor.id} value={professor.id}>
-                {professor.name}
-              </option>
-            ))}
-          </select>
+          Professors/Lecturers
+          <MultiDropdown
+            className="mt-1 min-h-24 w-full rounded-xl border border-border px-3 py-2"
+            values={form.professorIds}
+            options={professorOptions}
+            onChange={(professorIds) => setForm((prev) => ({ ...prev, professorIds }))}
+          />
         </label>
 
         <ColorPicker value={form.color} onChange={(color) => setForm((prev) => ({ ...prev, color }))} />
@@ -132,7 +138,7 @@ export function CourseEditModal({
         <label className="block text-sm">
           Tags (comma separated)
           <input
-            className="mt-1 h-11 w-full rounded-xl border border-border px-3 dark:border-border-dark dark:bg-neutral-900"
+            className="mt-1 h-11 w-full rounded-xl border border-border px-3"
             value={form.tags?.join(',') ?? ''}
             onChange={(event) =>
               setForm((prev) => ({

@@ -16,6 +16,7 @@ interface HeaderProps {
   onModeChange: (mode: AppMode) => void;
   onArchiveChange: (year: number, semester: SemesterType) => void;
   onPlanChange?: (planId: string) => void;
+  onManagePlans?: () => void;
   onNewPlan?: () => void;
   onExportSvg: () => void;
   onExportPng: () => void;
@@ -33,6 +34,7 @@ export function Header({
   onModeChange,
   onArchiveChange,
   onPlanChange,
+  onManagePlans,
   onNewPlan,
   onExportSvg,
   onExportPng,
@@ -54,7 +56,7 @@ export function Header({
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-white/95 px-3 py-3 backdrop-blur">
       <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden shrink-0 items-center gap-2 lg:flex">
           {(['full', 'planning', 'archive'] as const).map((item) => (
             <button
               key={item}
@@ -72,75 +74,118 @@ export function Header({
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          {mode !== 'archive' && planOptions.length > 0 && selectedPlanId && onPlanChange ? (
+        {mode === 'archive' ? (
+          <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-2 lg:w-auto lg:grid-cols-none lg:grid-flow-col">
             <Dropdown
-              className="h-10 min-w-[170px] max-w-[220px] rounded-xl border border-border bg-white px-2 text-sm"
-              value={selectedPlanId}
-              options={planOptions}
-              onChange={onPlanChange}
+              className="h-10 min-w-0 rounded-xl border border-border bg-white px-2 text-sm"
+              value={archiveYear}
+              options={yearOptions}
+              onChange={(nextYear) => onArchiveChange(nextYear, archiveSemester)}
             />
-          ) : null}
-
-          {mode !== 'archive' && onNewPlan ? (
-            <button
-              type="button"
-              className="h-10 rounded-xl border border-border px-3 text-sm font-medium"
-              onClick={onNewPlan}
-            >
-              New Plan
-            </button>
-          ) : null}
-
-          {mode === 'archive' ? (
-            <>
-              <Dropdown
-                className="h-10 rounded-xl border border-border bg-white px-2 text-sm"
-                value={archiveYear}
-                options={yearOptions}
-                onChange={(nextYear) => onArchiveChange(nextYear, archiveSemester)}
-              />
-              <Dropdown
-                className="h-10 rounded-xl border border-border bg-white px-2 text-sm"
-                value={archiveSemester}
-                options={semesterOptions}
-                onChange={(nextSemester) => onArchiveChange(archiveYear, nextSemester)}
-              />
-            </>
-          ) : null}
-
-          <div className="relative">
-            <button
-              type="button"
-              className="h-10 rounded-xl border border-border px-3 text-sm"
-              onClick={() => setExportOpen((prev) => !prev)}
-            >
-              Export
-            </button>
-            {exportOpen ? (
-              <div className="absolute right-0 mt-2 w-44 rounded-xl border border-border bg-white p-1 shadow-panel">
-                <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportSvg} type="button">
-                  SVG
-                </button>
-                <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportPng} type="button">
-                  PNG
-                </button>
-                <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportPlan} type="button">
-                  JSON Plan
-                </button>
-                {onExportFullDb ? (
-                  <button
-                    className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface"
-                    onClick={onExportFullDb}
-                    type="button"
-                  >
-                    JSON Full DB
+            <Dropdown
+              className="h-10 min-w-0 rounded-xl border border-border bg-white px-2 text-sm"
+              value={archiveSemester}
+              options={semesterOptions}
+              onChange={(nextSemester) => onArchiveChange(archiveYear, nextSemester)}
+            />
+            <div className="relative">
+              <button
+                type="button"
+                className="h-10 whitespace-nowrap rounded-xl border border-border px-3 text-sm"
+                onClick={() => setExportOpen((prev) => !prev)}
+              >
+                Export
+              </button>
+              {exportOpen ? (
+                <div className="absolute right-0 mt-2 w-44 rounded-xl border border-border bg-white p-1 shadow-panel">
+                  <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportSvg} type="button">
+                    SVG
                   </button>
+                  <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportPng} type="button">
+                    PNG
+                  </button>
+                  <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportPlan} type="button">
+                    JSON Plan
+                  </button>
+                  {onExportFullDb ? (
+                    <button
+                      className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface"
+                      onClick={onExportFullDb}
+                      type="button"
+                    >
+                      JSON Full DB
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : (
+          <div className="flex w-full min-w-0 flex-col gap-2 lg:w-auto lg:flex-row lg:items-center lg:justify-end">
+            {planOptions.length > 0 && selectedPlanId && onPlanChange ? (
+              <Dropdown
+                className="h-10 w-full min-w-0 rounded-xl border border-border bg-white px-2 text-sm lg:min-w-[220px] lg:max-w-[320px]"
+                value={selectedPlanId}
+                options={planOptions}
+                onChange={onPlanChange}
+              />
+            ) : null}
+
+            <div className="flex flex-wrap items-center gap-2">
+              {onManagePlans ? (
+                <button
+                  type="button"
+                  className="h-10 whitespace-nowrap rounded-xl border border-border px-3 text-sm font-medium"
+                  onClick={onManagePlans}
+                >
+                  Plans
+                </button>
+              ) : null}
+
+              {onNewPlan ? (
+                <button
+                  type="button"
+                  className="h-10 whitespace-nowrap rounded-xl border border-border px-3 text-sm font-medium"
+                  onClick={onNewPlan}
+                >
+                  New Plan
+                </button>
+              ) : null}
+
+              <div className="relative">
+                <button
+                  type="button"
+                  className="h-10 whitespace-nowrap rounded-xl border border-border px-3 text-sm"
+                  onClick={() => setExportOpen((prev) => !prev)}
+                >
+                  Export
+                </button>
+                {exportOpen ? (
+                  <div className="absolute right-0 mt-2 w-44 rounded-xl border border-border bg-white p-1 shadow-panel">
+                    <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportSvg} type="button">
+                      SVG
+                    </button>
+                    <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportPng} type="button">
+                      PNG
+                    </button>
+                    <button className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface" onClick={onExportPlan} type="button">
+                      JSON Plan
+                    </button>
+                    {onExportFullDb ? (
+                      <button
+                        className="w-full rounded-lg px-2 py-2 text-left text-sm hover:bg-surface"
+                        onClick={onExportFullDb}
+                        type="button"
+                      >
+                        JSON Full DB
+                      </button>
+                    ) : null}
+                  </div>
                 ) : null}
               </div>
-            ) : null}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

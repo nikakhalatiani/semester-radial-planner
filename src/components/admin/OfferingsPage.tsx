@@ -103,7 +103,7 @@ export function OfferingsPage({
         inferred weekly from `startDate`.
       </p>
 
-      <div className="overflow-hidden rounded-2xl border border-border">
+      <div className="overflow-x-auto rounded-2xl border border-border">
         <table className="min-w-full divide-y divide-border bg-white text-sm text-text-primary">
           <thead className="bg-surface">
             <tr>
@@ -127,27 +127,29 @@ export function OfferingsPage({
                     ? `${row.lectureSessionCount} sessions`
                     : 'Inferred weekly'}
                 </td>
-                <td className="px-3 py-2 text-right">
-                  <button
-                    type="button"
-                    disabled={!canEdit}
-                    className="rounded-lg border border-border px-2 py-1 text-xs"
-                    onClick={() => {
-                      setEditing(row.offering);
-                      setModalVersion((prev) => prev + 1);
-                      setOpen(true);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    disabled={!canEdit}
-                    className="ml-2 rounded-lg border border-danger px-2 py-1 text-xs text-danger disabled:opacity-50"
-                    onClick={() => void onDelete(row.offering.id)}
-                  >
-                    Delete
-                  </button>
+                <td className="px-3 py-2">
+                  <div className="flex flex-wrap justify-end gap-1.5">
+                    <button
+                      type="button"
+                      disabled={!canEdit}
+                      className="whitespace-nowrap rounded-lg border border-border px-2 py-1 text-xs"
+                      onClick={() => {
+                        setEditing(row.offering);
+                        setModalVersion((prev) => prev + 1);
+                        setOpen(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!canEdit}
+                      className="whitespace-nowrap rounded-lg border border-danger px-2 py-1 text-xs text-danger disabled:opacity-50"
+                      onClick={() => void onDelete(row.offering.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

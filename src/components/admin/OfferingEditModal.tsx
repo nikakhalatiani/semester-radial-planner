@@ -70,10 +70,12 @@ export function OfferingEditModal({
     value: definition.id,
     label: definition.name,
   }));
-  const professorOptions = professors.map((professor) => ({
-    value: professor.id,
-    label: professor.name,
-  }));
+  const professorOptions = professors
+    .filter((professor) => professor.isActive || (form.professorIds ?? []).includes(professor.id))
+    .map((professor) => ({
+      value: professor.id,
+      label: professor.isActive ? professor.name : `${professor.name} (inactive)`,
+    }));
 
   return (
     <BottomSheet open={open} onClose={onClose} title={initial ? 'Edit Offering' : 'Create Offering'}>
@@ -99,7 +101,7 @@ export function OfferingEditModal({
           </label>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="block text-sm">
             Start Date
             <input

@@ -126,8 +126,10 @@ export function AdminPage() {
           plans={userPlans}
           offerings={courseOfferings}
           definitions={courseDefinitions}
+          universities={universities}
+          professors={professors}
           rules={programRules}
-          canEdit={session.role === 'superadmin'}
+          canEdit
           onSave={(plan) => savePlan(plan, session.email)}
           onDelete={(planId) => deletePlan(planId, session.email)}
         />

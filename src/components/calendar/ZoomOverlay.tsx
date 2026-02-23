@@ -19,23 +19,25 @@ function labelForLevel(level: ZoomLevel) {
 
 export function ZoomOverlay({ level, onZoomIn, onZoomOut, onReset }: ZoomOverlayProps) {
   return (
-    <div className="absolute right-3 top-3 z-10 flex flex-col gap-2">
+    <div className="absolute right-3 top-3 z-20 flex flex-col items-end gap-2">
       <button
-        className="h-10 w-10 rounded-full border border-neutral-200 bg-white text-lg shadow-sm"
+        className="h-11 w-11 rounded-full border border-neutral-200 bg-white text-lg font-semibold shadow-sm"
         onClick={onZoomIn}
         type="button"
+        aria-label="Zoom in"
       >
         +
       </button>
       <button
-        className="h-10 w-10 rounded-full border border-neutral-200 bg-white text-lg shadow-sm"
+        className="h-11 w-11 rounded-full border border-neutral-200 bg-white text-lg font-semibold shadow-sm"
         onClick={onZoomOut}
         type="button"
+        aria-label="Zoom out"
       >
         -
       </button>
       <button
-        className="rounded-full border border-neutral-200 bg-white px-2 py-1 text-xs font-semibold shadow-sm"
+        className="whitespace-nowrap rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-semibold shadow-sm"
         onClick={onReset}
         type="button"
       >

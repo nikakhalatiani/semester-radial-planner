@@ -1,8 +1,6 @@
-import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
-import { useSortable } from '@dnd-kit/sortable';
-import { GripVertical } from 'lucide-react';
 import { useRef } from 'react';
+import { Check, Plus } from 'lucide-react';
 
 import { useI18n } from '../../hooks/useI18n';
 import type { CourseDefinition, CourseOffering, SelectedOffering, University } from '../../types';
@@ -29,32 +27,19 @@ export function CoursePlanningCard({
   onToggleInclude,
 }: CoursePlanningCardProps) {
   const { t } = useI18n();
-  const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } = useSortable({
-    id: offering.id,
-    disabled: !selection?.isIncluded,
-  });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
 
   const isIncluded = selection?.isIncluded ?? false;
   const isMandatory = definition.isMandatory;
   const isUnavailable = !offering.isAvailable;
   const semesterLabel = offering.semesterType === 'winter' ? 'Winter' : 'Summer';
   const semesterChip = semesterLabel.toUpperCase();
-  const handleProps = selection?.isIncluded ? { ...attributes, ...listeners } : {};
 
   const touchStartX = useRef<number | null>(null);
 
   return (
     <article
-      ref={setNodeRef}
-      style={style}
       className={clsx(
         'relative overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-sm transition',
-        isDragging ? 'z-20 shadow-panel' : undefined,
         isUnavailable ? 'opacity-40' : undefined,
       )}
       onTouchStart={(event) => {
@@ -84,18 +69,6 @@ export function CoursePlanningCard({
             <p className="text-xs text-text-secondary">{professorNames || 'TBA'}</p>
           </div>
           <div className="flex items-start gap-2">
-            {isIncluded ? (
-              <button
-                ref={setActivatorNodeRef}
-                {...handleProps}
-                type="button"
-                className="rounded-full border border-border bg-white p-1.5 text-text-secondary transition hover:text-text-primary active:scale-95"
-                aria-label="Drag to reorder"
-                onClick={(event) => event.preventDefault()}
-              >
-                <GripVertical className="h-4 w-4" />
-              </button>
-            ) : null}
             <LPBadge credits={definition.credits} />
           </div>
         </div>
@@ -108,8 +81,12 @@ export function CoursePlanningCard({
             onPointerDown={(event) => event.stopPropagation()}
             onTouchStart={(event) => event.stopPropagation()}
             onClick={() => onToggleInclude(!isIncluded)}
-            tone={isIncluded ? 'success' : 'muted'}
+            tone={isIncluded ? 'success' : 'neutral'}
+            className="gap-1.5"
+            title={isIncluded ? 'Click to exclude this course' : 'Click to include this course'}
+            aria-pressed={isIncluded}
           >
+            {isIncluded ? <Check size={14} strokeWidth={2.6} /> : <Plus size={14} strokeWidth={2.6} />}
             {isIncluded ? t('plan.included') : t('plan.excluded')}
           </PillButton>
         </div>

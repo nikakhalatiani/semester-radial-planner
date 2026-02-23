@@ -9,6 +9,7 @@ import {
   getDevSeedOverride,
   setDevSeedOverride,
 } from '../../utils/devSeed';
+import { createCompactSeedSnapshot } from '../../utils/seedSnapshot';
 
 interface DataPageProps {
   canManage: boolean;
@@ -72,6 +73,10 @@ export function DataPage({ canManage, onExport, onImport }: DataPageProps) {
         Admin edits are saved to IndexedDB and mirrored to local dev-seed override automatically. Built-in
         `src/data/seed.json` is first-run default only.
       </p>
+      <p className="rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-600">
+        `seed.json` actions below save current state only and intentionally drop admin changelog history to keep the
+        seed small.
+      </p>
 
       <div className="flex flex-wrap gap-2">
         <button
@@ -91,11 +96,12 @@ export function DataPage({ canManage, onExport, onImport }: DataPageProps) {
           className="rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm font-semibold"
           onClick={async () => {
             const data = await onExport();
-            downloadJson(data, 'seed.json');
-            setStatus('Downloaded seed.json snapshot.');
+            const compactSeed = createCompactSeedSnapshot(data);
+            downloadJson(compactSeed, 'seed.json');
+            setStatus('Downloaded compact seed.json snapshot (without changelog).');
           }}
         >
-          Download seed.json
+          Download seed.json (compact)
         </button>
 
         <button
@@ -117,17 +123,18 @@ export function DataPage({ canManage, onExport, onImport }: DataPageProps) {
           disabled={!canManage}
           onClick={async () => {
             const data = await onExport();
-            setDevSeedOverride(data);
+            const compactSeed = createCompactSeedSnapshot(data);
+            setDevSeedOverride(compactSeed);
             setHasDevSeed(true);
-            const wroteFile = await writeSeedFileInWorkspace(data);
+            const wroteFile = await writeSeedFileInWorkspace(compactSeed);
             setStatus(
               wroteFile.ok
-                ? `Saved dev seed override. ${wroteFile.message ?? ''}`.trim()
-                : `Saved dev seed override only. ${wroteFile.message ?? ''}`.trim(),
+                ? `Saved compact dev seed override. ${wroteFile.message ?? ''}`.trim()
+                : `Saved compact dev seed override only. ${wroteFile.message ?? ''}`.trim(),
             );
           }}
         >
-          Save as Dev Seed (+write file)
+          Save as Dev Seed (+write compact file)
         </button>
 
         <button

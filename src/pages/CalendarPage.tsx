@@ -2,16 +2,19 @@ import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 
 import { RadialCalendar } from '../components/calendar/RadialCalendar';
-import { CalendarSwitcher } from '../components/layout/CalendarSwitcher';
 import { Header } from '../components/layout/Header';
 import { MobileNavBar } from '../components/layout/MobileNavBar';
+import { ManagePlansModal } from '../components/modals/ManagePlansModal';
 import { NewPlanModal } from '../components/modals/NewPlanModal';
 import { SettingsModal } from '../components/modals/SettingsModal';
-import { PlanningPanel, type PlanningRow } from '../components/planning/PlanningPanel';
+import {
+  PlanningPanel,
+  type PlanningRow,
+  type RuleScopePlanOption,
+} from '../components/planning/PlanningPanel';
 import { BottomSheet } from '../components/ui/BottomSheet';
 import { CategoryBadge } from '../components/ui/CategoryBadge';
 import { UniversityTag } from '../components/ui/UniversityTag';
-import { useDragOrder } from '../hooks/useDragOrder';
 import { useProgramRules } from '../hooks/useProgramRules';
 import { useAppStore } from '../store';
 import type { AppMode, RadialDisplayOffering, SemesterType, UserPlan } from '../types';
@@ -67,23 +70,26 @@ export function CalendarPage() {
     setPlanningSearchQuery,
     togglePlanningCategory,
     createPlan,
+    deletePlan,
     upsertPlanSelection,
     upsertPlanSelectionsBulk,
-    reorderPlanSelections,
     exportDatabase,
   } = useAppStore((state) => state);
 
-  const reorderByOfferingId = useDragOrder();
-
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [newPlanOpen, setNewPlanOpen] = useState(false);
+  const [managePlansOpen, setManagePlansOpen] = useState(false);
 
   const planningEligiblePlans = useMemo(
-    () => userPlans.filter((plan) => plan.academicYear === PLANNING_YEAR),
+    () =>
+      userPlans.filter(
+        (plan) => plan.academicYear === PLANNING_YEAR && !isArchivePlanName(plan.name),
+      ),
     [userPlans],
   );
   const activePlan = getPlanById(planningEligiblePlans, activePlanId);
   const activeRule = programRules.find((rule) => rule.id === (activePlan?.programRuleId ?? appSettings.activeProgramRuleId));
+  const [ruleScopePlanIds, setRuleScopePlanIds] = useState<string[]>([]);
 
   useEffect(() => {
     const hasPlanningYearPlan = userPlans.some((plan) => plan.academicYear === PLANNING_YEAR);
@@ -105,6 +111,20 @@ export function CalendarPage() {
   }, [activePlan, planningEligiblePlans, setActivePlanId, setActivePlanInSettings]);
 
   useEffect(() => {
+    const validPlanIds = new Set(planningEligiblePlans.map((plan) => plan.id));
+    setRuleScopePlanIds((current) => {
+      const filtered = current.filter((planId) => validPlanIds.has(planId));
+      if (activePlan?.id) {
+        if (filtered.length === 0) {
+          return [activePlan.id];
+        }
+        return filtered.includes(activePlan.id) ? filtered : [activePlan.id, ...filtered];
+      }
+      return filtered;
+    });
+  }, [activePlan?.id, planningEligiblePlans]);
+
+  useEffect(() => {
     if (isAllowedAcademicYear(archiveYear)) {
       return;
     }
@@ -117,7 +137,11 @@ export function CalendarPage() {
       return [];
     }
     return courseOfferings
-      .filter((offering) => offering.academicYear === activePlan.academicYear)
+      .filter(
+        (offering) =>
+          offering.academicYear === activePlan.academicYear &&
+          offering.semesterType === activePlan.semesterType,
+      )
       .sort((a, b) => {
         const semesterDiff = semesterRank(a.semesterType) - semesterRank(b.semesterType);
         if (semesterDiff !== 0) {
@@ -130,6 +154,45 @@ export function CalendarPage() {
         return a.id.localeCompare(b.id);
       });
   }, [activePlan, courseOfferings]);
+
+  const ruleScopePlanOptions = useMemo<RuleScopePlanOption[]>(
+    () =>
+      planningEligiblePlans.map((plan) => ({
+        id: plan.id,
+        label: `${plan.name} (${plan.semesterType === 'winter' ? 'WS' : 'SS'} ${plan.academicYear})`,
+      })),
+    [planningEligiblePlans],
+  );
+
+  const ruleScopeSelection = useMemo(
+    () => new Set(ruleScopePlanIds),
+    [ruleScopePlanIds],
+  );
+
+  const aggregatedRuleInputs = useMemo(() => {
+    const selectedPlans = planningEligiblePlans.filter((plan) => ruleScopeSelection.has(plan.id));
+    const offeringById = new Map<string, (typeof courseOfferings)[number]>();
+    const selections: (typeof selectedPlans)[number]['selectedOfferings'][number][] = [];
+
+    selectedPlans.forEach((plan) => {
+      const scopedOfferings = courseOfferings.filter(
+        (offering) =>
+          offering.academicYear === plan.academicYear && offering.semesterType === plan.semesterType,
+      );
+      const scopedOfferingIdSet = new Set(scopedOfferings.map((offering) => offering.id));
+      scopedOfferings.forEach((offering) => offeringById.set(offering.id, offering));
+      plan.selectedOfferings.forEach((selection) => {
+        if (scopedOfferingIdSet.has(selection.offeringId)) {
+          selections.push(selection);
+        }
+      });
+    });
+
+    return {
+      offerings: Array.from(offeringById.values()),
+      selections,
+    };
+  }, [courseOfferings, planningEligiblePlans, ruleScopeSelection]);
 
   const activeArchivePlan = useMemo(() => {
     const matching = userPlans.filter(
@@ -338,8 +401,8 @@ export function CalendarPage() {
 
   const ruleResult = useProgramRules({
     rule: activeRule,
-    selections: activePlan?.selectedOfferings ?? [],
-    offerings: planOfferings,
+    selections: aggregatedRuleInputs.selections,
+    offerings: aggregatedRuleInputs.offerings,
     definitions: courseDefinitions,
   });
 
@@ -377,6 +440,10 @@ export function CalendarPage() {
         PLANNING_YEAR;
 
   const archiveAvailableYears = ARCHIVE_YEAR_CHOICES_DESC;
+  const planOptions = planningEligiblePlans.map((plan) => ({
+    value: plan.id,
+    label: `${plan.name} (${plan.semesterType === 'winter' ? 'WS' : 'SS'} ${plan.academicYear})`,
+  }));
 
   const availableYears = archiveAvailableYears;
 
@@ -463,8 +530,16 @@ export function CalendarPage() {
         archiveYear={archiveYear}
         archiveSemester={archiveSemester}
         archiveYears={archiveAvailableYears}
+        planOptions={planOptions}
+        activePlanId={activePlan?.id}
         onModeChange={handleModeChange}
         onArchiveChange={setArchivePeriod}
+        onPlanChange={(planId) => {
+          setActivePlanId(planId);
+          setActivePlanInSettings(planId);
+        }}
+        onManagePlans={() => setManagePlansOpen(true)}
+        onNewPlan={() => setNewPlanOpen(true)}
         onExportSvg={() => {
           const svg = document.getElementById('radial-calendar-svg');
           if (svg instanceof SVGSVGElement) {
@@ -493,23 +568,6 @@ export function CalendarPage() {
       >
         {isPlanningLayout ? (
           <aside className="hidden space-y-3 lg:block">
-            <button
-              type="button"
-              className="h-11 w-full rounded-xl bg-neutral-900 text-sm font-semibold text-white"
-              onClick={() => setNewPlanOpen(true)}
-            >
-              New Plan (N)
-            </button>
-
-            <CalendarSwitcher
-              plans={planningEligiblePlans}
-              activePlanId={activePlan?.id}
-              onSelect={(planId) => {
-                setActivePlanId(planId);
-                setActivePlanInSettings(planId);
-              }}
-            />
-
             <PlanningPanel
               rows={planningRows}
               searchQuery={planningSearchQuery}
@@ -527,12 +585,18 @@ export function CalendarPage() {
                 }
                 void upsertPlanSelection(activePlan.id, offeringId, { isIncluded: next });
               }}
-              onDragReorder={(activeId, overId) => {
-                if (!activePlan) {
-                  return;
-                }
-                const reordered = reorderByOfferingId(activePlan.selectedOfferings, activeId, overId);
-                void reorderPlanSelections(activePlan.id, reordered);
+              ruleScopePlanOptions={ruleScopePlanOptions}
+              selectedRuleScopePlanIds={ruleScopePlanIds}
+              onToggleRuleScopePlan={(planId) => {
+                setRuleScopePlanIds((current) => {
+                  if (current.includes(planId)) {
+                    if (current.length === 1) {
+                      return current;
+                    }
+                    return current.filter((id) => id !== planId);
+                  }
+                  return [...current, planId];
+                });
               }}
             />
           </aside>
@@ -568,12 +632,18 @@ export function CalendarPage() {
                     }
                     void upsertPlanSelection(activePlan.id, offeringId, { isIncluded: next });
                   }}
-                  onDragReorder={(activeId, overId) => {
-                    if (!activePlan) {
-                      return;
-                    }
-                    const reordered = reorderByOfferingId(activePlan.selectedOfferings, activeId, overId);
-                    void reorderPlanSelections(activePlan.id, reordered);
+                  ruleScopePlanOptions={ruleScopePlanOptions}
+                  selectedRuleScopePlanIds={ruleScopePlanIds}
+                  onToggleRuleScopePlan={(planId) => {
+                    setRuleScopePlanIds((current) => {
+                      if (current.includes(planId)) {
+                        if (current.length === 1) {
+                          return current;
+                        }
+                        return current.filter((id) => id !== planId);
+                      }
+                      return [...current, planId];
+                    });
                   }}
                 />
               </BottomSheet>
@@ -663,6 +733,20 @@ export function CalendarPage() {
         onClose={() => setNewPlanOpen(false)}
         onCreate={async (name, year, semester) => {
           await createPlan(name, year, semester);
+        }}
+      />
+
+      <ManagePlansModal
+        open={managePlansOpen}
+        plans={planningEligiblePlans}
+        activePlanId={activePlan?.id}
+        onClose={() => setManagePlansOpen(false)}
+        onSelect={(planId) => {
+          setActivePlanId(planId);
+          setActivePlanInSettings(planId);
+        }}
+        onDelete={async (planId) => {
+          await deletePlan(planId, 'user');
         }}
       />
 

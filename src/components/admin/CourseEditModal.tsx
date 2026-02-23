@@ -54,10 +54,12 @@ export function CourseEditModal({
       label: university.shortCode,
     })),
   ];
-  const professorOptions = professors.map((professor) => ({
-    value: professor.id,
-    label: professor.name,
-  }));
+  const professorOptions = professors
+    .filter((professor) => professor.isActive || form.professorIds.includes(professor.id))
+    .map((professor) => ({
+      value: professor.id,
+      label: professor.isActive ? professor.name : `${professor.name} (inactive)`,
+    }));
 
   return (
     <BottomSheet open={open} onClose={onClose} title={initial ? 'Edit Course' : 'Create Course'}>
@@ -71,7 +73,7 @@ export function CourseEditModal({
           />
         </label>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="block text-sm">
             Short Code
             <input
@@ -92,7 +94,7 @@ export function CourseEditModal({
           </label>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="block text-sm">
             Category
             <Dropdown
@@ -152,7 +154,7 @@ export function CourseEditModal({
           />
         </label>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="inline-flex items-center gap-2 text-sm">
             <input
               type="checkbox"

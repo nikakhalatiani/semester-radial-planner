@@ -24,7 +24,7 @@ export function BottomSheet({ open, onClose, title, children, className }: Botto
           />
           <motion.section
             className={clsx(
-              'fixed inset-x-0 bottom-0 z-50 max-h-[92vh] rounded-t-3xl bg-white px-4 pb-6 pt-3 shadow-panel',
+              'fixed inset-x-0 bottom-0 z-50 max-h-[92vh] rounded-t-3xl bg-white px-3 pb-6 pt-3 shadow-panel sm:px-4',
               className,
             )}
             initial={{ y: '100%' }}
@@ -34,7 +34,9 @@ export function BottomSheet({ open, onClose, title, children, className }: Botto
           >
             <div className="mx-auto mb-3 h-1.5 w-14 rounded-full bg-neutral-300" />
             {title ? <h3 className="mb-4 text-lg font-semibold text-text-primary">{title}</h3> : null}
-            <div className="overflow-y-auto">{children}</div>
+            <div className="max-h-[calc(92vh-6.5rem)] min-w-0 overflow-x-hidden overflow-y-auto pr-1">
+              {children}
+            </div>
           </motion.section>
         </>
       ) : null}

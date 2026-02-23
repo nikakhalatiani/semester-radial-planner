@@ -124,8 +124,8 @@ export function LectureSessionsEditor({
         <p className="text-xs font-medium text-text-secondary">
           Quick schedule generator
         </p>
-        <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
-          <label className="text-xs text-text-secondary">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-5">
+          <label className="min-w-0 text-xs text-text-secondary">
             Start date
             <input
               type="date"
@@ -135,7 +135,7 @@ export function LectureSessionsEditor({
             />
           </label>
 
-          <label className="text-xs text-text-secondary">
+          <label className="min-w-0 text-xs text-text-secondary">
             Start time
             <input
               type="time"
@@ -146,7 +146,7 @@ export function LectureSessionsEditor({
             />
           </label>
 
-          <label className="text-xs text-text-secondary">
+          <label className="min-w-0 text-xs text-text-secondary">
             End time
             <input
               type="time"
@@ -157,7 +157,7 @@ export function LectureSessionsEditor({
             />
           </label>
 
-          <label className="text-xs text-text-secondary">
+          <label className="min-w-0 text-xs text-text-secondary">
             Repeat
             <Dropdown
               className="mt-1 h-9 rounded-lg border border-border px-2 text-sm"
@@ -167,7 +167,7 @@ export function LectureSessionsEditor({
             />
           </label>
 
-          <label className="text-xs text-text-secondary">
+          <label className="min-w-0 text-xs text-text-secondary">
             Until date
             <input
               type="date"
@@ -194,8 +194,11 @@ export function LectureSessionsEditor({
       ) : null}
 
       {sessions.map((session) => (
-        <div key={session.id} className="grid grid-cols-2 gap-2 rounded-lg border border-border p-2">
-          <label className="text-xs text-text-secondary">
+        <div
+          key={session.id}
+          className="grid grid-cols-1 gap-2 rounded-lg border border-border p-2 sm:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto]"
+        >
+          <label className="min-w-0 text-xs text-text-secondary">
             Date
             <input
               type="date"
@@ -212,7 +215,7 @@ export function LectureSessionsEditor({
               }
             />
           </label>
-          <label className="text-xs text-text-secondary">
+          <label className="min-w-0 text-xs text-text-secondary">
             Start Time
             <input
               type="time"
@@ -227,7 +230,7 @@ export function LectureSessionsEditor({
               }
             />
           </label>
-          <label className="text-xs text-text-secondary">
+          <label className="min-w-0 text-xs text-text-secondary">
             End Time
             <input
               type="time"
@@ -244,7 +247,7 @@ export function LectureSessionsEditor({
           </label>
           <button
             type="button"
-            className="self-end rounded-lg border border-danger px-2 py-2 text-xs font-medium text-danger"
+            className="h-9 w-full self-end rounded-lg border border-danger px-2 py-2 text-xs font-medium text-danger xl:w-auto"
             onClick={() => onChange(sessions.filter((item) => item.id !== session.id))}
           >
             Remove

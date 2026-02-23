@@ -20,7 +20,6 @@ export interface Professor {
   id: string;
   name: string;
   universityId: string;
-  email?: string;
   isActive: boolean;
 }
 

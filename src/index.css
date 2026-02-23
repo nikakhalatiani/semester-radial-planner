@@ -38,6 +38,7 @@ svg g[role='button']:focus {
 input,
 select,
 textarea {
+  max-width: 100%;
   background-color: #ffffff;
   color: #111111;
 }

@@ -32,18 +32,15 @@ export function ExamDot({ type, x, y, color, reexam = false, size = 1 }: ExamDot
   }
 
   if (type === 'project') {
-    const points = [
-      `${x} ${y - radius}`,
-      `${x + radius * 0.86} ${y - radius * 0.5}`,
-      `${x + radius * 0.86} ${y + radius * 0.5}`,
-      `${x} ${y + radius}`,
-      `${x - radius * 0.86} ${y + radius * 0.5}`,
-      `${x - radius * 0.86} ${y - radius * 0.5}`,
-    ].join(' ');
+    const projectSide = 11 * size;
+    const projectHalfSide = projectSide / 2;
 
     return (
-      <polygon
-        points={points}
+      <rect
+        x={x - projectHalfSide}
+        y={y - projectHalfSide}
+        width={projectSide}
+        height={projectSide}
         fill={color}
         stroke="white"
         strokeWidth={strokeWidth}

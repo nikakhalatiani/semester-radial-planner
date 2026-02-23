@@ -24,7 +24,7 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
 
   return (
     <div className="space-y-2 rounded-xl border border-border p-3">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <h4 className="text-sm font-semibold">Exam Options</h4>
         <button
           type="button"
@@ -52,7 +52,7 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
       {options.map((option) => (
         <div key={option.id} className="space-y-2 rounded-lg border border-border p-2">
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-            <label className="text-xs text-text-secondary">
+            <label className="min-w-0 text-xs text-text-secondary">
               Exam Type
               <Dropdown
                 className="mt-1 h-9 rounded-lg border border-border px-2 text-sm"
@@ -68,7 +68,7 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
               />
             </label>
 
-            <label className="text-xs text-text-secondary">
+            <label className="min-w-0 text-xs text-text-secondary">
               Exam Date
               <input
                 type="date"
@@ -81,9 +81,9 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
             </label>
           </div>
 
-          <div className="flex flex-wrap items-end gap-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-end">
             {option.reexamDate ? (
-              <label className="min-w-[220px] flex-1 text-xs text-text-secondary">
+              <label className="min-w-0 text-xs text-text-secondary">
                 Retake Date (Optional)
                 <input
                   type="date"
@@ -101,7 +101,7 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
             ) : (
               <button
                 type="button"
-                className="h-9 rounded-lg border border-border px-3 text-xs font-medium text-text-secondary"
+                className="h-9 w-full rounded-lg border border-border px-3 text-xs font-medium text-text-secondary md:w-auto"
                 onClick={() =>
                   onChange(
                     options.map((item) =>
@@ -119,7 +119,7 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
             {option.reexamDate ? (
               <button
                 type="button"
-                className="h-9 rounded-lg border border-neutral-300 px-3 text-xs text-text-secondary"
+                className="h-9 w-full rounded-lg border border-neutral-300 px-3 text-xs text-text-secondary md:w-auto"
                 onClick={() =>
                   onChange(
                     options.map((item) => (item.id === option.id ? { ...item, reexamDate: undefined } : item)),
@@ -132,7 +132,7 @@ export function ExamOptionsEditor({ options, onChange }: ExamOptionsEditorProps)
 
             <button
               type="button"
-              className="h-9 rounded-lg border border-danger px-3 text-xs text-danger"
+              className="h-9 w-full rounded-lg border border-danger px-3 text-xs text-danger md:w-auto"
               onClick={() => onChange(options.filter((item) => item.id !== option.id))}
             >
               Remove Option

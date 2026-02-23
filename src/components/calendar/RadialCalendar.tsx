@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { BookOpen, CalendarDays } from 'lucide-react';
+import { BookOpen, CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
 
 import { useRadialGeometry } from '../../hooks/useRadialGeometry';
@@ -275,37 +275,48 @@ function buildMonthEvents(offerings: RadialDisplayOffering[], year: number, mont
       }
     }
 
-    const selectedExam = item.selectedExamOption;
-    const examDateIso = selectedExam?.date;
-    if (examDateIso) {
-      const examDate = toUtcDay(examDateIso);
+    const examOptionsForCalendar =
+      item.offering.examOptions.length > 0
+        ? item.offering.examOptions
+        : item.selectedExamOption
+          ? [item.selectedExamOption]
+          : [];
+
+    examOptionsForCalendar.forEach((examOption, optionIndex) => {
+      if (!examOption.date) {
+        return;
+      }
+
+      const examDate = toUtcDay(examOption.date);
       if (examDate.getUTCFullYear() === calendarYear && examDate.getUTCMonth() === month) {
         addEvent(eventsByDay, examDate.getUTCDate(), {
-          id: `${item.offering.id}-exam-${examDate.toISOString()}`,
-          label: `${item.definition.shortCode} ${selectedExam?.type ?? 'exam'}`,
+          id: `${item.offering.id}-exam-${optionIndex}-${examDate.toISOString()}`,
+          label: `${item.definition.shortCode} ${examOption.type}`,
           color: item.definition.color,
-          kind: selectedExam?.type === 'project' ? 'project' : 'exam',
-          examType: selectedExam?.type,
+          kind: examOption.type === 'project' ? 'project' : 'exam',
+          examType: examOption.type,
           dateIso: examDate.toISOString(),
           isReexam: false,
         });
       }
-    }
 
-    if (selectedExam?.reexamDate) {
-      const reexamDate = toUtcDay(selectedExam.reexamDate);
+      if (!examOption.reexamDate) {
+        return;
+      }
+
+      const reexamDate = toUtcDay(examOption.reexamDate);
       if (reexamDate.getUTCFullYear() === calendarYear && reexamDate.getUTCMonth() === month) {
         addEvent(eventsByDay, reexamDate.getUTCDate(), {
-          id: `${item.offering.id}-reexam-${reexamDate.toISOString()}`,
-          label: `${item.definition.shortCode} reexam ${selectedExam.type}`,
+          id: `${item.offering.id}-reexam-${optionIndex}-${reexamDate.toISOString()}`,
+          label: `${item.definition.shortCode} reexam ${examOption.type}`,
           color: item.definition.color,
-          kind: selectedExam.type === 'project' ? 'project' : 'exam',
-          examType: selectedExam.type,
+          kind: examOption.type === 'project' ? 'project' : 'exam',
+          examType: examOption.type,
           dateIso: reexamDate.toISOString(),
           isReexam: true,
         });
       }
-    }
+    });
   });
 
   return eventsByDay;
@@ -360,32 +371,42 @@ function MonthGridView({
   return (
     <div
       className={clsx(
-        'h-full w-full overflow-auto bg-white p-4',
+        'h-full w-full overflow-auto bg-white p-3 sm:p-4',
         fullCanvas ? 'rounded-none border-0' : 'rounded-3xl border border-neutral-200',
       )}
     >
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 grid grid-cols-[auto_1fr_auto] items-center gap-2">
         <button
           type="button"
-          className="rounded-lg border border-neutral-200 px-3 py-1 text-sm"
+          className="h-10 whitespace-nowrap rounded-xl border border-neutral-200 px-3 text-sm font-medium"
           onClick={onBack}
         >
           Back to season
         </button>
-        <div className="flex items-center gap-2">
-          <button type="button" className="rounded-lg border border-neutral-200 px-2 py-1" onClick={onPrevMonth}>
-            ←
+        <h3 className="truncate text-center text-[30px] font-semibold text-neutral-900">
+          {MONTH_NAMES[month]} {calendarYear}
+        </h3>
+        <div className="flex items-center justify-end gap-1.5">
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-900"
+            onClick={onPrevMonth}
+            aria-label="Previous month"
+          >
+            <ChevronLeft size={20} />
           </button>
-          <h3 className="min-w-40 text-center text-base font-semibold text-neutral-900">
-            {MONTH_NAMES[month]} {calendarYear}
-          </h3>
-          <button type="button" className="rounded-lg border border-neutral-200 px-2 py-1" onClick={onNextMonth}>
-            →
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-900"
+            onClick={onNextMonth}
+            aria-label="Next month"
+          >
+            <ChevronRight size={20} />
           </button>
         </div>
       </div>
 
-      <p className="mb-3 text-xs text-neutral-500">
+      <p className="mb-3 max-w-[740px] text-sm leading-6 text-neutral-500">
         Lecture days come from offering lecture schedule. If none is set, weekly pattern is inferred from start date.
       </p>
 
@@ -400,12 +421,12 @@ function MonthGridView({
       <div className="mt-2 grid grid-cols-7 gap-2">
         {slots.map((day, index) => {
           if (!day) {
-            return <div key={`empty-${index}`} className="min-h-[88px] rounded-xl bg-transparent" />;
+            return <div key={`empty-${index}`} className="min-h-[72px] rounded-xl bg-transparent sm:min-h-[88px]" />;
           }
 
           const dayEvents = eventsByDay.get(day) ?? [];
           return (
-            <div key={`day-${day}`} className="min-h-[88px] rounded-xl border border-neutral-200 bg-white p-2">
+            <div key={`day-${day}`} className="min-h-[72px] rounded-xl border border-neutral-200 bg-white p-2 sm:min-h-[88px]">
               <div className="mb-1 text-sm font-semibold text-neutral-900">{day}</div>
               <div className="space-y-1">
                 {dayEvents.slice(0, 3).map((event) => (
@@ -444,6 +465,7 @@ export function RadialCalendar({
   onYearChange,
   fullCanvas = false,
 }: RadialCalendarProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [focus, setFocus] = useState<ZoomFocus>({ level: 'year' });
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
   const pinchDistanceRef = useRef<number | null>(null);
@@ -606,20 +628,40 @@ export function RadialCalendar({
     setFocus({ level: 'year' });
   }, []);
 
-  const onWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
-    event.preventDefault();
+  const handleWheelDelta = useCallback((deltaY: number) => {
     const now = Date.now();
     if (now - lastWheelAtRef.current < 220) {
       return;
     }
 
     lastWheelAtRef.current = now;
-    if (event.deltaY < 0) {
+    if (deltaY < 0) {
       zoomIn();
     } else {
       zoomOut();
     }
-  };
+  }, [zoomIn, zoomOut]);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) {
+      return;
+    }
+
+    const onNativeWheel = (event: WheelEvent) => {
+      if (focus.level === 'month') {
+        return;
+      }
+      if (!(event.ctrlKey || event.metaKey)) {
+        return;
+      }
+      event.preventDefault();
+      handleWheelDelta(event.deltaY);
+    };
+
+    element.addEventListener('wheel', onNativeWheel, { passive: false });
+    return () => element.removeEventListener('wheel', onNativeWheel);
+  }, [focus.level, handleWheelDelta]);
 
   const onTouchStart: React.TouchEventHandler<HTMLDivElement> = (event) => {
     if (event.touches.length !== 2) {
@@ -664,26 +706,6 @@ export function RadialCalendar({
   const onTouchEnd: React.TouchEventHandler<HTMLDivElement> = () => {
     pinchDistanceRef.current = null;
   };
-
-  if (focus.level === 'month') {
-    return (
-      <MonthGridView
-        year={year}
-        month={monthForView}
-        offerings={offerings}
-        onBack={() => setFocus({ level: 'season', season: resolvedSeason })}
-        onPrevMonth={() => {
-          const prevMonth = monthForView === 0 ? 11 : monthForView - 1;
-          setFocus({ level: 'month', month: prevMonth, season: monthToSeason(prevMonth) });
-        }}
-        onNextMonth={() => {
-          const nextMonth = monthForView === 11 ? 0 : monthForView + 1;
-          setFocus({ level: 'month', month: nextMonth, season: monthToSeason(nextMonth) });
-        }}
-        fullCanvas={fullCanvas}
-      />
-    );
-  }
 
   const seasonFrame = {
     minRadius: 128,
@@ -811,197 +833,246 @@ export function RadialCalendar({
         )
       : '0 0 800 800';
 
+  const focusMotionKey =
+    focus.level === 'month'
+      ? `month-${monthForView}-${year}`
+      : focus.level === 'season'
+        ? `season-${resolvedSeason}-${year}`
+        : `year-${year}`;
+  const focusMotionTransition = { duration: 0.28, ease: [0.22, 1, 0.36, 1] as const };
+
   return (
     <div
+      ref={containerRef}
       className={clsx(
         'relative w-full overflow-hidden bg-white',
         fullCanvas
           ? 'h-[calc(100vh-124px)] min-h-[520px] rounded-none border-0'
           : 'h-[60vh] min-h-[440px] rounded-3xl border border-neutral-200',
       )}
-      onWheel={onWheel}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      <ZoomOverlay level={focus.level} onZoomIn={zoomIn} onZoomOut={zoomOut} onReset={resetZoom} />
+      {focus.level !== 'month' ? (
+        <ZoomOverlay level={focus.level} onZoomIn={zoomIn} onZoomOut={zoomOut} onReset={resetZoom} />
+      ) : null}
 
-      <motion.svg id="radial-calendar-svg" viewBox={svgViewBox} className="h-full w-full" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <clipPath id={seasonClipId} clipPathUnits="userSpaceOnUse">
-            <path d={seasonClipPath} />
-          </clipPath>
-        </defs>
-
-        {focus.level === 'year' ? (
-          <g>
-            {SEASON_LABELS.map((season) => (
-              <SeasonLabel
-                key={season.label}
-                label={season.label}
-                angle={season.angle}
-                active={false}
-                onSelect={() => setFocus({ level: 'season', season: season.key })}
-              />
-            ))}
-
-            {yearMonthLabels.map((month) => (
-              <MonthLabel
-                key={month.label}
-                label={month.label}
-                angle={month.angle}
-                onSelect={() => setFocus({ level: 'month', month: month.monthIndex, season: monthToSeason(month.monthIndex) })}
-              />
-            ))}
-
-            <circle cx={400} cy={400} r={98} fill="#FAFAFC" stroke="rgba(125,125,130,0.12)" strokeWidth={2} />
-
-            {offerings.map((item) => {
-              const computed = yearGeometryById.get(item.offering.id);
-              if (!computed) {
-                return null;
-              }
-
-              return (
-                <CourseArc
-                  key={item.offering.id}
-                  path={computed.path}
-                  definition={item.definition}
-                  offering={item.offering}
-                  selectedExamOption={item.selectedExamOption}
-                  examPoint={computed.examPoint}
-                  reexamPoint={computed.reexamPoint}
-                  endPoint={computed.endPoint}
-                  onSelect={() => onSelectOffering(item.offering.id)}
-                  onHover={(event) => {
-                    const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
-                    if (!rect) {
-                      return;
-                    }
-                    setTooltip({
-                      visible: true,
-                      x: event.clientX - rect.left + 12,
-                      y: event.clientY - rect.top + 12,
-                      content: item.definition.name,
-                    });
-                  }}
-                  onLeave={() => setTooltip((prev) => ({ ...prev, visible: false }))}
-                />
-              );
-            })}
-          </g>
+      <AnimatePresence mode="wait" initial={false}>
+        {focus.level === 'month' ? (
+          <motion.div
+            key={focusMotionKey}
+            className="h-full w-full"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.04 }}
+            transition={focusMotionTransition}
+          >
+            <MonthGridView
+              year={year}
+              month={monthForView}
+              offerings={offerings}
+              onBack={() => setFocus({ level: 'season', season: resolvedSeason })}
+              onPrevMonth={() => {
+                const prevMonth = monthForView === 0 ? 11 : monthForView - 1;
+                setFocus({ level: 'month', month: prevMonth, season: monthToSeason(prevMonth) });
+              }}
+              onNextMonth={() => {
+                const nextMonth = monthForView === 11 ? 0 : monthForView + 1;
+                setFocus({ level: 'month', month: nextMonth, season: monthToSeason(nextMonth) });
+              }}
+              fullCanvas={fullCanvas}
+            />
+          </motion.div>
         ) : (
-          <g>
-            <g clipPath={`url(#${seasonClipId})`}>
-              {seasonDayDots.map((dot) => {
-                const x = dot.x;
-                const y = dot.y;
-                const colors = dot.colors;
-                const examOffset = seasonDotRadius * 0.75;
-                const examOffsets =
-                  dot.examMarkers.length <= 1
-                    ? [{ x: 0, y: 0 }]
-                    : dot.examMarkers.length === 2
-                      ? [
-                          { x: -examOffset, y: 0 },
-                          { x: examOffset, y: 0 },
-                        ]
-                      : [
-                          { x: 0, y: -examOffset },
-                          { x: -examOffset * 0.85, y: examOffset * 0.7 },
-                          { x: examOffset * 0.85, y: examOffset * 0.7 },
-                        ];
+          <motion.svg
+            key={focusMotionKey}
+            id="radial-calendar-svg"
+            viewBox={svgViewBox}
+            className="h-full w-full"
+            preserveAspectRatio="xMidYMid meet"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.03 }}
+            transition={focusMotionTransition}
+          >
+            <defs>
+              <clipPath id={seasonClipId} clipPathUnits="userSpaceOnUse">
+                <path d={seasonClipPath} />
+              </clipPath>
+            </defs>
 
-                return (
-                  <g
-                    key={dot.id}
-                    className="cursor-pointer"
-                    onMouseEnter={(event) => {
-                      const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
-                      if (!rect) {
-                        return;
-                      }
-                      setTooltip({
-                        visible: true,
-                        x: event.clientX - rect.left + 12,
-                        y: event.clientY - rect.top + 12,
-                        content: `${MONTH_NAMES[dot.monthIndex]} ${dot.day}: ${dot.tooltipText}`,
-                      });
-                    }}
-                    onMouseMove={(event) => {
-                      const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
-                      if (!rect) {
-                        return;
-                      }
-                      setTooltip((prev) => ({
-                        ...prev,
-                        visible: true,
-                        x: event.clientX - rect.left + 12,
-                        y: event.clientY - rect.top + 12,
-                      }));
-                    }}
-                    onMouseLeave={() => setTooltip((prev) => ({ ...prev, visible: false }))}
-                  >
-                    {colors.length === 0 ? (
-                      <circle cx={x} cy={y} r={seasonDotRadius} fill="#CDD3DE" opacity={0.82} />
-                    ) : colors.length === 1 ? (
-                      <circle cx={x} cy={y} r={seasonDotRadius} fill={colors[0]} opacity={0.9} />
-                    ) : (
-                      colors.map((color, index) => {
-                        const segmentStart = index * (360 / colors.length);
-                        const segmentEnd = (index + 1) * (360 / colors.length);
-                        return (
-                          <path
-                            key={`${dot.id}-slice-${index}`}
-                            d={describePieSlice(x, y, seasonDotRadius, segmentStart, segmentEnd)}
-                            fill={color}
-                            opacity={0.95}
-                          />
-                        );
-                      })
-                    )}
-                    <circle cx={x} cy={y} r={seasonDotRadius} fill="none" stroke="white" strokeWidth={0.45} />
-                    {dot.examMarkers.map((marker, markerIndex) => {
-                      const offset = examOffsets[markerIndex] ?? examOffsets[examOffsets.length - 1];
-                      return (
-                        <ExamDot
-                          key={marker.id}
-                          type={marker.type}
-                          x={x + offset.x}
-                          y={y + offset.y}
-                          color={marker.color}
-                          size={Math.max(0.35, seasonDotRadius / 10)}
-                          reexam={marker.isReexam}
-                        />
-                      );
-                    })}
-                  </g>
-                );
-              })}
-            </g>
+            {focus.level === 'year' ? (
+              <g>
+                {SEASON_LABELS.map((season) => (
+                  <SeasonLabel
+                    key={season.label}
+                    label={season.label}
+                    angle={season.angle}
+                    active={false}
+                    onSelect={() => setFocus({ level: 'season', season: season.key })}
+                  />
+                ))}
 
-            {seasonMonthLabels.map((month) => (
-              <MonthLabel
-                key={`season-${month.label}`}
-                label={month.label}
-                angle={month.angle}
-                radius={seasonFrame.labelRadius}
-                active={month.monthIndex === monthForView}
-                onSelect={() => setFocus({ level: 'month', month: month.monthIndex, season: resolvedSeason })}
-              />
-            ))}
+                {yearMonthLabels.map((month) => (
+                  <MonthLabel
+                    key={month.label}
+                    label={month.label}
+                    angle={month.angle}
+                    onSelect={() => setFocus({ level: 'month', month: month.monthIndex, season: monthToSeason(month.monthIndex) })}
+                  />
+                ))}
 
-            <text
-              x={seasonLabelPoint.x}
-              y={seasonLabelPoint.y}
-              textAnchor="middle"
-              className="fill-neutral-700 text-[11px] font-semibold uppercase tracking-[0.16em]"
-            >
-              {SEASON_DISPLAY_LABELS[resolvedSeason]}
-            </text>
-          </g>
+                <circle cx={400} cy={400} r={98} fill="#FAFAFC" stroke="rgba(125,125,130,0.12)" strokeWidth={2} />
+
+                {offerings.map((item) => {
+                  const computed = yearGeometryById.get(item.offering.id);
+                  if (!computed) {
+                    return null;
+                  }
+
+                  return (
+                    <CourseArc
+                      key={item.offering.id}
+                      path={computed.path}
+                      definition={item.definition}
+                      offering={item.offering}
+                      selectedExamOption={item.selectedExamOption}
+                      examPoint={computed.examPoint}
+                      reexamPoint={computed.reexamPoint}
+                      endPoint={computed.endPoint}
+                      onSelect={() => onSelectOffering(item.offering.id)}
+                      onHover={(event) => {
+                        const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+                        if (!rect) {
+                          return;
+                        }
+                        setTooltip({
+                          visible: true,
+                          x: event.clientX - rect.left + 12,
+                          y: event.clientY - rect.top + 12,
+                          content: item.definition.name,
+                        });
+                      }}
+                      onLeave={() => setTooltip((prev) => ({ ...prev, visible: false }))}
+                    />
+                  );
+                })}
+              </g>
+            ) : (
+              <g>
+                <g clipPath={`url(#${seasonClipId})`}>
+                  {seasonDayDots.map((dot) => {
+                    const x = dot.x;
+                    const y = dot.y;
+                    const colors = dot.colors;
+                    const examOffset = seasonDotRadius * 0.75;
+                    const examOffsets =
+                      dot.examMarkers.length <= 1
+                        ? [{ x: 0, y: 0 }]
+                        : dot.examMarkers.length === 2
+                          ? [
+                              { x: -examOffset, y: 0 },
+                              { x: examOffset, y: 0 },
+                            ]
+                          : [
+                              { x: 0, y: -examOffset },
+                              { x: -examOffset * 0.85, y: examOffset * 0.7 },
+                              { x: examOffset * 0.85, y: examOffset * 0.7 },
+                            ];
+
+                    return (
+                      <g
+                        key={dot.id}
+                        className="cursor-pointer"
+                        onMouseEnter={(event) => {
+                          const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+                          if (!rect) {
+                            return;
+                          }
+                          setTooltip({
+                            visible: true,
+                            x: event.clientX - rect.left + 12,
+                            y: event.clientY - rect.top + 12,
+                            content: `${MONTH_NAMES[dot.monthIndex]} ${dot.day}: ${dot.tooltipText}`,
+                          });
+                        }}
+                        onMouseMove={(event) => {
+                          const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+                          if (!rect) {
+                            return;
+                          }
+                          setTooltip((prev) => ({
+                            ...prev,
+                            visible: true,
+                            x: event.clientX - rect.left + 12,
+                            y: event.clientY - rect.top + 12,
+                          }));
+                        }}
+                        onMouseLeave={() => setTooltip((prev) => ({ ...prev, visible: false }))}
+                      >
+                        {colors.length === 0 ? (
+                          <circle cx={x} cy={y} r={seasonDotRadius} fill="#CDD3DE" opacity={0.82} />
+                        ) : colors.length === 1 ? (
+                          <circle cx={x} cy={y} r={seasonDotRadius} fill={colors[0]} opacity={0.9} />
+                        ) : (
+                          colors.map((color, index) => {
+                            const segmentStart = index * (360 / colors.length);
+                            const segmentEnd = (index + 1) * (360 / colors.length);
+                            return (
+                              <path
+                                key={`${dot.id}-slice-${index}`}
+                                d={describePieSlice(x, y, seasonDotRadius, segmentStart, segmentEnd)}
+                                fill={color}
+                                opacity={0.95}
+                              />
+                            );
+                          })
+                        )}
+                        <circle cx={x} cy={y} r={seasonDotRadius} fill="none" stroke="white" strokeWidth={0.45} />
+                        {dot.examMarkers.map((marker, markerIndex) => {
+                          const offset = examOffsets[markerIndex] ?? examOffsets[examOffsets.length - 1];
+                          return (
+                            <ExamDot
+                              key={marker.id}
+                              type={marker.type}
+                              x={x + offset.x}
+                              y={y + offset.y}
+                              color={marker.color}
+                              size={Math.max(0.35, seasonDotRadius / 10)}
+                              reexam={marker.isReexam}
+                            />
+                          );
+                        })}
+                      </g>
+                    );
+                  })}
+                </g>
+
+                {seasonMonthLabels.map((month) => (
+                  <MonthLabel
+                    key={`season-${month.label}`}
+                    label={month.label}
+                    angle={month.angle}
+                    radius={seasonFrame.labelRadius}
+                    active={month.monthIndex === monthForView}
+                    onSelect={() => setFocus({ level: 'month', month: month.monthIndex, season: resolvedSeason })}
+                  />
+                ))}
+
+                <text
+                  x={seasonLabelPoint.x}
+                  y={seasonLabelPoint.y}
+                  textAnchor="middle"
+                  className="fill-neutral-700 text-[11px] font-semibold uppercase tracking-[0.16em]"
+                >
+                  {SEASON_DISPLAY_LABELS[resolvedSeason]}
+                </text>
+              </g>
+            )}
+          </motion.svg>
         )}
-      </motion.svg>
+      </AnimatePresence>
 
       {focus.level === 'year' ? (
         <button
@@ -1015,35 +1086,37 @@ export function RadialCalendar({
 
       {focus.level === 'season' ? (
         <>
-          <div className="absolute left-3 top-3 z-20 flex max-w-[75%] flex-wrap items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/95 p-1.5 shadow-sm backdrop-blur">
-            {SEASON_ORDER.map((season) => (
-              <button
-                key={`season-pill-${season}`}
-                type="button"
-                className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide transition ${
-                  season === resolvedSeason
-                    ? 'bg-neutral-900 text-white'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-                }`}
-                onClick={() => setFocus({ level: 'season', season })}
-              >
-                {SEASON_DISPLAY_LABELS[season]}
-              </button>
-            ))}
-          </div>
+          <div className="absolute left-3 right-[84px] top-3 z-20 space-y-2">
+            <div className="inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/95 p-1.5 shadow-sm backdrop-blur">
+              {SEASON_ORDER.map((season) => (
+                <button
+                  key={`season-pill-${season}`}
+                  type="button"
+                  className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide transition ${
+                    season === resolvedSeason
+                      ? 'bg-neutral-900 text-white'
+                      : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                  }`}
+                  onClick={() => setFocus({ level: 'season', season })}
+                >
+                  {SEASON_DISPLAY_LABELS[season]}
+                </button>
+              ))}
+            </div>
 
-          <div className="absolute left-3 top-16 z-20 inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white/95 px-3 py-1.5 text-xs text-neutral-600 shadow-sm backdrop-blur">
-            <BookOpen className="h-3.5 w-3.5 text-neutral-500" />
-            <span className="font-semibold text-neutral-800">{seasonOfferings.length} courses</span>
-            <span className="text-neutral-300">|</span>
-            <CalendarDays className="h-3.5 w-3.5 text-neutral-500" />
-            <span className="font-semibold text-neutral-800">{seasonExamCount} exams</span>
+            <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-xl border border-neutral-200 bg-white/95 px-3 py-1.5 text-xs text-neutral-600 shadow-sm backdrop-blur">
+              <BookOpen className="h-3.5 w-3.5 text-neutral-500" />
+              <span className="font-semibold text-neutral-800">{seasonOfferings.length} courses</span>
+              <span className="text-neutral-300">|</span>
+              <CalendarDays className="h-3.5 w-3.5 text-neutral-500" />
+              <span className="font-semibold text-neutral-800">{seasonExamCount} exams</span>
+            </div>
           </div>
 
         </>
       ) : null}
 
-      {yearDropdownOpen && yearOptions.length > 0 && selectedYearOption !== undefined ? (
+      {focus.level !== 'month' && yearDropdownOpen && yearOptions.length > 0 && selectedYearOption !== undefined ? (
         <div className="absolute left-1/2 top-1/2 z-30 w-[128px] -translate-x-1/2 translate-y-8 rounded-2xl border border-neutral-200 bg-white/98 p-1.5 shadow-panel sm:w-[148px] sm:translate-y-10 sm:p-2">
           <Dropdown
             className="h-10 rounded-xl border border-neutral-200 bg-white px-2.5 text-sm font-semibold"
@@ -1057,15 +1130,19 @@ export function RadialCalendar({
         </div>
       ) : null}
 
-      <Tooltip visible={tooltip.visible} x={tooltip.x} y={tooltip.y}>
-        {tooltip.content}
-      </Tooltip>
+      {focus.level !== 'month' ? (
+        <Tooltip visible={tooltip.visible} x={tooltip.x} y={tooltip.y}>
+          {tooltip.content}
+        </Tooltip>
+      ) : null}
 
-      <div className="absolute bottom-3 left-3 rounded-xl border border-neutral-200 bg-white/90 px-3 py-2 text-xs text-neutral-600">
-        {focus.level === 'year'
-          ? 'Year view: click a season or month.'
-          : 'Season view: dots are days (split colors = multiple subjects); click a month label for day grid.'}
-      </div>
+      {focus.level !== 'month' ? (
+        <div className="absolute bottom-3 left-3 rounded-xl border border-neutral-200 bg-white/90 px-3 py-2 text-xs text-neutral-600">
+          {focus.level === 'year'
+            ? 'Year view: click a season or month.'
+            : 'Season view: dots are days (split colors = multiple subjects); click a month label for day grid.'}
+        </div>
+      ) : null}
     </div>
   );
 }

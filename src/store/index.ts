@@ -25,6 +25,7 @@ import {
 } from './settingsSlice';
 import { normalizeAcademicYear, normalizeSemesterForYear } from '../utils/academicYears';
 import { setDevSeedOverride, tryWriteSeedFile } from '../utils/devSeed';
+import { createCompactSeedSnapshot } from '../utils/seedSnapshot';
 
 const ADMIN_SESSION_KEY = 'srp_admin_session';
 const storageAdapter = new IndexedDBAdapter();
@@ -123,6 +124,19 @@ function sortPlans(plans: UserPlan[]) {
   return [...plans].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
+function nextIncludedDisplayOrder(
+  selections: UserPlan['selectedOfferings'],
+  ignoreOfferingId?: string,
+): number {
+  const includedOrders = selections
+    .filter((selection) => selection.isIncluded && selection.offeringId !== ignoreOfferingId)
+    .map((selection) => selection.displayOrder);
+  if (includedOrders.length === 0) {
+    return 0;
+  }
+  return Math.max(...includedOrders) + 1;
+}
+
 function makeAdminLog(
   entityType: AdminChangelogEntry['entityType'],
   entityId: string,
@@ -144,8 +158,9 @@ function makeAdminLog(
 async function persistDevSeedSnapshot() {
   try {
     const snapshot = await storageAdapter.exportDatabase();
-    setDevSeedOverride(snapshot);
-    await tryWriteSeedFile(snapshot);
+    const compactSnapshot = createCompactSeedSnapshot(snapshot);
+    setDevSeedOverride(compactSnapshot);
+    await tryWriteSeedFile(compactSnapshot);
   } catch {
     // Ignore snapshot failures in development convenience flow.
   }
@@ -385,9 +400,16 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
           offeringId,
           selectedExamOptionId: updates.selectedExamOptionId ?? '',
           isIncluded: updates.isIncluded ?? false,
-          displayOrder:
-            updates.displayOrder ?? plan.selectedOfferings.filter((selection) => selection.isIncluded).length,
+          displayOrder: updates.displayOrder ?? nextIncludedDisplayOrder(plan.selectedOfferings),
         };
+
+    if (
+      updates.isIncluded === true &&
+      updates.displayOrder === undefined &&
+      !(existing?.isIncluded ?? false)
+    ) {
+      nextSelection.displayOrder = nextIncludedDisplayOrder(plan.selectedOfferings, offeringId);
+    }
 
     const selectedOfferings = [
       ...plan.selectedOfferings.filter((item) => item.offeringId !== offeringId),
@@ -432,9 +454,19 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
             selectedExamOptionId: updates.selectedExamOptionId ?? '',
             isIncluded: updates.isIncluded ?? false,
             displayOrder:
-              updates.displayOrder ??
-              Array.from(selectionByOfferingId.values()).filter((selection) => selection.isIncluded).length,
+              updates.displayOrder ?? nextIncludedDisplayOrder(Array.from(selectionByOfferingId.values())),
           };
+
+      if (
+        updates.isIncluded === true &&
+        updates.displayOrder === undefined &&
+        !(existing?.isIncluded ?? false)
+      ) {
+        nextSelection.displayOrder = nextIncludedDisplayOrder(
+          Array.from(selectionByOfferingId.values()),
+          offeringId,
+        );
+      }
 
       selectionByOfferingId.set(offeringId, nextSelection);
     });
@@ -476,12 +508,12 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
       get().appSettings.activeProgramRuleId || get().programRules.find((rule) => rule.isActive)?.id || '';
     const offerings = get()
       .courseOfferings
-      .filter((offering) => offering.academicYear === normalizedYear)
+      .filter(
+        (offering) =>
+          offering.academicYear === normalizedYear &&
+          offering.semesterType === normalizedSemester,
+      )
       .sort((a, b) => {
-        const semesterDiff = (a.semesterType === 'winter' ? 0 : 1) - (b.semesterType === 'winter' ? 0 : 1);
-        if (semesterDiff !== 0) {
-          return semesterDiff;
-        }
         const dateDiff = a.startDate.localeCompare(b.startDate);
         if (dateDiff !== 0) {
           return dateDiff;

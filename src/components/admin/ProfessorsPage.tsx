@@ -33,7 +33,6 @@ export function ProfessorsPage({ professors, universities, canEdit, onSave, onDe
               id: '',
               name: '',
               universityId: universities[0]?.id ?? 'UNIA',
-              email: '',
               isActive: true,
             });
             setOpen(true);
@@ -56,7 +55,7 @@ export function ProfessorsPage({ professors, universities, canEdit, onSave, onDe
             }}
           >
             <p className="font-semibold">{professor.name}</p>
-            <p className="text-xs text-text-secondary">{professor.email || 'No email'}</p>
+            <p className="text-xs text-text-secondary">{professor.isActive ? 'Active' : 'Inactive'}</p>
           </button>
         ))}
       </div>
@@ -70,14 +69,6 @@ export function ProfessorsPage({ professors, universities, canEdit, onSave, onDe
                 className="mt-1 h-11 w-full rounded-xl border border-border px-3"
                 value={form.name}
                 onChange={(event) => setForm((prev) => (prev ? { ...prev, name: event.target.value } : prev))}
-              />
-            </label>
-            <label className="block text-sm">
-              Email
-              <input
-                className="mt-1 h-11 w-full rounded-xl border border-border px-3"
-                value={form.email ?? ''}
-                onChange={(event) => setForm((prev) => (prev ? { ...prev, email: event.target.value } : prev))}
               />
             </label>
             <label className="block text-sm">

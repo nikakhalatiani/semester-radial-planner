@@ -1,13 +1,3 @@
-import {
-  closestCenter,
-  DndContext,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-} from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-
 import type {
   CourseDefinition,
   CourseOffering,
@@ -28,6 +18,11 @@ export interface PlanningRow {
   professorNames: string;
 }
 
+export interface RuleScopePlanOption {
+  id: string;
+  label: string;
+}
+
 interface PlanningPanelProps {
   rows: PlanningRow[];
   searchQuery: string;
@@ -36,7 +31,9 @@ interface PlanningPanelProps {
   onSearch: (query: string) => void;
   onToggleCategory: (category: CourseCategory) => void;
   onToggleInclude: (offeringId: string, next: boolean) => void;
-  onDragReorder: (activeId: string, overId: string) => void;
+  ruleScopePlanOptions: RuleScopePlanOption[];
+  selectedRuleScopePlanIds: string[];
+  onToggleRuleScopePlan: (planId: string) => void;
 }
 
 export function PlanningPanel({
@@ -47,25 +44,10 @@ export function PlanningPanel({
   onSearch,
   onToggleCategory,
   onToggleInclude,
-  onDragReorder,
+  ruleScopePlanOptions,
+  selectedRuleScopePlanIds,
+  onToggleRuleScopePlan,
 }: PlanningPanelProps) {
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-  );
-
-  const onDragEnd = (event: DragEndEvent) => {
-    if (!event.over || event.active.id === event.over.id) {
-      return;
-    }
-    onDragReorder(String(event.active.id), String(event.over.id));
-  };
-
-  const includedIds = rows.filter((row) => row.selection?.isIncluded).map((row) => row.offering.id);
-
   return (
     <section className="rounded-3xl bg-surface p-3">
       <header className="mb-3 space-y-3">
@@ -76,26 +58,47 @@ export function PlanningPanel({
           value={searchQuery}
           onChange={(event) => onSearch(event.target.value)}
         />
-        <p className="text-xs text-text-secondary">Included cards can be reordered by dragging the card.</p>
+        <p className="text-xs text-text-secondary">
+          Course line order follows the sequence in which courses are included.
+        </p>
       </header>
 
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-        <SortableContext items={includedIds} strategy={verticalListSortingStrategy}>
-          <div className="max-h-[62vh] space-y-3 overflow-y-auto pb-6">
-            {rows.map((row) => (
-              <CoursePlanningCard
-                key={row.offering.id}
-                definition={row.definition}
-                offering={row.offering}
-                selection={row.selection}
-                university={row.university}
-                professorNames={row.professorNames}
-                onToggleInclude={(next) => onToggleInclude(row.offering.id, next)}
-              />
-            ))}
-          </div>
-        </SortableContext>
-      </DndContext>
+      <div className="max-h-[62vh] space-y-3 overflow-y-auto pb-6">
+        {rows.map((row) => (
+          <CoursePlanningCard
+            key={row.offering.id}
+            definition={row.definition}
+            offering={row.offering}
+            selection={row.selection}
+            university={row.university}
+            professorNames={row.professorNames}
+            onToggleInclude={(next) => onToggleInclude(row.offering.id, next)}
+          />
+        ))}
+      </div>
+
+      <div className="mt-4 space-y-2 rounded-2xl border border-border bg-white p-3">
+        <p className="text-xs font-semibold uppercase tracking-wide text-text-secondary">Rule Scope (Semester Plans)</p>
+        <div className="flex flex-wrap gap-2">
+          {ruleScopePlanOptions.map((plan) => {
+            const selected = selectedRuleScopePlanIds.includes(plan.id);
+            return (
+              <button
+                key={plan.id}
+                type="button"
+                className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
+                  selected
+                    ? 'border-neutral-900 bg-neutral-900 text-white'
+                    : 'border-border bg-surface text-text-secondary'
+                }`}
+                onClick={() => onToggleRuleScopePlan(plan.id)}
+              >
+                {plan.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
       <ProgramRuleChecker result={ruleResult} />
     </section>

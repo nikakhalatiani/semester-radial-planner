@@ -23,6 +23,52 @@ interface UseRadialGeometryOptions {
   transformAngle?: (angle: number) => number;
 }
 
+interface DateInterval {
+  startMs: number;
+  endMs: number;
+}
+
+function toDateInterval(startDate: string, endDate: string): DateInterval {
+  const startMs = new Date(startDate).getTime();
+  const endMs = new Date(endDate).getTime();
+  if (Number.isNaN(startMs) || Number.isNaN(endMs)) {
+    return { startMs: 0, endMs: 0 };
+  }
+  return startMs <= endMs ? { startMs, endMs } : { startMs: endMs, endMs: startMs };
+}
+
+function intervalsOverlap(a: DateInterval, b: DateInterval): boolean {
+  return !(a.endMs < b.startMs || b.endMs < a.startMs);
+}
+
+function assignLaneIndices(offerings: RadialDisplayOffering[]): Map<string, number> {
+  const laneIntervals: DateInterval[][] = [];
+  const laneByOfferingId = new Map<string, number>();
+
+  offerings.forEach((item) => {
+    const interval = toDateInterval(item.offering.startDate, item.offering.endDate);
+    let assignedLane = -1;
+
+    for (let laneIndex = 0; laneIndex < laneIntervals.length; laneIndex += 1) {
+      const hasOverlap = laneIntervals[laneIndex].some((existing) => intervalsOverlap(existing, interval));
+      if (!hasOverlap) {
+        assignedLane = laneIndex;
+        break;
+      }
+    }
+
+    if (assignedLane === -1) {
+      assignedLane = laneIntervals.length;
+      laneIntervals.push([]);
+    }
+
+    laneIntervals[assignedLane].push(interval);
+    laneByOfferingId.set(item.offering.id, assignedLane);
+  });
+
+  return laneByOfferingId;
+}
+
 export function useRadialGeometry(
   offerings: RadialDisplayOffering[],
   year: number,
@@ -31,10 +77,13 @@ export function useRadialGeometry(
   const transformAngle = options?.transformAngle;
 
   return useMemo(() => {
+    const laneByOfferingId = assignLaneIndices(offerings);
+
     return offerings.map((item) => {
       const rawStartAngle = dateToAngle(new Date(item.offering.startDate), year);
       const rawEndAngle = dateToAngle(new Date(item.offering.endDate), year);
-      const radius = courseRadius(item.displayOrder);
+      const lane = laneByOfferingId.get(item.offering.id) ?? item.displayOrder;
+      const radius = courseRadius(lane);
 
       const examDate = item.selectedExamOption?.date;
       const rawExamAngle = dateToAngle(new Date(examDate ?? item.offering.endDate), year);

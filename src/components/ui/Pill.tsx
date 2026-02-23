@@ -70,8 +70,10 @@ export function PillButton({
     <button
       type={rest.type ?? 'button'}
       className={clsx(
-        'inline-flex shrink-0 items-center justify-center rounded-full border font-semibold leading-none transition',
-        'active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60',
+        'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border font-semibold leading-none transition',
+        'shadow-[0_1px_0_rgba(17,24,39,0.08)] hover:-translate-y-px hover:shadow-sm',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/45 focus-visible:ring-offset-1',
+        'active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60',
         toneClass(tone),
         sizeClass(size),
         textCaseClass(uppercase),

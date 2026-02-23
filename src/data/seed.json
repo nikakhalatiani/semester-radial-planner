@@ -31,24 +31,70 @@
   ],
   "professors": [
     {
-      "id": "prof-andre",
-      "name": "Elisabeth Andre",
+      "id": "prof-1771861273368",
+      "name": "Prof. Alfons Kemper, Ph.D.",
+      "universityId": "TUM",
+      "email": "",
+      "isActive": false
+    },
+    {
+      "id": "prof-1771861304939",
+      "name": "Prof. Dr. Wolfgang Reif",
       "universityId": "UNIA",
-      "email": "andre@unia.example",
+      "email": "",
+      "isActive": false
+    },
+    {
+      "id": "prof-1771861362905",
+      "name": "Prof. Dr. Martin Wirsing",
+      "universityId": "LMU",
+      "email": "",
+      "isActive": true
+    },
+    {
+      "id": "prof-1771861575950",
+      "name": "Prof. Dr. Thomas Neumann",
+      "universityId": "TUM",
+      "email": "",
+      "isActive": true
+    },
+    {
+      "id": "prof-1771861776364",
+      "name": "Prof. Dr. Gidon Ernst",
+      "universityId": "LMU",
+      "isActive": true
+    },
+    {
+      "id": "prof-1771862674530",
+      "name": "Prof. Dr. Alexander Pretschner",
+      "universityId": "TUM",
+      "isActive": true
+    },
+    {
+      "id": "prof-1771863615450",
+      "name": "Dr. Dominik Haneberg",
+      "universityId": "UNIA",
+      "isActive": true
+    },
+    {
+      "id": "prof-andre",
+      "name": "Prof. Dr. Elisabeth André",
+      "universityId": "UNIA",
+      "email": "",
       "isActive": true
     },
     {
       "id": "prof-bauer",
-      "name": "Bernhard Bauer",
+      "name": "Prof. Dr. Bernhard Bauer",
       "universityId": "UNIA",
-      "email": "bauer@unia.example",
+      "email": "",
       "isActive": true
     },
     {
       "id": "prof-knapp",
-      "name": "Alexander Knapp",
+      "name": "Prof. Dr. Alexander Knapp",
       "universityId": "UNIA",
-      "email": "knapp@unia.example",
+      "email": "",
       "isActive": true
     }
   ],
@@ -63,7 +109,7 @@
       "credits": 6,
       "universityId": "TUM",
       "professorIds": [
-        "prof-kemper"
+        "prof-1771861575950"
       ],
       "color": "#9B59B6",
       "description": "DB elective",
@@ -80,7 +126,7 @@
       "credits": 6,
       "universityId": "TUM",
       "professorIds": [
-        "prof-kemper"
+        "prof-1771861575950"
       ],
       "color": "#9B59B6",
       "description": "DB elective",
@@ -97,7 +143,7 @@
       "credits": 6,
       "universityId": "TUM",
       "professorIds": [
-        "prof-kemper"
+        "prof-1771861575950"
       ],
       "color": "#9B59B6",
       "description": "Mandatory course Datenbanksysteme",
@@ -111,10 +157,10 @@
       "category": "DB",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
+      "credits": 4,
       "universityId": "TUM",
       "professorIds": [
-        "prof-kemper"
+        "prof-1771861575950"
       ],
       "color": "#9B59B6",
       "description": "DB Seminar",
@@ -128,10 +174,10 @@
       "category": "DB",
       "isMandatory": false,
       "isSeminar": false,
-      "credits": 6,
-      "universityId": "LMU",
+      "credits": 5,
+      "universityId": "TUM",
       "professorIds": [
-        "prof-fischer"
+        "prof-1771861575950"
       ],
       "color": "#9B59B6",
       "description": "DB elective",
@@ -162,7 +208,7 @@
       "category": "DS",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
+      "credits": 4,
       "universityId": "UNIA",
       "professorIds": [
         "prof-bauer"
@@ -213,14 +259,13 @@
       "category": "FM",
       "isMandatory": false,
       "isSeminar": false,
-      "credits": 6,
-      "universityId": "TUM",
+      "credits": 3,
       "professorIds": [
-        "prof-ruppert"
+        "prof-knapp"
       ],
       "color": "#F5A623",
       "description": "Elective FM",
-      "isArchived": false,
+      "isArchived": true,
       "tags": []
     },
     {
@@ -247,10 +292,10 @@
       "category": "FM",
       "isMandatory": false,
       "isSeminar": false,
-      "credits": 6,
+      "credits": 5,
       "universityId": "LMU",
       "professorIds": [
-        "prof-fischer"
+        "prof-knapp"
       ],
       "color": "#F5A623",
       "description": "Elective FM",
@@ -264,7 +309,7 @@
       "category": "FM",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
+      "credits": 4,
       "universityId": "UNIA",
       "professorIds": [
         "prof-knapp"
@@ -282,9 +327,9 @@
       "isMandatory": false,
       "isSeminar": false,
       "credits": 6,
-      "universityId": "TUM",
+      "universityId": "UNIA",
       "professorIds": [
-        "prof-ruppert"
+        "prof-knapp"
       ],
       "color": "#F5A623",
       "description": "Elective FM",
@@ -315,7 +360,7 @@
       "category": "HCI",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
+      "credits": 4,
       "universityId": "UNIA",
       "professorIds": [
         "prof-andre"
@@ -332,10 +377,10 @@
       "category": "HCI",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
-      "universityId": "LMU",
+      "credits": 4,
+      "universityId": "UNIA",
       "professorIds": [
-        "prof-huber"
+        "prof-andre"
       ],
       "color": "#E91E8C",
       "description": "HCI seminar",
@@ -350,11 +395,14 @@
       "isMandatory": false,
       "isSeminar": false,
       "credits": 6,
-      "professorIds": [],
+      "professorIds": [
+        "prof-andre"
+      ],
       "color": "#E91E8C",
       "description": "HCI elective",
       "isArchived": false,
-      "tags": []
+      "tags": [],
+      "universityId": "UNIA"
     },
     {
       "id": "cd-pr-industriepraktikum",
@@ -381,9 +429,9 @@
       "isMandatory": false,
       "isSeminar": false,
       "credits": 6,
-      "universityId": "TUM",
+      "universityId": "UNIA",
       "professorIds": [
-        "prof-meier"
+        "prof-knapp"
       ],
       "color": "#4A90D9",
       "description": "Elective SE",
@@ -397,10 +445,10 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": false,
-      "credits": 6,
-      "universityId": "LMU",
+      "credits": 5,
+      "universityId": "UNIA",
       "professorIds": [
-        "prof-huber"
+        "prof-1771861776364"
       ],
       "color": "#4A90D9",
       "description": "Elective SE",
@@ -414,14 +462,14 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": false,
-      "credits": 6,
-      "universityId": "TUM",
+      "credits": 5,
+      "universityId": "UNIA",
       "professorIds": [
-        "prof-meier"
+        "prof-knapp"
       ],
       "color": "#4A90D9",
       "description": "Elective SE",
-      "isArchived": false,
+      "isArchived": true,
       "tags": []
     },
     {
@@ -432,11 +480,14 @@
       "isMandatory": false,
       "isSeminar": false,
       "credits": 6,
-      "professorIds": [],
+      "professorIds": [
+        "prof-1771861362905"
+      ],
       "color": "#4A90D9",
       "description": "Elective SE",
       "isArchived": false,
-      "tags": []
+      "tags": [],
+      "universityId": "LMU"
     },
     {
       "id": "cd-se-requirements",
@@ -446,9 +497,9 @@
       "isMandatory": false,
       "isSeminar": false,
       "credits": 6,
-      "universityId": "UNIA",
+      "universityId": "TUM",
       "professorIds": [
-        "prof-zimmer"
+        "prof-1771862674530"
       ],
       "color": "#4A90D9",
       "description": "Elective SE",
@@ -462,8 +513,7 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
-      "universityId": "TUM",
+      "credits": 4,
       "professorIds": [
         "prof-meier"
       ],
@@ -479,8 +529,7 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
-      "universityId": "UNIA",
+      "credits": 4,
       "professorIds": [
         "prof-zimmer"
       ],
@@ -496,8 +545,7 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
-      "universityId": "UNIA",
+      "credits": 4,
       "professorIds": [
         "prof-bauer"
       ],
@@ -513,8 +561,7 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": true,
-      "credits": 5,
-      "universityId": "UNIA",
+      "credits": 4,
       "professorIds": [
         "prof-reif"
       ],
@@ -533,7 +580,7 @@
       "credits": 6,
       "universityId": "UNIA",
       "professorIds": [
-        "prof-reif"
+        "prof-1771863615450"
       ],
       "color": "#4A90D9",
       "description": "Mandatory course Software Engineering",
@@ -547,10 +594,10 @@
       "category": "SE",
       "isMandatory": false,
       "isSeminar": false,
-      "credits": 6,
-      "universityId": "UNIA",
+      "credits": 5,
+      "universityId": "LMU",
       "professorIds": [
-        "prof-zimmer"
+        "prof-knapp"
       ],
       "color": "#4A90D9",
       "description": "Elective SE",
@@ -694,15 +741,13 @@
       "id": "cd-th-masterarbeit",
       "name": "Masterarbeit",
       "shortCode": "MA",
-      "category": "SE",
       "isMandatory": true,
       "isSeminar": false,
       "credits": 30,
-      "universityId": "UNIA",
       "professorIds": [
         "prof-reif"
       ],
-      "color": "#4A90D9",
+      "color": "#7A808B",
       "description": "Master thesis",
       "isArchived": false,
       "tags": [
@@ -712,25 +757,192 @@
   ],
   "courseOfferings": [
     {
+      "id": "offering-1771719462272",
+      "courseDefinitionId": "cd-se-projektmanagement",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2025-10-06",
+      "endDate": "2025-10-09",
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771880717372-0",
+          "date": "2025-10-06",
+          "startTime": "10:15",
+          "endTime": "17:15"
+        },
+        {
+          "id": "lecture-session-1771880717372-1",
+          "date": "2025-10-07",
+          "startTime": "10:15",
+          "endTime": "17:15"
+        },
+        {
+          "id": "lecture-session-1771880717372-2",
+          "date": "2025-10-08",
+          "startTime": "10:15",
+          "endTime": "17:15"
+        },
+        {
+          "id": "lecture-session-1771880717372-3",
+          "date": "2025-10-09",
+          "startTime": "10:15",
+          "endTime": "17:15"
+        }
+      ],
+      "lectureDates": [
+        "2025-10-06",
+        "2025-10-07",
+        "2025-10-08",
+        "2025-10-09"
+      ],
+      "examOptions": [
+        {
+          "id": "offering-1771719462272-exam-pn3nkc",
+          "type": "oral",
+          "date": "2025-10-10",
+          "isDefault": true
+        }
+      ],
+      "notes": "",
+      "professorIds": [
+        "prof-1771861362905"
+      ],
+      "lastUpdatedAt": "2026-02-23T21:05:32.934Z",
+      "lastUpdatedBy": "superadmin@planner.local"
+    },
+    {
       "id": "off-2025-winter-db-datenbanksysteme",
       "courseDefinitionId": "cd-db-datenbanksysteme",
       "academicYear": 2025,
       "semesterType": "winter",
       "isAvailable": true,
-      "startDate": "2025-10-08T00:00:00.000Z",
-      "endDate": "2026-01-14T00:00:00.000Z",
+      "startDate": "2025-10-13",
+      "endDate": "2026-02-02",
       "examOptions": [
         {
           "id": "off-2025-winter-db-datenbanksysteme-written",
           "type": "written",
-          "date": "2026-02-10T00:00:00.000Z",
-          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "date": "2026-02-20",
+          "reexamDate": "2026-04-02",
           "location": "Campus",
           "isDefault": true
         }
       ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
+      "lastUpdatedAt": "2026-02-23T20:58:20.172Z",
+      "lastUpdatedBy": "superadmin@planner.local",
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771865339468-0",
+          "date": "2025-10-13",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-1",
+          "date": "2025-10-20",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-2",
+          "date": "2025-10-27",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-3",
+          "date": "2025-11-03",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-4",
+          "date": "2025-11-10",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-5",
+          "date": "2025-11-17",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-6",
+          "date": "2025-11-24",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-7",
+          "date": "2025-12-01",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-8",
+          "date": "2025-12-08",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-9",
+          "date": "2025-12-15",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-10",
+          "date": "2025-12-22",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-13",
+          "date": "2026-01-12",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-14",
+          "date": "2026-01-19",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865339468-15",
+          "date": "2026-01-26",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        },
+        {
+          "id": "lecture-session-1771865363160-16",
+          "date": "2026-02-02",
+          "startTime": "10:00",
+          "endTime": "13:00"
+        }
+      ],
+      "lectureDates": [
+        "2025-10-13",
+        "2025-10-20",
+        "2025-10-27",
+        "2025-11-03",
+        "2025-11-10",
+        "2025-11-17",
+        "2025-11-24",
+        "2025-12-01",
+        "2025-12-08",
+        "2025-12-15",
+        "2025-12-22",
+        "2026-01-12",
+        "2026-01-19",
+        "2026-01-26",
+        "2026-02-02"
+      ],
+      "professorIds": [
+        "prof-1771861575950"
+      ]
     },
     {
       "id": "off-2025-winter-fm-formale-methoden",
@@ -738,35 +950,131 @@
       "academicYear": 2025,
       "semesterType": "winter",
       "isAvailable": true,
-      "startDate": "2025-10-02T00:00:00.000Z",
-      "endDate": "2026-01-10T00:00:00.000Z",
-      "lectureSessions": [],
-      "lectureDates": [],
+      "startDate": "2025-10-14",
+      "endDate": "2026-02-03",
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771880511770-0",
+          "date": "2025-10-14",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-1",
+          "date": "2025-10-21",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-2",
+          "date": "2025-10-28",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-3",
+          "date": "2025-11-04",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-4",
+          "date": "2025-11-11",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-5",
+          "date": "2025-11-18",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-6",
+          "date": "2025-11-25",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-7",
+          "date": "2025-12-02",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-8",
+          "date": "2025-12-09",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-9",
+          "date": "2025-12-16",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-13",
+          "date": "2026-01-13",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-14",
+          "date": "2026-01-20",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-15",
+          "date": "2026-01-27",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        },
+        {
+          "id": "lecture-session-1771880511770-16",
+          "date": "2026-02-03",
+          "startTime": "10:00",
+          "endTime": "14:00"
+        }
+      ],
+      "lectureDates": [
+        "2025-10-14",
+        "2025-10-21",
+        "2025-10-28",
+        "2025-11-04",
+        "2025-11-11",
+        "2025-11-18",
+        "2025-11-25",
+        "2025-12-02",
+        "2025-12-09",
+        "2025-12-16",
+        "2026-01-13",
+        "2026-01-20",
+        "2026-01-27",
+        "2026-02-03"
+      ],
       "examOptions": [
         {
           "id": "off-2025-winter-fm-formale-methoden-written",
-          "type": "written",
-          "date": "2026-02-06T00:00:00.000Z",
-          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "type": "oral",
+          "date": "2025-12-03",
           "location": "Campus",
           "isDefault": true
         },
         {
           "id": "off-2025-winter-fm-formale-methoden-oral",
           "type": "oral",
-          "date": "2026-02-12T00:00:00.000Z",
+          "date": "2026-02-04",
           "location": "Campus",
-          "isDefault": false
-        },
-        {
-          "id": "off-2025-winter-fm-formale-methoden-midterm",
-          "type": "written",
-          "date": "2025-11-03T00:00:00.000Z",
           "isDefault": false
         }
       ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
+      "lastUpdatedAt": "2026-02-23T21:03:20.014Z",
+      "lastUpdatedBy": "superadmin@planner.local",
+      "professorIds": [
+        "prof-knapp"
+      ]
     },
     {
       "id": "off-2025-winter-se-software-engineering",
@@ -774,23 +1082,194 @@
       "academicYear": 2025,
       "semesterType": "winter",
       "isAvailable": true,
-      "startDate": "2025-10-13",
-      "endDate": "2026-01-12T00:00:00.000Z",
+      "startDate": "2025-10-16",
+      "endDate": "2026-02-05",
       "examOptions": [
         {
           "id": "off-2025-winter-se-software-engineering-written",
-          "type": "written",
-          "date": "2026-02-08T00:00:00.000Z",
-          "reexamDate": "2026-02-25T00:00:00.000Z",
+          "type": "project",
+          "date": "2026-01-15",
           "location": "Campus",
           "isDefault": true
+        },
+        {
+          "id": "exam-1771880822383",
+          "type": "written",
+          "date": "2026-02-27",
+          "isDefault": false
         }
       ],
-      "lastUpdatedAt": "2026-02-21T23:00:00.552Z",
+      "lastUpdatedAt": "2026-02-23T21:10:59.639Z",
       "lastUpdatedBy": "superadmin@planner.local",
       "professorIds": [
-        "prof-knapp"
+        "prof-1771863615450"
+      ],
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771880923323-0",
+          "date": "2025-10-16",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-1",
+          "date": "2025-10-23",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-2",
+          "date": "2025-10-30",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-3",
+          "date": "2025-11-06",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-4",
+          "date": "2025-11-13",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-5",
+          "date": "2025-11-20",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-6",
+          "date": "2025-11-27",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-7",
+          "date": "2025-12-04",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-8",
+          "date": "2025-12-11",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-9",
+          "date": "2025-12-18",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-13",
+          "date": "2026-01-15",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-14",
+          "date": "2026-01-22",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771880923323-15",
+          "date": "2026-01-29",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        },
+        {
+          "id": "lecture-session-1771881044020-16",
+          "date": "2026-02-05",
+          "startTime": "21:15",
+          "endTime": "13:15"
+        }
+      ],
+      "lectureDates": [
+        "2025-10-16",
+        "2025-10-23",
+        "2025-10-30",
+        "2025-11-06",
+        "2025-11-13",
+        "2025-11-20",
+        "2025-11-27",
+        "2025-12-04",
+        "2025-12-11",
+        "2025-12-18",
+        "2026-01-15",
+        "2026-01-22",
+        "2026-01-29",
+        "2026-02-05"
       ]
+    },
+    {
+      "id": "offering-1771881509271",
+      "courseDefinitionId": "cd-ss-moderation",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-02-09",
+      "endDate": "2026-02-10",
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771881495750-0",
+          "date": "2026-02-09",
+          "startTime": "10:00",
+          "endTime": "17:00"
+        },
+        {
+          "id": "lecture-session-1771881495750-1",
+          "date": "2026-02-10",
+          "startTime": "09:00",
+          "endTime": "17:00"
+        }
+      ],
+      "lectureDates": [
+        "2026-02-09",
+        "2026-02-10"
+      ],
+      "examOptions": [],
+      "notes": "",
+      "professorIds": [],
+      "lastUpdatedAt": "2026-02-23T21:18:29.271Z",
+      "lastUpdatedBy": "superadmin@planner.local"
+    },
+    {
+      "id": "offering-1771881574391",
+      "courseDefinitionId": "cd-ss-praesentation",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-02-09",
+      "endDate": "2026-02-10",
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771881568883-0",
+          "date": "2026-02-09",
+          "startTime": "10:00",
+          "endTime": "17:00"
+        },
+        {
+          "id": "lecture-session-1771881568883-1",
+          "date": "2026-02-10",
+          "startTime": "09:00",
+          "endTime": "17:00"
+        }
+      ],
+      "lectureDates": [
+        "2026-02-09",
+        "2026-02-10"
+      ],
+      "examOptions": [],
+      "notes": "",
+      "professorIds": [],
+      "lastUpdatedAt": "2026-02-23T21:19:34.391Z",
+      "lastUpdatedBy": "superadmin@planner.local"
     },
     {
       "id": "off-2025-winter-ss-change",
@@ -801,10 +1280,26 @@
       "startDate": "2026-02-11",
       "endDate": "2026-02-12",
       "examOptions": [],
-      "lastUpdatedAt": "2026-02-22T00:42:14.810Z",
+      "lastUpdatedAt": "2026-02-23T21:12:07.337Z",
       "lastUpdatedBy": "superadmin@planner.local",
-      "lectureSessions": [],
-      "lectureDates": []
+      "lectureSessions": [
+        {
+          "id": "lecture-session-1771881116788-0",
+          "date": "2026-02-11",
+          "startTime": "09:00",
+          "endTime": "17:00"
+        },
+        {
+          "id": "lecture-session-1771881116788-1",
+          "date": "2026-02-12",
+          "startTime": "09:00",
+          "endTime": "17:00"
+        }
+      ],
+      "lectureDates": [
+        "2026-02-11",
+        "2026-02-12"
+      ]
     },
     {
       "id": "off-2025-winter-ss-schreibtraining",
@@ -815,101 +1310,90 @@
       "startDate": "2026-02-11",
       "endDate": "2026-02-12",
       "examOptions": [],
-      "lastUpdatedAt": "2026-02-22T00:27:55.831Z",
+      "lastUpdatedAt": "2026-02-23T21:13:01.929Z",
       "lastUpdatedBy": "superadmin@planner.local",
-      "lectureSessions": [],
-      "lectureDates": []
-    },
-    {
-      "id": "off-2026-summer-db-data-engineering",
-      "courseDefinitionId": "cd-db-data-engineering",
-      "academicYear": 2026,
-      "semesterType": "summer",
-      "isAvailable": true,
-      "startDate": "2026-04-17T00:00:00.000Z",
-      "endDate": "2026-07-20T00:00:00.000Z",
-      "examOptions": [
+      "lectureSessions": [
         {
-          "id": "off-2026-summer-db-data-engineering-written",
-          "type": "written",
-          "date": "2026-08-16T00:00:00.000Z",
-          "reexamDate": "2026-08-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-summer-ds-se-fuer-vs",
-      "courseDefinitionId": "cd-ds-se-fuer-vs",
-      "academicYear": 2026,
-      "semesterType": "summer",
-      "isAvailable": true,
-      "startDate": "2026-04-14T00:00:00.000Z",
-      "endDate": "2026-07-18T00:00:00.000Z",
-      "lectureSessions": [],
-      "lectureDates": [],
-      "examOptions": [
-        {
-          "id": "off-2026-summer-ds-se-fuer-vs-written",
-          "type": "written",
-          "date": "2026-08-14T00:00:00.000Z",
-          "reexamDate": "2026-08-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
+          "id": "lecture-session-1771881176899-0",
+          "date": "2026-02-11",
+          "startTime": "09:00",
+          "endTime": "17:00"
         },
         {
-          "id": "off-2026-summer-ds-se-fuer-vs-midterm",
-          "type": "written",
-          "date": "2026-05-16T00:00:00.000Z",
-          "isDefault": false
+          "id": "lecture-session-1771881176899-1",
+          "date": "2026-02-12",
+          "startTime": "09:00",
+          "endTime": "17:00"
         }
       ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
+      "lectureDates": [
+        "2026-02-11",
+        "2026-02-12"
+      ]
     },
     {
-      "id": "off-2026-summer-ds-seminar-vs",
-      "courseDefinitionId": "cd-ds-seminar-vs",
-      "academicYear": 2026,
-      "semesterType": "summer",
+      "id": "offering-1771881305377",
+      "courseDefinitionId": "cd-ss-erfolg-team",
+      "academicYear": 2025,
+      "semesterType": "winter",
       "isAvailable": true,
-      "startDate": "2026-04-17T00:00:00.000Z",
-      "endDate": "2026-07-20T00:00:00.000Z",
-      "examOptions": [
+      "startDate": "2026-02-13",
+      "endDate": "2026-02-14",
+      "lectureSessions": [
         {
-          "id": "off-2026-summer-ds-seminar-vs-project",
-          "type": "project",
-          "date": "2026-08-12T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
+          "id": "lecture-session-1771881300051-0",
+          "date": "2026-02-13",
+          "startTime": "09:00",
+          "endTime": "17:00"
+        },
+        {
+          "id": "lecture-session-1771881300051-1",
+          "date": "2026-02-14",
+          "startTime": "09:00",
+          "endTime": "17:00"
         }
       ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
+      "lectureDates": [
+        "2026-02-13",
+        "2026-02-14"
+      ],
+      "examOptions": [],
+      "notes": "",
+      "professorIds": [],
+      "lastUpdatedAt": "2026-02-23T21:15:05.377Z",
+      "lastUpdatedBy": "superadmin@planner.local"
     },
     {
-      "id": "off-2026-summer-fm-it-sicherheit",
-      "courseDefinitionId": "cd-fm-it-sicherheit",
-      "academicYear": 2026,
-      "semesterType": "summer",
+      "id": "offering-1771881394993",
+      "courseDefinitionId": "cd-ss-interkulturell",
+      "academicYear": 2025,
+      "semesterType": "winter",
       "isAvailable": true,
-      "startDate": "2026-04-05T00:00:00.000Z",
-      "endDate": "2026-07-12T00:00:00.000Z",
-      "examOptions": [
+      "startDate": "2026-02-13",
+      "endDate": "2026-02-14",
+      "lectureSessions": [
         {
-          "id": "off-2026-summer-fm-it-sicherheit-written",
-          "type": "written",
-          "date": "2026-08-08T00:00:00.000Z",
-          "reexamDate": "2026-08-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
+          "id": "lecture-session-1771881391003-0",
+          "date": "2026-02-13",
+          "startTime": "09:00",
+          "endTime": "17:00"
+        },
+        {
+          "id": "lecture-session-1771881391003-1",
+          "date": "2026-02-14",
+          "startTime": "09:00",
+          "endTime": "17:00"
         }
       ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
+      "lectureDates": [
+        "2026-02-13",
+        "2026-02-14"
+      ],
+      "examOptions": [],
+      "notes": "",
+      "professorIds": [],
+      "lastUpdatedAt": "2026-02-23T21:16:34.993Z",
+      "lastUpdatedBy": "superadmin@planner.local"
     },
     {
       "id": "off-2026-summer-fm-reaktive-systeme",
@@ -976,28 +1460,42 @@
       "lastUpdatedBy": "seed-admin"
     },
     {
-      "id": "off-2026-summer-se-ki",
-      "courseDefinitionId": "cd-se-ki",
+      "id": "off-2026-summer-fm-it-sicherheit",
+      "courseDefinitionId": "cd-fm-it-sicherheit",
       "academicYear": 2026,
       "semesterType": "summer",
       "isAvailable": true,
-      "startDate": "2026-04-11T00:00:00.000Z",
-      "endDate": "2026-07-16T00:00:00.000Z",
+      "startDate": "2026-04-05T00:00:00.000Z",
+      "endDate": "2026-07-12T00:00:00.000Z",
       "examOptions": [
         {
-          "id": "off-2026-summer-se-ki-written",
+          "id": "off-2026-summer-fm-it-sicherheit-written",
           "type": "written",
-          "date": "2026-08-12T00:00:00.000Z",
+          "date": "2026-08-08T00:00:00.000Z",
           "reexamDate": "2026-08-25T00:00:00.000Z",
           "location": "Campus",
           "isDefault": true
-        },
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ss-praesentation",
+      "courseDefinitionId": "cd-ss-praesentation",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-05T00:00:00.000Z",
+      "endDate": "2026-07-12T00:00:00.000Z",
+      "examOptions": [
         {
-          "id": "off-2026-summer-se-ki-oral",
-          "type": "oral",
-          "date": "2026-08-18T00:00:00.000Z",
+          "id": "off-2026-summer-ss-praesentation-written",
+          "type": "written",
+          "date": "2026-08-20T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
           "location": "Campus",
-          "isDefault": false
+          "isDefault": true
         }
       ],
       "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
@@ -1017,26 +1515,6 @@
           "type": "written",
           "date": "2026-08-10T00:00:00.000Z",
           "reexamDate": "2026-08-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-summer-se-seminar-puli",
-      "courseDefinitionId": "cd-se-seminar-puli",
-      "academicYear": 2026,
-      "semesterType": "summer",
-      "isAvailable": true,
-      "startDate": "2026-04-14T00:00:00.000Z",
-      "endDate": "2026-07-18T00:00:00.000Z",
-      "examOptions": [
-        {
-          "id": "off-2026-summer-se-seminar-puli-project",
-          "type": "project",
-          "date": "2026-08-10T00:00:00.000Z",
           "location": "Campus",
           "isDefault": true
         }
@@ -1074,21 +1552,28 @@
       "lastUpdatedBy": "seed-admin"
     },
     {
-      "id": "off-2026-summer-ss-praesentation",
-      "courseDefinitionId": "cd-ss-praesentation",
+      "id": "off-2026-summer-se-ki",
+      "courseDefinitionId": "cd-se-ki",
       "academicYear": 2026,
       "semesterType": "summer",
       "isAvailable": true,
-      "startDate": "2026-04-05T00:00:00.000Z",
-      "endDate": "2026-07-12T00:00:00.000Z",
+      "startDate": "2026-04-11T00:00:00.000Z",
+      "endDate": "2026-07-16T00:00:00.000Z",
       "examOptions": [
         {
-          "id": "off-2026-summer-ss-praesentation-written",
+          "id": "off-2026-summer-se-ki-written",
           "type": "written",
-          "date": "2026-08-20T00:00:00.000Z",
+          "date": "2026-08-12T00:00:00.000Z",
           "reexamDate": "2026-08-25T00:00:00.000Z",
           "location": "Campus",
           "isDefault": true
+        },
+        {
+          "id": "off-2026-summer-se-ki-oral",
+          "type": "oral",
+          "date": "2026-08-18T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
         }
       ],
       "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
@@ -1123,6 +1608,258 @@
       "lastUpdatedBy": "seed-admin"
     },
     {
+      "id": "off-2026-summer-ds-se-fuer-vs",
+      "courseDefinitionId": "cd-ds-se-fuer-vs",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-14T00:00:00.000Z",
+      "endDate": "2026-07-18T00:00:00.000Z",
+      "lectureSessions": [],
+      "lectureDates": [],
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ds-se-fuer-vs-written",
+          "type": "written",
+          "date": "2026-08-14T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-summer-ds-se-fuer-vs-midterm",
+          "type": "written",
+          "date": "2026-05-16T00:00:00.000Z",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-se-seminar-puli",
+      "courseDefinitionId": "cd-se-seminar-puli",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-14T00:00:00.000Z",
+      "endDate": "2026-07-18T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-se-seminar-puli-project",
+          "type": "project",
+          "date": "2026-08-10T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-db-data-engineering",
+      "courseDefinitionId": "cd-db-data-engineering",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-17T00:00:00.000Z",
+      "endDate": "2026-07-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-db-data-engineering-written",
+          "type": "written",
+          "date": "2026-08-16T00:00:00.000Z",
+          "reexamDate": "2026-08-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-summer-ds-seminar-vs",
+      "courseDefinitionId": "cd-ds-seminar-vs",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "isAvailable": true,
+      "startDate": "2026-04-17T00:00:00.000Z",
+      "endDate": "2026-07-20T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-summer-ds-seminar-vs-project",
+          "type": "project",
+          "date": "2026-08-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-fm-formale-methoden",
+      "courseDefinitionId": "cd-fm-formale-methoden",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2027-01-10T00:00:00.000Z",
+      "lectureSessions": [],
+      "lectureDates": [],
+      "examOptions": [
+        {
+          "id": "off-2026-winter-fm-formale-methoden-written",
+          "type": "written",
+          "date": "2027-02-06T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-fm-formale-methoden-oral",
+          "type": "oral",
+          "date": "2027-02-12T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        },
+        {
+          "id": "off-2026-winter-fm-formale-methoden-midterm",
+          "type": "written",
+          "date": "2026-11-03T00:00:00.000Z",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-seminar-softwaretechnik",
+      "courseDefinitionId": "cd-se-seminar-softwaretechnik",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2027-01-10T00:00:00.000Z",
+      "lectureSessions": [],
+      "lectureDates": [],
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-seminar-softwaretechnik-written",
+          "type": "written",
+          "date": "2027-02-14T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-se-seminar-softwaretechnik-oral",
+          "type": "oral",
+          "date": "2027-02-20T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        },
+        {
+          "id": "off-2026-winter-se-seminar-softwaretechnik-midterm",
+          "type": "written",
+          "date": "2026-11-03T00:00:00.000Z",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-th-masterarbeit",
+      "courseDefinitionId": "cd-th-masterarbeit",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2027-01-10T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-th-masterarbeit-written",
+          "type": "written",
+          "date": "2027-02-18T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-th-masterarbeit-oral",
+          "type": "oral",
+          "date": "2027-02-24T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": false
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-db-seminar",
+      "courseDefinitionId": "cd-db-seminar",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-05T00:00:00.000Z",
+      "endDate": "2027-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-db-seminar-project",
+          "type": "project",
+          "date": "2027-02-16T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-software-engineering",
+      "courseDefinitionId": "cd-se-software-engineering",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-05T00:00:00.000Z",
+      "endDate": "2027-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-software-engineering-written",
+          "type": "written",
+          "date": "2027-02-08T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-testen",
+      "courseDefinitionId": "cd-se-testen",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-05T00:00:00.000Z",
+      "endDate": "2027-01-12T00:00:00.000Z",
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-testen-written",
+          "type": "written",
+          "date": "2027-02-20T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
       "id": "off-2026-winter-db-datenbanksysteme",
       "courseDefinitionId": "cd-db-datenbanksysteme",
       "academicYear": 2026,
@@ -1144,20 +1881,50 @@
       "lastUpdatedBy": "seed-admin"
     },
     {
-      "id": "off-2026-winter-db-seminar",
-      "courseDefinitionId": "cd-db-seminar",
+      "id": "off-2026-winter-fm-sicherheitsanalyse",
+      "courseDefinitionId": "cd-fm-sicherheitsanalyse",
       "academicYear": 2026,
       "semesterType": "winter",
       "isAvailable": true,
-      "startDate": "2026-10-05T00:00:00.000Z",
-      "endDate": "2027-01-12T00:00:00.000Z",
+      "startDate": "2026-10-08T00:00:00.000Z",
+      "endDate": "2027-01-14T00:00:00.000Z",
       "examOptions": [
         {
-          "id": "off-2026-winter-db-seminar-project",
-          "type": "project",
-          "date": "2027-02-16T00:00:00.000Z",
+          "id": "off-2026-winter-fm-sicherheitsanalyse-written",
+          "type": "written",
+          "date": "2027-02-18T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
           "location": "Campus",
           "isDefault": true
+        }
+      ],
+      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
+      "lastUpdatedBy": "seed-admin"
+    },
+    {
+      "id": "off-2026-winter-se-projektmanagement",
+      "courseDefinitionId": "cd-se-projektmanagement",
+      "academicYear": 2026,
+      "semesterType": "winter",
+      "isAvailable": true,
+      "startDate": "2026-10-08T00:00:00.000Z",
+      "endDate": "2027-01-14T00:00:00.000Z",
+      "lectureSessions": [],
+      "lectureDates": [],
+      "examOptions": [
+        {
+          "id": "off-2026-winter-se-projektmanagement-written",
+          "type": "written",
+          "date": "2027-02-06T00:00:00.000Z",
+          "reexamDate": "2027-02-25T00:00:00.000Z",
+          "location": "Campus",
+          "isDefault": true
+        },
+        {
+          "id": "off-2026-winter-se-projektmanagement-midterm",
+          "type": "written",
+          "date": "2026-11-09T00:00:00.000Z",
+          "isDefault": false
         }
       ],
       "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
@@ -1214,63 +1981,6 @@
           "date": "2027-02-18T00:00:00.000Z",
           "location": "Campus",
           "isDefault": false
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-winter-fm-formale-methoden",
-      "courseDefinitionId": "cd-fm-formale-methoden",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-02T00:00:00.000Z",
-      "endDate": "2027-01-10T00:00:00.000Z",
-      "lectureSessions": [],
-      "lectureDates": [],
-      "examOptions": [
-        {
-          "id": "off-2026-winter-fm-formale-methoden-written",
-          "type": "written",
-          "date": "2027-02-06T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        },
-        {
-          "id": "off-2026-winter-fm-formale-methoden-oral",
-          "type": "oral",
-          "date": "2027-02-12T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": false
-        },
-        {
-          "id": "off-2026-winter-fm-formale-methoden-midterm",
-          "type": "written",
-          "date": "2026-11-03T00:00:00.000Z",
-          "isDefault": false
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-winter-fm-sicherheitsanalyse",
-      "courseDefinitionId": "cd-fm-sicherheitsanalyse",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-08T00:00:00.000Z",
-      "endDate": "2027-01-14T00:00:00.000Z",
-      "examOptions": [
-        {
-          "id": "off-2026-winter-fm-sicherheitsanalyse-written",
-          "type": "written",
-          "date": "2027-02-18T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
         }
       ],
       "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
@@ -1347,113 +2057,6 @@
       "lastUpdatedBy": "seed-admin"
     },
     {
-      "id": "off-2026-winter-se-projektmanagement",
-      "courseDefinitionId": "cd-se-projektmanagement",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-08T00:00:00.000Z",
-      "endDate": "2027-01-14T00:00:00.000Z",
-      "lectureSessions": [],
-      "lectureDates": [],
-      "examOptions": [
-        {
-          "id": "off-2026-winter-se-projektmanagement-written",
-          "type": "written",
-          "date": "2027-02-06T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        },
-        {
-          "id": "off-2026-winter-se-projektmanagement-midterm",
-          "type": "written",
-          "date": "2026-11-09T00:00:00.000Z",
-          "isDefault": false
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-winter-se-seminar-softwaretechnik",
-      "courseDefinitionId": "cd-se-seminar-softwaretechnik",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-02T00:00:00.000Z",
-      "endDate": "2027-01-10T00:00:00.000Z",
-      "lectureSessions": [],
-      "lectureDates": [],
-      "examOptions": [
-        {
-          "id": "off-2026-winter-se-seminar-softwaretechnik-written",
-          "type": "written",
-          "date": "2027-02-14T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        },
-        {
-          "id": "off-2026-winter-se-seminar-softwaretechnik-oral",
-          "type": "oral",
-          "date": "2027-02-20T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": false
-        },
-        {
-          "id": "off-2026-winter-se-seminar-softwaretechnik-midterm",
-          "type": "written",
-          "date": "2026-11-03T00:00:00.000Z",
-          "isDefault": false
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-winter-se-software-engineering",
-      "courseDefinitionId": "cd-se-software-engineering",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-05T00:00:00.000Z",
-      "endDate": "2027-01-12T00:00:00.000Z",
-      "examOptions": [
-        {
-          "id": "off-2026-winter-se-software-engineering-written",
-          "type": "written",
-          "date": "2027-02-08T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-winter-se-testen",
-      "courseDefinitionId": "cd-se-testen",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-05T00:00:00.000Z",
-      "endDate": "2027-01-12T00:00:00.000Z",
-      "examOptions": [
-        {
-          "id": "off-2026-winter-se-testen-written",
-          "type": "written",
-          "date": "2027-02-20T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
       "id": "off-2026-winter-ss-erfolg-team",
       "courseDefinitionId": "cd-ss-erfolg-team",
       "academicYear": 2026,
@@ -1473,104 +2076,237 @@
       ],
       "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
       "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "off-2026-winter-th-masterarbeit",
-      "courseDefinitionId": "cd-th-masterarbeit",
-      "academicYear": 2026,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2026-10-02T00:00:00.000Z",
-      "endDate": "2027-01-10T00:00:00.000Z",
-      "examOptions": [
-        {
-          "id": "off-2026-winter-th-masterarbeit-written",
-          "type": "written",
-          "date": "2027-02-18T00:00:00.000Z",
-          "reexamDate": "2027-02-25T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": true
-        },
-        {
-          "id": "off-2026-winter-th-masterarbeit-oral",
-          "type": "oral",
-          "date": "2027-02-24T00:00:00.000Z",
-          "location": "Campus",
-          "isDefault": false
-        }
-      ],
-      "lastUpdatedAt": "2026-02-21T21:03:26.376Z",
-      "lastUpdatedBy": "seed-admin"
-    },
-    {
-      "id": "offering-1771719462272",
-      "courseDefinitionId": "cd-se-projektmanagement",
-      "academicYear": 2025,
-      "semesterType": "winter",
-      "isAvailable": true,
-      "startDate": "2025-10-06",
-      "endDate": "2025-10-09",
-      "lectureSessions": [],
-      "lectureDates": [],
-      "examOptions": [
-        {
-          "id": "offering-1771719462272-exam-pn3nkc",
-          "type": "oral",
-          "date": "2025-10-10",
-          "isDefault": true
-        }
-      ],
-      "notes": "",
-      "professorIds": [],
-      "lastUpdatedAt": "2026-02-22T00:17:42.272Z",
-      "lastUpdatedBy": "superadmin@planner.local"
     }
   ],
   "userPlans": [
     {
-      "id": "plan-archive-ss-2025",
-      "name": "Archive Plan SS 2025",
+      "id": "plan-1771882006784",
+      "name": "Archive Third Semester J19 WS 2025",
       "academicYear": 2025,
       "semesterType": "winter",
       "programRuleId": "rule-msc-se-2024",
       "selectedOfferings": [
         {
-          "offeringId": "off-2025-winter-fm-formale-methoden",
-          "selectedExamOptionId": "off-2025-winter-fm-formale-methoden-written",
+          "offeringId": "offering-1771719462272",
+          "selectedExamOptionId": "offering-1771719462272-exam-pn3nkc",
           "isIncluded": false,
-          "displayOrder": 1
+          "displayOrder": 0
         },
         {
           "offeringId": "off-2025-winter-db-datenbanksysteme",
           "selectedExamOptionId": "off-2025-winter-db-datenbanksysteme-written",
           "isIncluded": false,
-          "displayOrder": 3
+          "displayOrder": 1
         },
         {
-          "offeringId": "off-2025-winter-ss-change",
-          "selectedExamOptionId": "off-2025-winter-ss-change-written",
+          "offeringId": "off-2025-winter-fm-formale-methoden",
+          "selectedExamOptionId": "off-2025-winter-fm-formale-methoden-written",
           "isIncluded": false,
-          "displayOrder": 6
+          "displayOrder": 2
         },
         {
           "offeringId": "off-2025-winter-se-software-engineering",
           "selectedExamOptionId": "off-2025-winter-se-software-engineering-written",
           "isIncluded": false,
-          "displayOrder": 7
+          "displayOrder": 3
+        },
+        {
+          "offeringId": "offering-1771881509271",
+          "selectedExamOptionId": "",
+          "isIncluded": true,
+          "displayOrder": 3
+        },
+        {
+          "offeringId": "offering-1771881574391",
+          "selectedExamOptionId": "",
+          "isIncluded": false,
+          "displayOrder": 5
+        },
+        {
+          "offeringId": "off-2025-winter-ss-change",
+          "selectedExamOptionId": "",
+          "isIncluded": true,
+          "displayOrder": 0
         },
         {
           "offeringId": "off-2025-winter-ss-schreibtraining",
-          "selectedExamOptionId": "off-2025-winter-ss-schreibtraining-written",
+          "selectedExamOptionId": "",
+          "isIncluded": false,
+          "displayOrder": 7
+        },
+        {
+          "offeringId": "offering-1771881305377",
+          "selectedExamOptionId": "",
+          "isIncluded": false,
+          "displayOrder": 1
+        },
+        {
+          "offeringId": "offering-1771881394993",
+          "selectedExamOptionId": "",
+          "isIncluded": true,
+          "displayOrder": 2
+        }
+      ],
+      "createdAt": "2026-02-23T21:26:08.197Z",
+      "updatedAt": "2026-02-23T21:26:46.784Z"
+    },
+    {
+      "id": "plan-archive-ss-2025",
+      "name": "Archive First Semester J20 WS 2025",
+      "academicYear": 2025,
+      "semesterType": "winter",
+      "programRuleId": "rule-msc-se-2024",
+      "selectedOfferings": [
+        {
+          "offeringId": "offering-1771719462272",
+          "selectedExamOptionId": "offering-1771719462272-exam-pn3nkc",
+          "isIncluded": true,
+          "displayOrder": 0
+        },
+        {
+          "offeringId": "off-2025-winter-db-datenbanksysteme",
+          "selectedExamOptionId": "off-2025-winter-db-datenbanksysteme-written",
+          "isIncluded": true,
+          "displayOrder": 2
+        },
+        {
+          "offeringId": "off-2025-winter-fm-formale-methoden",
+          "selectedExamOptionId": "off-2025-winter-fm-formale-methoden-written",
+          "isIncluded": true,
+          "displayOrder": 1
+        },
+        {
+          "offeringId": "off-2025-winter-se-software-engineering",
+          "selectedExamOptionId": "off-2025-winter-se-software-engineering-written",
+          "isIncluded": true,
+          "displayOrder": 4
+        },
+        {
+          "offeringId": "offering-1771881509271",
+          "selectedExamOptionId": "",
+          "isIncluded": false,
+          "displayOrder": 4
+        },
+        {
+          "offeringId": "offering-1771881574391",
+          "selectedExamOptionId": "",
+          "isIncluded": true,
+          "displayOrder": 3
+        },
+        {
+          "offeringId": "off-2025-winter-ss-change",
+          "selectedExamOptionId": "",
+          "isIncluded": false,
+          "displayOrder": 6
+        },
+        {
+          "offeringId": "off-2025-winter-ss-schreibtraining",
+          "selectedExamOptionId": "",
+          "isIncluded": true,
+          "displayOrder": 6
+        },
+        {
+          "offeringId": "offering-1771881305377",
+          "selectedExamOptionId": "",
+          "isIncluded": true,
+          "displayOrder": 5
+        },
+        {
+          "offeringId": "offering-1771881394993",
+          "selectedExamOptionId": "",
           "isIncluded": false,
           "displayOrder": 9
         }
       ],
       "createdAt": "2025-04-01T00:00:00.000Z",
-      "updatedAt": "2026-02-21T23:05:34.646Z"
+      "updatedAt": "2026-02-23T21:25:25.807Z"
     },
     {
-      "id": "plan-current-ws-2026",
-      "name": "Current Plan WS 2026/27",
+      "id": "plan-1771806042475",
+      "name": "Deme",
+      "academicYear": 2026,
+      "semesterType": "summer",
+      "programRuleId": "rule-msc-se-2024",
+      "selectedOfferings": [
+        {
+          "offeringId": "off-2026-summer-fm-reaktive-systeme",
+          "selectedExamOptionId": "off-2026-summer-fm-reaktive-systeme-written",
+          "isIncluded": false,
+          "displayOrder": 0
+        },
+        {
+          "offeringId": "off-2026-summer-fm-it-sicherheit",
+          "selectedExamOptionId": "off-2026-summer-fm-it-sicherheit-written",
+          "isIncluded": false,
+          "displayOrder": 2
+        },
+        {
+          "offeringId": "off-2026-summer-ss-praesentation",
+          "selectedExamOptionId": "off-2026-summer-ss-praesentation-written",
+          "isIncluded": false,
+          "displayOrder": 3
+        },
+        {
+          "offeringId": "off-2026-summer-se-requirements",
+          "selectedExamOptionId": "off-2026-summer-se-requirements-written",
+          "isIncluded": false,
+          "displayOrder": 4
+        },
+        {
+          "offeringId": "off-2026-summer-ss-interkulturell",
+          "selectedExamOptionId": "off-2026-summer-ss-interkulturell-written",
+          "isIncluded": false,
+          "displayOrder": 5
+        },
+        {
+          "offeringId": "off-2026-summer-se-ki",
+          "selectedExamOptionId": "off-2026-summer-se-ki-written",
+          "isIncluded": false,
+          "displayOrder": 6
+        },
+        {
+          "offeringId": "off-2026-summer-ss-soziales-engagement",
+          "selectedExamOptionId": "off-2026-summer-ss-soziales-engagement-written",
+          "isIncluded": false,
+          "displayOrder": 7
+        },
+        {
+          "offeringId": "off-2026-summer-ds-se-fuer-vs",
+          "selectedExamOptionId": "off-2026-summer-ds-se-fuer-vs-written",
+          "isIncluded": false,
+          "displayOrder": 8
+        },
+        {
+          "offeringId": "off-2026-summer-se-seminar-puli",
+          "selectedExamOptionId": "off-2026-summer-se-seminar-puli-project",
+          "isIncluded": false,
+          "displayOrder": 9
+        },
+        {
+          "offeringId": "off-2026-summer-db-data-engineering",
+          "selectedExamOptionId": "off-2026-summer-db-data-engineering-written",
+          "isIncluded": false,
+          "displayOrder": 10
+        },
+        {
+          "offeringId": "off-2026-summer-ds-seminar-vs",
+          "selectedExamOptionId": "off-2026-summer-ds-seminar-vs-project",
+          "isIncluded": false,
+          "displayOrder": 11
+        },
+        {
+          "offeringId": "off-2026-summer-hci-seminar",
+          "selectedExamOptionId": "off-2026-summer-hci-seminar-written",
+          "isIncluded": true,
+          "displayOrder": 0
+        }
+      ],
+      "createdAt": "2026-02-23T00:20:42.475Z",
+      "updatedAt": "2026-02-23T00:20:55.414Z"
+    },
+    {
+      "id": "plan-1771865412138",
+      "name": "My Plan",
       "academicYear": 2026,
       "semesterType": "winter",
       "programRuleId": "rule-msc-se-2024",
@@ -1578,36 +2314,30 @@
         {
           "offeringId": "off-2026-winter-fm-formale-methoden",
           "selectedExamOptionId": "off-2026-winter-fm-formale-methoden-written",
-          "isIncluded": true,
+          "isIncluded": false,
           "displayOrder": 0
         },
         {
-          "offeringId": "off-2026-winter-db-datenbanksysteme",
-          "selectedExamOptionId": "off-2026-winter-db-datenbanksysteme-written",
-          "isIncluded": true,
+          "offeringId": "off-2026-winter-se-seminar-softwaretechnik",
+          "selectedExamOptionId": "off-2026-winter-se-seminar-softwaretechnik-written",
+          "isIncluded": false,
           "displayOrder": 1
         },
         {
-          "offeringId": "off-2026-winter-ds-verteilte-systeme",
-          "selectedExamOptionId": "off-2026-winter-ds-verteilte-systeme-written",
-          "isIncluded": true,
+          "offeringId": "off-2026-winter-th-masterarbeit",
+          "selectedExamOptionId": "off-2026-winter-th-masterarbeit-written",
+          "isIncluded": false,
           "displayOrder": 2
         },
         {
-          "offeringId": "off-2026-winter-pr-industriepraktikum",
-          "selectedExamOptionId": "off-2026-winter-pr-industriepraktikum-project",
-          "isIncluded": true,
+          "offeringId": "off-2026-winter-db-seminar",
+          "selectedExamOptionId": "off-2026-winter-db-seminar-project",
+          "isIncluded": false,
           "displayOrder": 3
         },
         {
-          "offeringId": "off-2026-winter-se-projektmanagement",
-          "selectedExamOptionId": "off-2026-winter-se-projektmanagement-written",
-          "isIncluded": true,
-          "displayOrder": 4
-        },
-        {
-          "offeringId": "off-2026-winter-hci-human-computer-interaction",
-          "selectedExamOptionId": "off-2026-winter-hci-human-computer-interaction-written",
+          "offeringId": "off-2026-winter-se-software-engineering",
+          "selectedExamOptionId": "off-2026-winter-se-software-engineering-written",
           "isIncluded": false,
           "displayOrder": 4
         },
@@ -1615,7 +2345,19 @@
           "offeringId": "off-2026-winter-se-testen",
           "selectedExamOptionId": "off-2026-winter-se-testen-written",
           "isIncluded": false,
+          "displayOrder": 5
+        },
+        {
+          "offeringId": "off-2026-winter-fm-sicherheitsanalyse",
+          "selectedExamOptionId": "off-2026-winter-fm-sicherheitsanalyse-written",
+          "isIncluded": false,
           "displayOrder": 7
+        },
+        {
+          "offeringId": "off-2026-winter-se-projektmanagement",
+          "selectedExamOptionId": "off-2026-winter-se-projektmanagement-written",
+          "isIncluded": false,
+          "displayOrder": 8
         },
         {
           "offeringId": "off-2026-winter-db-web",
@@ -1624,122 +2366,44 @@
           "displayOrder": 9
         },
         {
+          "offeringId": "off-2026-winter-ds-verteilte-systeme",
+          "selectedExamOptionId": "off-2026-winter-ds-verteilte-systeme-written",
+          "isIncluded": false,
+          "displayOrder": 10
+        },
+        {
+          "offeringId": "off-2026-winter-hci-human-computer-interaction",
+          "selectedExamOptionId": "off-2026-winter-hci-human-computer-interaction-written",
+          "isIncluded": false,
+          "displayOrder": 11
+        },
+        {
           "offeringId": "off-2026-winter-hci-usability",
           "selectedExamOptionId": "off-2026-winter-hci-usability-written",
           "isIncluded": false,
-          "displayOrder": 10
+          "displayOrder": 12
+        },
+        {
+          "offeringId": "off-2026-winter-pr-industriepraktikum",
+          "selectedExamOptionId": "off-2026-winter-pr-industriepraktikum-project",
+          "isIncluded": false,
+          "displayOrder": 13
         },
         {
           "offeringId": "off-2026-winter-ss-erfolg-team",
           "selectedExamOptionId": "off-2026-winter-ss-erfolg-team-written",
           "isIncluded": false,
-          "displayOrder": 11
-        },
-        {
-          "offeringId": "off-2026-winter-se-seminar-softwaretechnik",
-          "selectedExamOptionId": "off-2026-winter-se-seminar-softwaretechnik-written",
-          "isIncluded": false,
-          "displayOrder": 12
-        },
-        {
-          "offeringId": "off-2026-winter-db-seminar",
-          "selectedExamOptionId": "off-2026-winter-db-seminar-project",
-          "isIncluded": false,
-          "displayOrder": 13
-        },
-        {
-          "offeringId": "off-2026-winter-fm-sicherheitsanalyse",
-          "selectedExamOptionId": "off-2026-winter-fm-sicherheitsanalyse-written",
-          "isIncluded": false,
           "displayOrder": 14
         },
         {
-          "offeringId": "off-2026-summer-fm-reaktive-systeme",
-          "selectedExamOptionId": "off-2026-summer-fm-reaktive-systeme-written",
-          "isIncluded": false,
-          "displayOrder": 15
-        },
-        {
-          "offeringId": "off-2026-summer-ss-soziales-engagement",
-          "selectedExamOptionId": "off-2026-summer-ss-soziales-engagement-written",
-          "isIncluded": false,
-          "displayOrder": 22
-        },
-        {
-          "offeringId": "off-2026-summer-ds-se-fuer-vs",
-          "selectedExamOptionId": "off-2026-summer-ds-se-fuer-vs-written",
-          "isIncluded": false,
-          "displayOrder": 23
-        },
-        {
-          "offeringId": "off-2026-summer-se-seminar-puli",
-          "selectedExamOptionId": "off-2026-summer-se-seminar-puli-project",
-          "isIncluded": false,
-          "displayOrder": 24
-        },
-        {
-          "offeringId": "off-2026-summer-ds-seminar-vs",
-          "selectedExamOptionId": "off-2026-summer-ds-seminar-vs-project",
-          "isIncluded": false,
-          "displayOrder": 26
-        },
-        {
-          "offeringId": "off-2026-summer-ss-praesentation",
-          "selectedExamOptionId": "off-2026-summer-ss-praesentation-written",
-          "isIncluded": false,
-          "displayOrder": 18
-        },
-        {
-          "offeringId": "off-2026-summer-hci-seminar",
-          "selectedExamOptionId": "off-2026-summer-hci-seminar-written",
-          "isIncluded": false,
-          "displayOrder": 16
-        },
-        {
-          "offeringId": "off-2026-summer-db-data-engineering",
-          "selectedExamOptionId": "off-2026-summer-db-data-engineering-written",
-          "isIncluded": false,
-          "displayOrder": 25
-        },
-        {
-          "offeringId": "off-2026-summer-se-requirements",
-          "selectedExamOptionId": "off-2026-summer-se-requirements-written",
-          "isIncluded": false,
-          "displayOrder": 19
-        },
-        {
-          "offeringId": "off-2026-summer-fm-it-sicherheit",
-          "selectedExamOptionId": "off-2026-summer-fm-it-sicherheit-written",
-          "isIncluded": false,
-          "displayOrder": 17
-        },
-        {
-          "offeringId": "off-2026-summer-ss-interkulturell",
-          "selectedExamOptionId": "off-2026-summer-ss-interkulturell-written",
-          "isIncluded": false,
-          "displayOrder": 20
-        },
-        {
-          "offeringId": "off-2026-summer-se-ki",
-          "selectedExamOptionId": "off-2026-summer-se-ki-written",
-          "isIncluded": false,
-          "displayOrder": 21
-        },
-        {
-          "offeringId": "off-2026-winter-th-masterarbeit",
-          "selectedExamOptionId": "off-2026-winter-th-masterarbeit-written",
-          "isIncluded": false,
-          "displayOrder": 6
-        },
-        {
-          "offeringId": "off-2026-winter-se-software-engineering",
-          "selectedExamOptionId": "off-2026-winter-se-software-engineering-written",
-          "isIncluded": false,
+          "offeringId": "off-2026-winter-db-datenbanksysteme",
+          "selectedExamOptionId": "off-2026-winter-db-datenbanksysteme-written",
+          "isIncluded": true,
           "displayOrder": 0
         }
       ],
-      "createdAt": "2026-02-10T00:00:00.000Z",
-      "updatedAt": "2026-02-22T00:30:32.307Z"
+      "createdAt": "2026-02-23T16:50:12.138Z",
+      "updatedAt": "2026-02-23T16:50:22.509Z"
     }
   ],
   "programRules": [
@@ -1782,357 +2446,5 @@
       "notes": "Rule set decoded from MSc SE checker screenshots"
     }
   ],
-  "adminChangelog": [
-    {
-      "id": "log-1771712590167-q2agzh",
-      "entityType": "programRules",
-      "entityId": "import",
-      "action": "import",
-      "changedAt": "2026-02-21T22:23:10.167Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Imported database snapshot"
-    },
-    {
-      "id": "log-1771712596150-owu9x5",
-      "entityType": "professors",
-      "entityId": "prof-reif",
-      "action": "delete",
-      "changedAt": "2026-02-21T22:23:16.150Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-reif"
-    },
-    {
-      "id": "log-1771714194601-pwddx9",
-      "entityType": "programRules",
-      "entityId": "import",
-      "action": "import",
-      "changedAt": "2026-02-21T22:49:54.601Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Imported database snapshot"
-    },
-    {
-      "id": "log-1771714800556-1flnpg",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-se-software-engineering",
-      "action": "update",
-      "changedAt": "2026-02-21T23:00:00.556Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved offering off-2025-winter-se-software-engineering (2025 winter)"
-    },
-    {
-      "id": "log-1771714896924-d0019y",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-change",
-      "action": "update",
-      "changedAt": "2026-02-21T23:01:36.924Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Change-Prozesse"
-    },
-    {
-      "id": "log-1771715604702-s4ait6",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-21T23:13:24.702Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771715605627-utsbnn",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-21T23:13:25.627Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771715606129-hx6jcw",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-21T23:13:26.129Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771715606569-8a3bgc",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-21T23:13:26.569Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771718679581-yvkz3v",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-pr-industriepraktikum",
-      "action": "update",
-      "changedAt": "2026-02-22T00:04:39.581Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Industriepraktikum"
-    },
-    {
-      "id": "log-1771718693926-wxhm2q",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-erfolg-team",
-      "action": "update",
-      "changedAt": "2026-02-22T00:04:53.926Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Erfolg im Team"
-    },
-    {
-      "id": "log-1771718714794-mj86j6",
-      "entityType": "professors",
-      "entityId": "prof-kemper",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:05:14.794Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-kemper"
-    },
-    {
-      "id": "log-1771718735932-l1d217",
-      "entityType": "universities",
-      "entityId": "REIM",
-      "action": "update",
-      "changedAt": "2026-02-22T00:05:35.932Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved university Tagungshaus Reimlingen"
-    },
-    {
-      "id": "log-1771718759167-9ws2el",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-22T00:05:59.167Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771718766081-ks8iro",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-22T00:06:06.081Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771718772739-z0sxdx",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-interkulturell",
-      "action": "update",
-      "changedAt": "2026-02-22T00:06:12.739Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Interkulturelle Kommunikation"
-    },
-    {
-      "id": "log-1771718778591-6ydhun",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-moderation",
-      "action": "update",
-      "changedAt": "2026-02-22T00:06:18.591Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Moderationstechniken"
-    },
-    {
-      "id": "log-1771718794812-gqqy05",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-praesentation",
-      "action": "update",
-      "changedAt": "2026-02-22T00:06:34.812Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Praesentationstraining"
-    },
-    {
-      "id": "log-1771718802699-tngzvc",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-soziales-engagement",
-      "action": "update",
-      "changedAt": "2026-02-22T00:06:42.699Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Projektseminar Soziales Engagement"
-    },
-    {
-      "id": "log-1771719058588-rgxrmz",
-      "entityType": "professors",
-      "entityId": "prof-zimmer",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:10:58.588Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-zimmer"
-    },
-    {
-      "id": "log-1771719060771-oz8k5z",
-      "entityType": "professors",
-      "entityId": "prof-stein",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:11:00.771Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-stein"
-    },
-    {
-      "id": "log-1771719063490-n6521y",
-      "entityType": "professors",
-      "entityId": "prof-meier",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:11:03.490Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-meier"
-    },
-    {
-      "id": "log-1771719066594-wb98r4",
-      "entityType": "professors",
-      "entityId": "prof-lechner",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:11:06.594Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-lechner"
-    },
-    {
-      "id": "log-1771719070972-r5d3qo",
-      "entityType": "professors",
-      "entityId": "prof-huber",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:11:10.972Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-huber"
-    },
-    {
-      "id": "log-1771719073224-3myvhl",
-      "entityType": "professors",
-      "entityId": "prof-fischer",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:11:13.224Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-fischer"
-    },
-    {
-      "id": "log-1771719078303-cepfv4",
-      "entityType": "professors",
-      "entityId": "prof-ruppert",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:11:18.303Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted professor prof-ruppert"
-    },
-    {
-      "id": "log-1771719186484-75vcfd",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-se-projektmanagement",
-      "action": "update",
-      "changedAt": "2026-02-22T00:13:06.484Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Projektmanagement"
-    },
-    {
-      "id": "log-1771719462295-8jveto",
-      "entityType": "courseOfferings",
-      "entityId": "offering-1771719462272",
-      "action": "update",
-      "changedAt": "2026-02-22T00:17:42.295Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved offering offering-1771719462272 (2025 winter)"
-    },
-    {
-      "id": "log-1771720075863-p60ulr",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-ss-schreibtraining",
-      "action": "update",
-      "changedAt": "2026-02-22T00:27:55.864Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved offering off-2025-winter-ss-schreibtraining (2025 winter)"
-    },
-    {
-      "id": "log-1771720678039-ft54bv",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-soziales-engagement",
-      "action": "update",
-      "changedAt": "2026-02-22T00:37:58.039Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Projektseminar Soziales Engagement"
-    },
-    {
-      "id": "log-1771720702452-c0gpot",
-      "entityType": "courseDefinitions",
-      "entityId": "cd-ss-fuehrung",
-      "action": "update",
-      "changedAt": "2026-02-22T00:38:22.452Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved course definition Fuehrungskompetenz"
-    },
-    {
-      "id": "log-1771720744560-rfbizp",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-db-cpu",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:39:04.560Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted offering off-2025-winter-db-cpu"
-    },
-    {
-      "id": "log-1771720750880-n8r256",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-ds-verteilte-systeme",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:39:10.880Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted offering off-2025-winter-ds-verteilte-systeme"
-    },
-    {
-      "id": "log-1771720755302-ayy9xz",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-hci-human-computer-interaction",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:39:15.302Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted offering off-2025-winter-hci-human-computer-interaction"
-    },
-    {
-      "id": "log-1771720766721-sio5jg",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-se-modellbasiert",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:39:26.721Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted offering off-2025-winter-se-modellbasiert"
-    },
-    {
-      "id": "log-1771720784267-gebrhg",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-hci-seminar-ml",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:39:44.267Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted offering off-2025-winter-hci-seminar-ml"
-    },
-    {
-      "id": "log-1771720790259-8l4wrx",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-se-seminar-automotive",
-      "action": "delete",
-      "changedAt": "2026-02-22T00:39:50.260Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Deleted offering off-2025-winter-se-seminar-automotive"
-    },
-    {
-      "id": "log-1771720934827-rkrjnw",
-      "entityType": "courseOfferings",
-      "entityId": "off-2025-winter-ss-change",
-      "action": "update",
-      "changedAt": "2026-02-22T00:42:14.827Z",
-      "changedBy": "superadmin@planner.local",
-      "diffSummary": "Saved offering off-2025-winter-ss-change (2025 winter)"
-    },
-    {
-      "id": "log-seed-1",
-      "entityType": "courseOfferings",
-      "entityId": "seed",
-      "action": "import",
-      "changedAt": "2026-02-01T00:00:00.000Z",
-      "changedBy": "seed-admin",
-      "diffSummary": "Initial seed dataset imported"
-    }
-  ]
+  "adminChangelog": []
 }

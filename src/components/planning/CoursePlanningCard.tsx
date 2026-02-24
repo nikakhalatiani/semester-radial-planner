@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useRef } from 'react';
-import { Check, Plus } from 'lucide-react';
+import { Minus, Plus } from 'lucide-react';
 
 import { useI18n } from '../../hooks/useI18n';
 import type { CourseDefinition, CourseOffering, SelectedOffering, University } from '../../types';
@@ -66,7 +66,7 @@ export function CoursePlanningCard({
           <div>
             <div className="mb-1 flex items-center gap-2">{definition.isSeminar ? <SeminarPill /> : null}</div>
             <h4 className="text-sm font-semibold text-text-primary">{definition.name}</h4>
-            <p className="text-xs text-text-secondary">{professorNames || 'TBA'}</p>
+            <p className="text-xs text-text-secondary">{professorNames || t('common.tba', 'TBA')}</p>
           </div>
           <div className="flex items-start gap-2">
             <LPBadge credits={definition.credits} />
@@ -81,13 +81,13 @@ export function CoursePlanningCard({
             onPointerDown={(event) => event.stopPropagation()}
             onTouchStart={(event) => event.stopPropagation()}
             onClick={() => onToggleInclude(!isIncluded)}
-            tone={isIncluded ? 'success' : 'neutral'}
+            tone={isIncluded ? 'neutral' : 'success'}
             className="gap-1.5"
             title={isIncluded ? 'Click to exclude this course' : 'Click to include this course'}
             aria-pressed={isIncluded}
           >
-            {isIncluded ? <Check size={14} strokeWidth={2.6} /> : <Plus size={14} strokeWidth={2.6} />}
-            {isIncluded ? t('plan.included') : t('plan.excluded')}
+            {isIncluded ? <Minus size={14} strokeWidth={2.6} /> : <Plus size={14} strokeWidth={2.6} />}
+            {isIncluded ? t('plan.excludeAction', 'Exclude') : t('plan.includeAction', 'Include')}
           </PillButton>
         </div>
 

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BookOpen, CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
 
+import { useI18n } from '../../hooks/useI18n';
 import { useRadialGeometry } from '../../hooks/useRadialGeometry';
 import type { ExamType, RadialDisplayOffering } from '../../types';
 import { describeSector, polarToCartesian } from '../../utils/arcPath';
@@ -69,7 +70,20 @@ interface SeasonDayDot {
 }
 
 const MONTH_RING_RADII = Array.from({ length: 12 }, (_, index) => 146 + index * 14);
-const WEEKDAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEKDAY_LABELS_BY_LANGUAGE: Record<'en' | 'de', string[]> = {
+  en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  de: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+};
+const MONTH_NAMES_BY_LANGUAGE: Record<'en' | 'de', string[]> = {
+  en: MONTH_NAMES,
+  de: ['Jan', 'Feb', 'Mae', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+};
+const SEASON_LABEL_FALLBACK: Record<SeasonKey, string> = {
+  winter: 'Winter',
+  spring: 'Spring',
+  summer: 'Summer',
+  autumn: 'Fall',
+};
 
 const SEASON_CONFIG: Record<SeasonKey, { months: number[] }> = {
   summer: { months: [5, 6, 7] },
@@ -85,17 +99,18 @@ const DEFAULT_MONTH_BY_SEASON: Record<SeasonKey, number> = {
   autumn: 9,
 };
 
-const SEASON_DISPLAY_LABELS: Record<SeasonKey, string> = {
-  summer: 'Summer',
-  spring: 'Spring',
-  winter: 'Winter',
-  autumn: 'Fall',
+const SEASON_I18N_KEY: Record<SeasonKey, string> = {
+  summer: 'calendar.season.summer',
+  spring: 'calendar.season.spring',
+  winter: 'calendar.season.winter',
+  autumn: 'calendar.season.fall',
 };
 
 const SEASON_ORDER: SeasonKey[] = ['winter', 'spring', 'summer', 'autumn'];
 
 const CALENDAR_CENTER = { x: 400, y: 400 };
-const MONTH_LABEL_RADIUS = 322;
+const MONTH_LABEL_RADIUS = 314;
+const YEAR_SEASON_LABEL_RADIUS = 382;
 
 interface SeasonFrameConfig {
   innerRadius: number;
@@ -358,6 +373,9 @@ function MonthGridView({
   onNextMonth: () => void;
   fullCanvas?: boolean;
 }) {
+  const { t, language } = useI18n();
+  const monthLabels = MONTH_NAMES_BY_LANGUAGE[language] ?? MONTH_NAMES;
+  const weekdayLabels = WEEKDAY_LABELS_BY_LANGUAGE[language] ?? WEEKDAY_LABELS_BY_LANGUAGE.en;
   const eventsByDay = useMemo(() => buildMonthEvents(offerings, year, month), [offerings, year, month]);
   const calendarYear = resolveCalendarYearForMonth(year, month);
 
@@ -381,17 +399,17 @@ function MonthGridView({
           className="h-10 whitespace-nowrap rounded-xl border border-neutral-200 px-3 text-sm font-medium"
           onClick={onBack}
         >
-          Back to season
+          {t('calendar.backToSeason', 'Back to season')}
         </button>
         <h3 className="truncate text-center text-[30px] font-semibold text-neutral-900">
-          {MONTH_NAMES[month]} {calendarYear}
+          {monthLabels[month]} {calendarYear}
         </h3>
         <div className="flex items-center justify-end gap-1.5">
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-900"
             onClick={onPrevMonth}
-            aria-label="Previous month"
+            aria-label={t('calendar.previousMonth', 'Previous month')}
           >
             <ChevronLeft size={20} />
           </button>
@@ -399,7 +417,7 @@ function MonthGridView({
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-900"
             onClick={onNextMonth}
-            aria-label="Next month"
+            aria-label={t('calendar.nextMonth', 'Next month')}
           >
             <ChevronRight size={20} />
           </button>
@@ -407,11 +425,14 @@ function MonthGridView({
       </div>
 
       <p className="mb-3 max-w-[740px] text-sm leading-6 text-neutral-500">
-        Lecture days come from offering lecture schedule. If none is set, weekly pattern is inferred from start date.
+        {t(
+          'calendar.monthViewHint',
+          'Lecture days come from offering lecture schedule. If none is set, weekly pattern is inferred from start date.',
+        )}
       </p>
 
       <div className="grid grid-cols-7 gap-2 text-xs font-semibold text-neutral-500">
-        {WEEKDAY_LABELS.map((label) => (
+        {weekdayLabels.map((label) => (
           <div key={label} className="px-1 py-1 text-center">
             {label}
           </div>
@@ -437,16 +458,18 @@ function MonthGridView({
                     title={event.label}
                   >
                     {((event.kind === 'lecture'
-                      ? 'Lecture'
+                      ? t('calendar.event.lecture', 'Lecture')
                       : event.kind === 'project'
-                          ? 'Project'
+                          ? t('calendar.event.project', 'Project')
                           : event.examType === 'oral'
-                              ? 'Oral'
-                              : 'Written') + (event.timeRange ? ` ${event.timeRange}` : ''))}
+                              ? t('calendar.event.oral', 'Oral')
+                              : t('calendar.event.written', 'Written')) + (event.timeRange ? ` ${event.timeRange}` : ''))}
                   </div>
                 ))}
                 {dayEvents.length > 3 ? (
-                  <div className="text-[10px] font-medium text-neutral-500">+{dayEvents.length - 3} more</div>
+                  <div className="text-[10px] font-medium text-neutral-500">
+                    {t('calendar.moreCount', '+{count} more', { count: dayEvents.length - 3 })}
+                  </div>
                 ) : null}
               </div>
             </div>
@@ -465,6 +488,8 @@ export function RadialCalendar({
   onYearChange,
   fullCanvas = false,
 }: RadialCalendarProps) {
+  const { t, language } = useI18n();
+  const monthLabels = MONTH_NAMES_BY_LANGUAGE[language] ?? MONTH_NAMES;
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [focus, setFocus] = useState<ZoomFocus>({ level: 'year' });
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
@@ -509,12 +534,12 @@ export function RadialCalendar({
 
   const yearMonthLabels = useMemo(
     () =>
-      MONTH_NAMES.map((label, monthIndex) => ({
+      monthLabels.map((label, monthIndex) => ({
         label,
         monthIndex,
         angle: dateToAngle(new Date(Date.UTC(year, monthIndex, 15)), year),
       })),
-    [year],
+    [monthLabels, year],
   );
 
   const seasonMonthSegments = useMemo<SeasonMonthSegment[]>(() => {
@@ -535,7 +560,7 @@ export function RadialCalendar({
 
       return {
         monthIndex,
-        label: MONTH_NAMES[monthIndex],
+        label: monthLabels[monthIndex],
         monthStartAngle,
         monthEndAngle,
         renderStartAngle,
@@ -543,7 +568,7 @@ export function RadialCalendar({
         labelAngle: interpolateClockwise(renderStartAngle, renderEndAngle, 0.5),
       };
     });
-  }, [seasonConfig.months, year]);
+  }, [monthLabels, seasonConfig.months, year]);
 
   const seasonMonthLabels = useMemo(
     () =>
@@ -787,14 +812,21 @@ export function RadialCalendar({
         const tooltipParts = [
           ...examMarkers.map((marker) => {
             const typeLabel =
-              marker.type === 'oral' ? 'Oral exam' : marker.type === 'project' ? 'Project' : 'Written exam';
-            const reexamLabel = marker.isReexam ? ' reexam' : '';
+              marker.type === 'oral'
+                ? t('calendar.event.oralExam', 'Oral exam')
+                : marker.type === 'project'
+                  ? t('calendar.event.project', 'Project')
+                  : t('calendar.event.writtenExam', 'Written exam');
+            const reexamLabel = marker.isReexam ? ` ${t('calendar.reexamShort', 'reexam')}` : '';
             return `${typeLabel}${reexamLabel}: ${marker.label} (${marker.dateLabel})`;
           }),
           ...events
             .filter((event) => event.kind === 'lecture')
             .slice(0, 3)
-            .map((event) => `Lecture: ${event.label}${event.timeRange ? ` ${event.timeRange}` : ''}`),
+            .map(
+              (event) =>
+                `${t('calendar.event.lecture', 'Lecture')}: ${event.label}${event.timeRange ? ` ${event.timeRange}` : ''}`,
+            ),
         ];
 
         dots.push({
@@ -807,7 +839,9 @@ export function RadialCalendar({
           weekIndex,
           colors,
           examMarkers,
-          tooltipText: tooltipParts.join(' | ') || 'No lectures or exams scheduled',
+          tooltipText:
+            tooltipParts.join(' | ') ||
+            t('calendar.noEventsScheduled', 'No lectures or exams scheduled'),
         });
       }
     });
@@ -906,9 +940,10 @@ export function RadialCalendar({
               <g>
                 {SEASON_LABELS.map((season) => (
                   <SeasonLabel
-                    key={season.label}
-                    label={season.label}
+                    key={season.key}
+                    label={t(SEASON_I18N_KEY[season.key], SEASON_LABEL_FALLBACK[season.key])}
                     angle={season.angle}
+                    radius={YEAR_SEASON_LABEL_RADIUS}
                     active={false}
                     onSelect={() => setFocus({ level: 'season', season: season.key })}
                   />
@@ -1066,7 +1101,7 @@ export function RadialCalendar({
                   textAnchor="middle"
                   className="fill-neutral-700 text-[11px] font-semibold uppercase tracking-[0.16em]"
                 >
-                  {SEASON_DISPLAY_LABELS[resolvedSeason]}
+                  {t(SEASON_I18N_KEY[resolvedSeason], SEASON_LABEL_FALLBACK[resolvedSeason])}
                 </text>
               </g>
             )}
@@ -1077,7 +1112,7 @@ export function RadialCalendar({
       {focus.level === 'year' ? (
         <button
           type="button"
-          className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-[24px] font-bold text-neutral-900 shadow-sm sm:px-5 sm:py-3 sm:text-[32px]"
+          className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-[24px] font-bold text-neutral-900 shadow-sm sm:px-5 sm:py-3 sm:text-[32px]"
           onClick={() => setYearDropdownOpen((prev) => !prev)}
         >
           {year}
@@ -1086,7 +1121,7 @@ export function RadialCalendar({
 
       {focus.level === 'season' ? (
         <>
-          <div className="absolute left-3 right-[84px] top-3 z-20 space-y-2">
+          <div className="absolute left-3 right-[84px] top-3 z-10 space-y-2">
             <div className="inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/95 p-1.5 shadow-sm backdrop-blur">
               {SEASON_ORDER.map((season) => (
                 <button
@@ -1099,17 +1134,21 @@ export function RadialCalendar({
                   }`}
                   onClick={() => setFocus({ level: 'season', season })}
                 >
-                  {SEASON_DISPLAY_LABELS[season]}
+                  {t(SEASON_I18N_KEY[season], SEASON_LABEL_FALLBACK[season])}
                 </button>
               ))}
             </div>
 
             <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-xl border border-neutral-200 bg-white/95 px-3 py-1.5 text-xs text-neutral-600 shadow-sm backdrop-blur">
               <BookOpen className="h-3.5 w-3.5 text-neutral-500" />
-              <span className="font-semibold text-neutral-800">{seasonOfferings.length} courses</span>
+              <span className="font-semibold text-neutral-800">
+                {t('calendar.seasonCourses', '{count} courses', { count: seasonOfferings.length })}
+              </span>
               <span className="text-neutral-300">|</span>
               <CalendarDays className="h-3.5 w-3.5 text-neutral-500" />
-              <span className="font-semibold text-neutral-800">{seasonExamCount} exams</span>
+              <span className="font-semibold text-neutral-800">
+                {t('calendar.seasonExams', '{count} exams', { count: seasonExamCount })}
+              </span>
             </div>
           </div>
 
@@ -1117,7 +1156,7 @@ export function RadialCalendar({
       ) : null}
 
       {focus.level !== 'month' && yearDropdownOpen && yearOptions.length > 0 && selectedYearOption !== undefined ? (
-        <div className="absolute left-1/2 top-1/2 z-30 w-[128px] -translate-x-1/2 translate-y-8 rounded-2xl border border-neutral-200 bg-white/98 p-1.5 shadow-panel sm:w-[148px] sm:translate-y-10 sm:p-2">
+        <div className="absolute left-1/2 top-1/2 z-20 w-[128px] -translate-x-1/2 translate-y-8 rounded-2xl border border-neutral-200 bg-white/98 p-1.5 shadow-panel sm:w-[148px] sm:translate-y-10 sm:p-2">
           <Dropdown
             className="h-10 rounded-xl border border-neutral-200 bg-white px-2.5 text-sm font-semibold"
             value={selectedYearOption}
@@ -1139,8 +1178,11 @@ export function RadialCalendar({
       {focus.level !== 'month' ? (
         <div className="absolute bottom-3 left-3 rounded-xl border border-neutral-200 bg-white/90 px-3 py-2 text-xs text-neutral-600">
           {focus.level === 'year'
-            ? 'Year view: click a season or month.'
-            : 'Season view: dots are days (split colors = multiple subjects); click a month label for day grid.'}
+            ? t('calendar.yearHint', 'Year view: click a season or month.')
+            : t(
+                'calendar.seasonHint',
+                'Season view: dots are days (split colors = multiple subjects); click a month label for day grid.',
+              )}
         </div>
       ) : null}
     </div>

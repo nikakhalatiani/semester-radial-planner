@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useI18n } from '../../hooks/useI18n';
 
 interface BottomSheetProps {
   open: boolean;
@@ -10,12 +11,13 @@ interface BottomSheetProps {
 }
 
 export function BottomSheet({ open, onClose, title, children, className }: BottomSheetProps) {
+  const { t } = useI18n();
   return (
     <AnimatePresence>
       {open ? (
         <>
           <motion.button
-            aria-label="Close sheet"
+            aria-label={t('common.closeSheet', 'Close sheet')}
             className="fixed inset-0 z-40 bg-black/30"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

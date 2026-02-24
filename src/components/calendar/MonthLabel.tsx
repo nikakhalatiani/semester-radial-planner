@@ -8,7 +8,7 @@ interface MonthLabelProps {
   onSelect?: () => void;
 }
 
-export function MonthLabel({ label, angle, radius = 322, active = false, onSelect }: MonthLabelProps) {
+export function MonthLabel({ label, angle, radius = 314, active = false, onSelect }: MonthLabelProps) {
   const point = polarToCartesian(400, 400, radius, angle);
 
   return (

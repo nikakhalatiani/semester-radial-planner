@@ -1,14 +1,14 @@
+import clsx from 'clsx';
 import type {
   CourseDefinition,
   CourseOffering,
   CourseCategory,
-  RuleEvaluationResult,
   SelectedOffering,
   University,
 } from '../../types';
+import { useI18n } from '../../hooks/useI18n';
 import { CategoryFilterChips } from './CategoryFilterChips';
 import { CoursePlanningCard } from './CoursePlanningCard';
-import { ProgramRuleChecker } from './ProgramRuleChecker';
 
 export interface PlanningRow {
   definition: CourseDefinition;
@@ -27,43 +27,47 @@ interface PlanningPanelProps {
   rows: PlanningRow[];
   searchQuery: string;
   activeCategories: CourseCategory[];
-  ruleResult?: RuleEvaluationResult;
   onSearch: (query: string) => void;
   onToggleCategory: (category: CourseCategory) => void;
   onToggleInclude: (offeringId: string, next: boolean) => void;
-  ruleScopePlanOptions: RuleScopePlanOption[];
-  selectedRuleScopePlanIds: string[];
-  onToggleRuleScopePlan: (planId: string) => void;
+  className?: string;
+  cardsClassName?: string;
 }
 
 export function PlanningPanel({
   rows,
   searchQuery,
   activeCategories,
-  ruleResult,
   onSearch,
   onToggleCategory,
   onToggleInclude,
-  ruleScopePlanOptions,
-  selectedRuleScopePlanIds,
-  onToggleRuleScopePlan,
+  className,
+  cardsClassName,
 }: PlanningPanelProps) {
+  const { t } = useI18n();
   return (
-    <section className="rounded-3xl bg-surface p-3">
+    <section className={clsx('rounded-3xl bg-surface p-3', className)}>
       <header className="mb-3 space-y-3">
         <CategoryFilterChips active={activeCategories} onToggle={onToggleCategory} />
         <input
           className="h-11 w-full rounded-xl border border-border bg-white px-3 text-sm"
-          placeholder="Search courses"
+          placeholder={t('plan.search', 'Search courses')}
           value={searchQuery}
           onChange={(event) => onSearch(event.target.value)}
         />
         <p className="text-xs text-text-secondary">
-          Course line order follows the sequence in which courses are included.
+          {t('plan.lineOrderHint', 'Course line order follows the sequence in which courses are included.')}
         </p>
       </header>
 
-      <div className="max-h-[62vh] space-y-3 overflow-y-auto pb-6">
+      <div
+        className={clsx(
+          cardsClassName
+            ? 'space-y-3 overflow-y-auto pb-2'
+            : 'max-h-[62vh] space-y-3 overflow-y-auto pb-6',
+          cardsClassName,
+        )}
+      >
         {rows.map((row) => (
           <CoursePlanningCard
             key={row.offering.id}
@@ -76,31 +80,6 @@ export function PlanningPanel({
           />
         ))}
       </div>
-
-      <div className="mt-4 space-y-2 rounded-2xl border border-border bg-white p-3">
-        <p className="text-xs font-semibold uppercase tracking-wide text-text-secondary">Rule Scope (Semester Plans)</p>
-        <div className="flex flex-wrap gap-2">
-          {ruleScopePlanOptions.map((plan) => {
-            const selected = selectedRuleScopePlanIds.includes(plan.id);
-            return (
-              <button
-                key={plan.id}
-                type="button"
-                className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
-                  selected
-                    ? 'border-neutral-900 bg-neutral-900 text-white'
-                    : 'border-border bg-surface text-text-secondary'
-                }`}
-                onClick={() => onToggleRuleScopePlan(plan.id)}
-              >
-                {plan.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <ProgramRuleChecker result={ruleResult} />
     </section>
   );
 }

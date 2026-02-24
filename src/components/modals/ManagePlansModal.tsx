@@ -2,6 +2,7 @@ import clsx from 'clsx';
 
 import type { UserPlan } from '../../types';
 import { BottomSheet } from '../ui/BottomSheet';
+import { useI18n } from '../../hooks/useI18n';
 
 interface ManagePlansModalProps {
   open: boolean;
@@ -20,11 +21,12 @@ export function ManagePlansModal({
   onSelect,
   onDelete,
 }: ManagePlansModalProps) {
+  const { t } = useI18n();
   return (
-    <BottomSheet open={open} onClose={onClose} title="Manage Plans">
+    <BottomSheet open={open} onClose={onClose} title={t('plan.manageTitle', 'Manage Plans')}>
       <div className="space-y-2">
         {plans.length === 0 ? (
-          <p className="text-sm text-text-secondary">No plans available.</p>
+          <p className="text-sm text-text-secondary">{t('plan.noneAvailable', 'No plans available.')}</p>
         ) : (
           plans.map((plan) => (
             <div
@@ -62,7 +64,7 @@ export function ManagePlansModal({
                     await onDelete(plan.id);
                   }}
                 >
-                  Delete
+                  {t('common.delete', 'Delete')}
                 </button>
               </div>
             </div>

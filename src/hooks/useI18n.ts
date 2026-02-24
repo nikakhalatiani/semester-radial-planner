@@ -14,13 +14,29 @@ export function useI18n() {
 
   return useMemo(() => {
     const dictionary = dictionaries[language] ?? dictionaries.en;
+    const fallbackDictionary = dictionaries.en;
 
-    const t = (key: keyof typeof en | string) => {
+    const t = (
+      key: keyof typeof en | string,
+      fallback?: string,
+      values?: Record<string, string | number>,
+    ) => {
       const value = dictionary[key as keyof typeof dictionary];
-      if (typeof value === 'string') {
-        return value;
+      const fallbackValue = fallbackDictionary[key as keyof typeof fallbackDictionary];
+      let resolved =
+        typeof value === 'string'
+          ? value
+          : typeof fallbackValue === 'string'
+            ? fallbackValue
+            : fallback ?? key;
+
+      if (values) {
+        Object.entries(values).forEach(([token, tokenValue]) => {
+          resolved = resolved.replace(new RegExp(`\\{${token}\\}`, 'g'), String(tokenValue));
+        });
       }
-      return key;
+
+      return resolved;
     };
 
     return {

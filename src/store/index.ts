@@ -24,8 +24,6 @@ import {
   type SettingsSlice,
 } from './settingsSlice';
 import { normalizeAcademicYear, normalizeSemesterForYear } from '../utils/academicYears';
-import { setDevSeedOverride, tryWriteSeedFile } from '../utils/devSeed';
-import { createCompactSeedSnapshot } from '../utils/seedSnapshot';
 
 const ADMIN_SESSION_KEY = 'srp_admin_session';
 const storageAdapter = new IndexedDBAdapter();
@@ -155,17 +153,6 @@ function makeAdminLog(
   };
 }
 
-async function persistDevSeedSnapshot() {
-  try {
-    const snapshot = await storageAdapter.exportDatabase();
-    const compactSnapshot = createCompactSeedSnapshot(snapshot);
-    setDevSeedOverride(compactSnapshot);
-    await tryWriteSeedFile(compactSnapshot);
-  } catch {
-    // Ignore snapshot failures in development convenience flow.
-  }
-}
-
 export const useAppStore = create<AppStore>((set, get, store) => ({
   ...createCalendarSlice(set, get, store),
   ...createPlanningSlice(set, get, store),
@@ -285,7 +272,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('universities', university.id, 'update', changedBy, `Saved university ${university.name}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   deleteUniversity: async (id, changedBy) => {
@@ -293,7 +279,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('universities', id, 'delete', changedBy, `Deleted university ${id}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   saveProfessor: async (professor, changedBy) => {
@@ -301,7 +286,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('professors', professor.id, 'update', changedBy, `Saved professor ${professor.name}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   deleteProfessor: async (id, changedBy) => {
@@ -309,7 +293,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('professors', id, 'delete', changedBy, `Deleted professor ${id}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   saveCourseDefinition: async (definition, changedBy) => {
@@ -323,7 +306,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     );
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   deleteCourseDefinition: async (id, changedBy) => {
@@ -331,7 +313,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('courseDefinitions', id, 'delete', changedBy, `Deleted course definition ${id}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   saveOffering: async (offering, changedBy) => {
@@ -351,7 +332,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     );
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   deleteOffering: async (id, changedBy) => {
@@ -359,7 +339,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('courseOfferings', id, 'delete', changedBy, `Deleted offering ${id}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   savePlan: async (plan, changedBy) => {
@@ -373,7 +352,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('userPlans', normalizedPlan.id, 'update', changedBy, `Saved plan ${normalizedPlan.name}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   deletePlan: async (id, changedBy) => {
@@ -381,7 +359,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('userPlans', id, 'delete', changedBy, `Deleted plan ${id}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   upsertPlanSelection: async (planId, offeringId, updates) => {
@@ -561,7 +538,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('programRules', rule.id, 'update', changedBy, `Saved program rule ${rule.programName}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   deleteProgramRule: async (id, changedBy) => {
@@ -569,7 +545,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('programRules', id, 'delete', changedBy, `Deleted program rule ${id}`);
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 
   exportDatabase: async () => storageAdapter.exportDatabase(),
@@ -579,7 +554,6 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
     const log = makeAdminLog('programRules', 'import', 'import', changedBy, 'Imported database snapshot');
     await storageAdapter.saveAdminChangelogEntry(log);
     await get().reloadData();
-    await persistDevSeedSnapshot();
   },
 }));
 

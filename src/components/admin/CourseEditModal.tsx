@@ -6,6 +6,8 @@ import { BottomSheet } from '../ui/BottomSheet';
 import { ColorPicker } from '../ui/ColorPicker';
 import { Dropdown, MultiDropdown } from '../ui/Dropdown';
 
+const UNASSIGNED_PROFESSOR_VALUE = '__unassigned_professor__';
+
 interface CourseEditModalProps {
   open: boolean;
   initial?: CourseDefinition;
@@ -60,6 +62,10 @@ export function CourseEditModal({
       value: professor.id,
       label: professor.isActive ? professor.name : `${professor.name} (inactive)`,
     }));
+  const professorOptionsWithUnassigned = [
+    { value: UNASSIGNED_PROFESSOR_VALUE, label: 'Unassigned (clear selection)' },
+    ...professorOptions,
+  ];
 
   return (
     <BottomSheet open={open} onClose={onClose} title={initial ? 'Edit Course' : 'Create Course'}>
@@ -130,8 +136,15 @@ export function CourseEditModal({
           <MultiDropdown
             className="mt-1 min-h-24 w-full rounded-xl border border-border px-3 py-2"
             values={form.professorIds}
-            options={professorOptions}
-            onChange={(professorIds) => setForm((prev) => ({ ...prev, professorIds }))}
+            options={professorOptionsWithUnassigned}
+            onChange={(professorIds) =>
+              setForm((prev) => ({
+                ...prev,
+                professorIds: professorIds.includes(UNASSIGNED_PROFESSOR_VALUE)
+                  ? []
+                  : professorIds.filter((id) => id !== UNASSIGNED_PROFESSOR_VALUE),
+              }))
+            }
           />
         </label>
 

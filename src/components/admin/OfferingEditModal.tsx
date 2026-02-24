@@ -8,6 +8,8 @@ import { ChangelogView } from './ChangelogView';
 import { ExamOptionsEditor } from './ExamOptionsEditor';
 import { LectureSessionsEditor } from './LectureSessionsEditor';
 
+const UNASSIGNED_PROFESSOR_VALUE = '__unassigned_professor__';
+
 interface OfferingEditModalProps {
   open: boolean;
   initial?: CourseOffering;
@@ -76,6 +78,10 @@ export function OfferingEditModal({
       value: professor.id,
       label: professor.isActive ? professor.name : `${professor.name} (inactive)`,
     }));
+  const professorOptionsWithUnassigned = [
+    { value: UNASSIGNED_PROFESSOR_VALUE, label: 'Unassigned (clear override)' },
+    ...professorOptions,
+  ];
 
   return (
     <BottomSheet open={open} onClose={onClose} title={initial ? 'Edit Offering' : 'Create Offering'}>
@@ -140,8 +146,15 @@ export function OfferingEditModal({
           <MultiDropdown
             className="mt-1 min-h-20 w-full rounded-xl border border-border px-3 py-2"
             values={form.professorIds ?? []}
-            options={professorOptions}
-            onChange={(professorIds) => setForm((prev) => ({ ...prev, professorIds }))}
+            options={professorOptionsWithUnassigned}
+            onChange={(professorIds) =>
+              setForm((prev) => ({
+                ...prev,
+                professorIds: professorIds.includes(UNASSIGNED_PROFESSOR_VALUE)
+                  ? []
+                  : professorIds.filter((id) => id !== UNASSIGNED_PROFESSOR_VALUE),
+              }))
+            }
           />
         </label>
 

@@ -24,7 +24,7 @@ export function normalizeAcademicYear(year: number): AllowedAcademicYear {
 export const ARCHIVE_YEAR_CHOICES_DESC = [...ALLOWED_ACADEMIC_YEARS].sort((a, b) => b - a);
 
 const ALLOWED_SEMESTERS_BY_YEAR: Record<AllowedAcademicYear, SemesterType[]> = {
-  2025: ['winter'],
+  2025: ['winter', 'summer'],
   2026: ['winter', 'summer'],
 };
 

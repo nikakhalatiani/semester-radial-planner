@@ -70,8 +70,7 @@ export function DataPage({ canManage, onExport, onImport }: DataPageProps) {
     <section className="space-y-4">
       <h3 className="text-lg font-semibold">Data Import / Export</h3>
       <p className="rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-600">
-        Admin edits are saved to IndexedDB and mirrored to local dev-seed override automatically. Built-in
-        `src/data/seed.json` is first-run default only.
+        Admin edits are saved to IndexedDB immediately. Built-in `src/data/seed.json` is first-run default only.
       </p>
       <p className="rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-600">
         `seed.json` actions below save current state only and intentionally drop admin changelog history to keep the

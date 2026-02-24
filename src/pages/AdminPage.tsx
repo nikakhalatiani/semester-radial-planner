@@ -9,9 +9,11 @@ import { ProfessorsPage } from '../components/admin/ProfessorsPage';
 import { ProgramRulesPage } from '../components/admin/ProgramRulesPage';
 import { UniversitiesPage } from '../components/admin/UniversitiesPage';
 import { useAdminSession } from '../hooks/useAdminSession';
+import { useI18n } from '../hooks/useI18n';
 import { useAppStore } from '../store';
 
 export function AdminPage() {
+  const { t } = useI18n();
   const {
     universities,
     professors,
@@ -56,18 +58,18 @@ export function AdminPage() {
             event.preventDefault();
             const ok = await login(email, password);
             if (!ok) {
-              setError('Invalid credentials');
+              setError(t('admin.invalidCredentials', 'Invalid credentials'));
               return;
             }
             setError(null);
           }}
         >
-          <h1 className="text-xl font-bold">Admin Login</h1>
+          <h1 className="text-xl font-bold">{t('admin.loginTitle', 'Admin Login')}</h1>
           <p className="text-sm text-text-secondary">
-            Use `superadmin@planner.local` or `editor@planner.local`
+            {t('admin.loginHint', 'Use `superadmin@planner.local` or `editor@planner.local`')}
           </p>
           <label className="block text-sm">
-            Email
+            {t('admin.email', 'Email')}
             <input
               type="email"
               className="mt-1 h-11 w-full rounded-xl border border-border px-3"
@@ -76,7 +78,7 @@ export function AdminPage() {
             />
           </label>
           <label className="block text-sm">
-            Password
+            {t('admin.password', 'Password')}
             <input
               type="password"
               className="mt-1 h-11 w-full rounded-xl border border-border px-3"
@@ -86,7 +88,7 @@ export function AdminPage() {
           </label>
           {error ? <p className="text-sm text-danger">{error}</p> : null}
           <button type="submit" className="h-11 w-full rounded-xl bg-neutral-900 text-sm font-semibold text-white">
-            Login
+            {t('admin.login', 'Login')}
           </button>
         </form>
       </div>

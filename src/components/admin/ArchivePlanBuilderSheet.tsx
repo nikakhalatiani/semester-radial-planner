@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 
+import { useI18n } from '../../hooks/useI18n';
 import { useProgramRules } from '../../hooks/useProgramRules';
 import type {
   CourseCategory,
@@ -21,6 +22,8 @@ import {
 import { BottomSheet } from '../ui/BottomSheet';
 import { Dropdown } from '../ui/Dropdown';
 import { PlanningPanel, type PlanningRow } from '../planning/PlanningPanel';
+import { PlanningRulesCollapsedPreview, PlanningRulesPanel } from '../planning/PlanningRulesPanel';
+import { RulesOverlayPanel } from '../planning/RulesOverlayPanel';
 import { RadialCalendar } from '../calendar/RadialCalendar';
 
 interface ArchivePlanBuilderSheetProps {
@@ -139,6 +142,7 @@ export function ArchivePlanBuilderSheet({
   onClose,
   onSave,
 }: ArchivePlanBuilderSheetProps) {
+  const { language } = useI18n();
   const initialYear = initial?.academicYear ?? defaultYear;
   const initialSemester = initial?.semesterType ?? normalizeSemesterForYear(initialYear, defaultSemester);
 
@@ -256,6 +260,7 @@ export function ArchivePlanBuilderSheet({
     selections: draft.selectedOfferings,
     offerings: periodOfferings,
     definitions,
+    language,
   });
 
   const yearOptions = useMemo(
@@ -345,7 +350,6 @@ export function ArchivePlanBuilderSheet({
             rows={planningRows}
             searchQuery={searchQuery}
             activeCategories={categoryFilters}
-            ruleResult={ruleResult}
             onSearch={setSearchQuery}
             onToggleCategory={(category) =>
               setCategoryFilters((current) =>
@@ -392,27 +396,38 @@ export function ArchivePlanBuilderSheet({
                 };
               })
             }
-            ruleScopePlanOptions={[
-              {
-                id: draft.id || 'draft',
-                label: 'Current Plan',
-              },
-            ]}
-            selectedRuleScopePlanIds={[draft.id || 'draft']}
-            onToggleRuleScopePlan={() => {
-              // Single-plan scope in archive builder.
-            }}
+            className="flex h-[calc(100vh-220px)] flex-col"
+            cardsClassName="min-h-0 flex-1 pr-1"
           />
 
-          <div className="min-h-[520px]">
-            <RadialCalendar
-              year={draft.academicYear}
-              offerings={displayOfferings}
-              onSelectOffering={() => {
-                // No detail sheet inside admin builder preview.
-              }}
-              availableYears={ARCHIVE_YEAR_CHOICES_DESC}
-            />
+          <div className="space-y-3">
+            <div className="min-h-[520px]">
+              <RadialCalendar
+                year={draft.academicYear}
+                offerings={displayOfferings}
+                onSelectOffering={() => {
+                  // No detail sheet inside admin builder preview.
+                }}
+                availableYears={ARCHIVE_YEAR_CHOICES_DESC}
+              />
+            </div>
+
+            <RulesOverlayPanel
+              collapsedContent={({ toggle }) => (
+                <PlanningRulesCollapsedPreview
+                  ruleResult={ruleResult}
+                  showScope={false}
+                  onExpand={toggle}
+                />
+              )}
+            >
+              <PlanningRulesPanel
+                ruleResult={ruleResult}
+                showScope={false}
+                checkerExpandable={false}
+                className="border-0 bg-transparent p-0"
+              />
+            </RulesOverlayPanel>
           </div>
         </div>
 

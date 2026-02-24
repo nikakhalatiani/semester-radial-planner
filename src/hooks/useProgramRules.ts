@@ -13,6 +13,7 @@ interface UseProgramRulesInput {
   selections: SelectedOffering[];
   offerings: CourseOffering[];
   definitions: CourseDefinition[];
+  language?: 'en' | 'de';
 }
 
 export function useProgramRules({
@@ -20,6 +21,7 @@ export function useProgramRules({
   selections,
   offerings,
   definitions,
+  language = 'en',
 }: UseProgramRulesInput) {
   return useMemo(() => {
     if (!rule) {
@@ -31,6 +33,7 @@ export function useProgramRules({
       selections,
       offerings,
       definitions,
+      language,
     });
-  }, [rule, selections, offerings, definitions]);
+  }, [definitions, language, offerings, rule, selections]);
 }

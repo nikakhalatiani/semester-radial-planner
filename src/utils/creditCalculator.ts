@@ -11,6 +11,67 @@ interface EvaluationInput {
   selections: SelectedOffering[];
   offerings: CourseOffering[];
   definitions: CourseDefinition[];
+  language?: 'en' | 'de';
+}
+
+const RULE_TEXT: Record<
+  'en' | 'de',
+  {
+    mandatoryLabel: string;
+    mandatoryMissing: string;
+    totalCreditsLabel: string;
+    lpShort: string;
+    categoryMinLabel: string;
+    lpAboveMax: string;
+    electiveMinLabel: string;
+    electiveShort: string;
+    seminarLabel: string;
+    seminarMissing: string;
+    praktikumLabel: string;
+    praktikumMissing: string;
+    thesisLabel: string;
+    thesisMissing: string;
+  }
+> = {
+  en: {
+    mandatoryLabel: 'All mandatory courses included',
+    mandatoryMissing: '{count} mandatory courses missing',
+    totalCreditsLabel: '{count} LP included',
+    lpShort: '{count} LP short',
+    categoryMinLabel: '{category}: min. {min} LP elective',
+    lpAboveMax: '{count} LP above max',
+    electiveMinLabel: '{count} LP elective minimum',
+    electiveShort: '{count} LP elective short',
+    seminarLabel: 'Min. {count} Seminar included',
+    seminarMissing: '{count} seminar(s) missing',
+    praktikumLabel: 'Min. {count} Praktikum included',
+    praktikumMissing: '{count} praktikum missing',
+    thesisLabel: 'Master thesis included',
+    thesisMissing: 'Thesis not included',
+  },
+  de: {
+    mandatoryLabel: 'Alle Pflichtmodule enthalten',
+    mandatoryMissing: '{count} Pflichtmodule fehlen',
+    totalCreditsLabel: '{count} LP enthalten',
+    lpShort: '{count} LP fehlen',
+    categoryMinLabel: '{category}: mind. {min} LP Wahlpflicht',
+    lpAboveMax: '{count} LP ueber Maximum',
+    electiveMinLabel: '{count} LP Wahlpflicht minimum',
+    electiveShort: '{count} LP Wahlpflicht fehlen',
+    seminarLabel: 'Mind. {count} Seminar enthalten',
+    seminarMissing: '{count} Seminar fehlen',
+    praktikumLabel: 'Mind. {count} Praktikum enthalten',
+    praktikumMissing: '{count} Praktikum fehlen',
+    thesisLabel: 'Masterarbeit enthalten',
+    thesisMissing: 'Masterarbeit nicht enthalten',
+  },
+};
+
+function formatText(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce(
+    (acc, [key, value]) => acc.replace(new RegExp(`\\{${key}\\}`, 'g'), String(value)),
+    template,
+  );
 }
 
 export function evaluateProgramRule({
@@ -18,7 +79,9 @@ export function evaluateProgramRule({
   selections,
   offerings,
   definitions,
+  language = 'en',
 }: EvaluationInput): RuleEvaluationResult {
+  const text = RULE_TEXT[language];
   const offeringById = new Map(offerings.map((offering) => [offering.id, offering]));
   const definitionById = new Map(definitions.map((definition) => [definition.id, definition]));
 
@@ -51,21 +114,23 @@ export function evaluateProgramRule({
   const rows = [
     {
       id: 'mandatory',
-      label: 'All mandatory courses included',
+      label: text.mandatoryLabel,
       met: includedMandatory.size === mandatorySet.size,
       details:
         includedMandatory.size === mandatorySet.size
           ? undefined
-          : `${mandatorySet.size - includedMandatory.size} mandatory courses missing`,
+          : formatText(text.mandatoryMissing, {
+              count: mandatorySet.size - includedMandatory.size,
+            }),
     },
     {
       id: 'total-credits',
-      label: `${rule.totalCreditsRequired} LP included`,
+      label: formatText(text.totalCreditsLabel, { count: rule.totalCreditsRequired }),
       met: applicableCredits >= rule.totalCreditsRequired,
       details:
         applicableCredits >= rule.totalCreditsRequired
           ? undefined
-          : `${rule.totalCreditsRequired - applicableCredits} LP short`,
+          : formatText(text.lpShort, { count: rule.totalCreditsRequired - applicableCredits }),
     },
     ...rule.categoryRequirements.map((requirement) => {
       const categoryCredits = electiveDefinitions
@@ -74,13 +139,18 @@ export function evaluateProgramRule({
       const maxValid = requirement.maxCredits == null || categoryCredits <= requirement.maxCredits;
       const minValid = categoryCredits >= requirement.minCredits;
       const met = minValid && maxValid;
-      const label = requirement.label ?? `${requirement.category}: min. ${requirement.minCredits} LP elective`;
+      const label =
+        requirement.label ??
+        formatText(text.categoryMinLabel, {
+          category: requirement.category,
+          min: requirement.minCredits,
+        });
 
       let details: string | undefined;
       if (!minValid) {
-        details = `${requirement.minCredits - categoryCredits} LP short`;
+        details = formatText(text.lpShort, { count: requirement.minCredits - categoryCredits });
       } else if (!maxValid && requirement.maxCredits != null) {
-        details = `${categoryCredits - requirement.maxCredits} LP above max`;
+        details = formatText(text.lpAboveMax, { count: categoryCredits - requirement.maxCredits });
       }
 
       return {
@@ -92,36 +162,36 @@ export function evaluateProgramRule({
     }),
     {
       id: 'elective-min',
-      label: `${rule.electiveCreditsMin} LP elective minimum`,
+      label: formatText(text.electiveMinLabel, { count: rule.electiveCreditsMin }),
       met: electiveCredits >= rule.electiveCreditsMin,
       details:
         electiveCredits >= rule.electiveCreditsMin
           ? undefined
-          : `${rule.electiveCreditsMin - electiveCredits} LP elective short`,
+          : formatText(text.electiveShort, { count: rule.electiveCreditsMin - electiveCredits }),
     },
     {
       id: 'seminar',
-      label: `Min. ${rule.seminarMinCount} Seminar included`,
+      label: formatText(text.seminarLabel, { count: rule.seminarMinCount }),
       met: seminarCount >= rule.seminarMinCount,
       details:
         seminarCount >= rule.seminarMinCount
           ? undefined
-          : `${rule.seminarMinCount - seminarCount} seminar(s) missing`,
+          : formatText(text.seminarMissing, { count: rule.seminarMinCount - seminarCount }),
     },
     {
       id: 'praktikum',
-      label: `Min. ${rule.praktikumMinCount} Praktikum included`,
+      label: formatText(text.praktikumLabel, { count: rule.praktikumMinCount }),
       met: praktikumCount >= rule.praktikumMinCount,
       details:
         praktikumCount >= rule.praktikumMinCount
           ? undefined
-          : `${rule.praktikumMinCount - praktikumCount} praktikum missing`,
+          : formatText(text.praktikumMissing, { count: rule.praktikumMinCount - praktikumCount }),
     },
     {
       id: 'thesis',
-      label: 'Masterarbeit included',
+      label: text.thesisLabel,
       met: !rule.thesisRequired || thesisIncluded,
-      details: !rule.thesisRequired || thesisIncluded ? undefined : 'Thesis not included',
+      details: !rule.thesisRequired || thesisIncluded ? undefined : text.thesisMissing,
     },
   ];
 

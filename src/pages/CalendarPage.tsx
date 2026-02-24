@@ -294,6 +294,7 @@ export function CalendarPage() {
       rows.push({
         definition,
         offering,
+        programSemester: activePlan.programSemester,
         selection: selectionByOfferingId.get(offering.id),
         university: definition.universityId ? universityById.get(definition.universityId) : undefined,
         professorNames,

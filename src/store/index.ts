@@ -24,6 +24,7 @@ import {
   type SettingsSlice,
 } from './settingsSlice';
 import { normalizeAcademicYear, normalizeSemesterForYear } from '../utils/academicYears';
+import { resolveProgramSemester } from '../utils/programSemester';
 
 const ADMIN_SESSION_KEY = 'srp_admin_session';
 const storageAdapter = new IndexedDBAdapter();
@@ -317,10 +318,16 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
 
   saveOffering: async (offering, changedBy) => {
     const normalizedYear = normalizeAcademicYear(offering.academicYear);
+    const normalizedSemester = normalizeSemesterForYear(normalizedYear, offering.semesterType);
     const normalizedOffering = {
       ...offering,
       academicYear: normalizedYear,
-      semesterType: normalizeSemesterForYear(normalizedYear, offering.semesterType),
+      semesterType: normalizedSemester,
+      programSemester: resolveProgramSemester(
+        offering.programSemester,
+        normalizedYear,
+        normalizedSemester,
+      ),
     };
     await storageAdapter.saveOffering(normalizedOffering);
     const log = makeAdminLog(
@@ -343,10 +350,16 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
 
   savePlan: async (plan, changedBy) => {
     const normalizedYear = normalizeAcademicYear(plan.academicYear);
+    const normalizedSemester = normalizeSemesterForYear(normalizedYear, plan.semesterType);
     const normalizedPlan = {
       ...plan,
       academicYear: normalizedYear,
-      semesterType: normalizeSemesterForYear(normalizedYear, plan.semesterType),
+      semesterType: normalizedSemester,
+      programSemester: resolveProgramSemester(
+        plan.programSemester,
+        normalizedYear,
+        normalizedSemester,
+      ),
     };
     await storageAdapter.savePlan(normalizedPlan);
     const log = makeAdminLog('userPlans', normalizedPlan.id, 'update', changedBy, `Saved plan ${normalizedPlan.name}`);
@@ -512,6 +525,7 @@ export const useAppStore = create<AppStore>((set, get, store) => ({
       name,
       academicYear: normalizedYear,
       semesterType: normalizedSemester,
+      programSemester: resolveProgramSemester(undefined, normalizedYear, normalizedSemester),
       programRuleId: ruleId,
       selectedOfferings,
       createdAt: now,

@@ -51,6 +51,7 @@ export function CoursesPage({
             <tr>
               <th className="px-3 py-2 text-left">Name</th>
               <th className="px-3 py-2 text-left">Category</th>
+              <th className="px-3 py-2 text-left">Sem</th>
               <th className="px-3 py-2 text-left">LP</th>
               <th className="px-3 py-2 text-left">Status</th>
               <th className="px-3 py-2 text-right">Actions</th>
@@ -63,6 +64,7 @@ export function CoursesPage({
                 <td className="px-3 py-2">
                   <CategoryBadge category={course.category} color={course.color} />
                 </td>
+                <td className="px-3 py-2">{course.recommendedSemester ? `Sem ${course.recommendedSemester}` : '-'}</td>
                 <td className="px-3 py-2">{course.credits}</td>
                 <td className="px-3 py-2">{course.isArchived ? 'Archived' : 'Active'}</td>
                 <td className="px-3 py-2">

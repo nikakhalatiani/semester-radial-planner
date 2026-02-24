@@ -20,6 +20,7 @@ import {
   normalizeAcademicYear,
   normalizeSemesterForYear,
 } from '../utils/academicYears';
+import { resolveProgramSemester } from '../utils/programSemester';
 import { getDevSeedOverride } from '../utils/devSeed';
 
 import type { StorageAdapter } from './adapter';
@@ -144,19 +145,23 @@ function normalizeLegacyMidterms(payload: unknown): unknown {
 
 function normalizeOfferingYear(offering: CourseOffering): CourseOffering {
   const normalizedYear = normalizeAcademicYear(offering.academicYear);
+  const normalizedSemester = normalizeSemesterForYear(normalizedYear, offering.semesterType);
   return {
     ...offering,
     academicYear: normalizedYear,
-    semesterType: normalizeSemesterForYear(normalizedYear, offering.semesterType),
+    semesterType: normalizedSemester,
+    programSemester: resolveProgramSemester(offering.programSemester, normalizedYear, normalizedSemester),
   };
 }
 
 function normalizePlanYear(plan: UserPlan): UserPlan {
   const normalizedYear = normalizeAcademicYear(plan.academicYear);
+  const normalizedSemester = normalizeSemesterForYear(normalizedYear, plan.semesterType);
   return {
     ...plan,
     academicYear: normalizedYear,
-    semesterType: normalizeSemesterForYear(normalizedYear, plan.semesterType),
+    semesterType: normalizedSemester,
+    programSemester: resolveProgramSemester(plan.programSemester, normalizedYear, normalizedSemester),
   };
 }
 

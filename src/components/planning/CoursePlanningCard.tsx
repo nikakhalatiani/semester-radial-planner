@@ -4,6 +4,7 @@ import { Minus, Plus } from 'lucide-react';
 
 import { useI18n } from '../../hooks/useI18n';
 import type { CourseDefinition, CourseOffering, SelectedOffering, University } from '../../types';
+import { formatProgramSemester, formatProgramSemesterForPeriod } from '../../utils/programSemester';
 import { LPBadge } from '../ui/LPBadge';
 import { Pill, PillButton } from '../ui/Pill';
 import { PflichtBar } from '../ui/PflichtBar';
@@ -12,6 +13,7 @@ import { SeminarPill } from '../ui/SeminarPill';
 interface CoursePlanningCardProps {
   definition: CourseDefinition;
   offering: CourseOffering;
+  programSemester?: number;
   selection?: SelectedOffering;
   university?: University;
   professorNames: string;
@@ -21,6 +23,7 @@ interface CoursePlanningCardProps {
 export function CoursePlanningCard({
   definition,
   offering,
+  programSemester,
   selection,
   university,
   professorNames,
@@ -31,8 +34,17 @@ export function CoursePlanningCard({
   const isIncluded = selection?.isIncluded ?? false;
   const isMandatory = definition.isMandatory;
   const isUnavailable = !offering.isAvailable;
-  const semesterLabel = offering.semesterType === 'winter' ? 'Winter' : 'Summer';
-  const semesterChip = semesterLabel.toUpperCase();
+  const semesterChip = (
+    typeof definition.recommendedSemester === 'number'
+      ? formatProgramSemester(definition.recommendedSemester)
+      : typeof programSemester === 'number'
+        ? formatProgramSemester(programSemester)
+        : formatProgramSemesterForPeriod(
+            offering.programSemester,
+            offering.academicYear,
+            offering.semesterType,
+          )
+  ).toUpperCase();
 
   const touchStartX = useRef<number | null>(null);
 
@@ -60,16 +72,16 @@ export function CoursePlanningCard({
       <div className="pointer-events-none absolute left-2 top-0 text-[52px] font-black leading-none" style={{ color: `${definition.color}1F` }}>
         {definition.shortCode}
       </div>
+      <div className="absolute right-4 top-4 z-20">
+        <LPBadge credits={definition.credits} />
+      </div>
 
       <div className="relative z-10">
-        <div className="mb-2 flex items-start justify-between gap-3">
+        <div className="mb-2 pr-[96px]">
           <div>
             <div className="mb-1 flex items-center gap-2">{definition.isSeminar ? <SeminarPill /> : null}</div>
             <h4 className="text-sm font-semibold text-text-primary">{definition.name}</h4>
             <p className="text-xs text-text-secondary">{professorNames || t('common.tba', 'TBA')}</p>
-          </div>
-          <div className="flex items-start gap-2">
-            <LPBadge credits={definition.credits} />
           </div>
         </div>
 

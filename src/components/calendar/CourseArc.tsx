@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
 import type { CourseDefinition, CourseOffering, ExamOption } from '../../types';
+import { formatProgramSemesterWithYear } from '../../utils/programSemester';
 import { ExamDot } from './ExamDot';
 
 interface CourseArcProps {
@@ -34,7 +35,11 @@ export function CourseArc({
     <motion.g
       role="button"
       tabIndex={0}
-      aria-label={`${definition.name} ${offering.academicYear} ${offering.semesterType}`}
+      aria-label={`${definition.name} ${formatProgramSemesterWithYear(
+        offering.programSemester,
+        offering.academicYear,
+        offering.semesterType,
+      )}`}
       onMouseDown={(event) => {
         event.preventDefault();
       }}

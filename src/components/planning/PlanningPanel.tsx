@@ -13,6 +13,7 @@ import { CoursePlanningCard } from './CoursePlanningCard';
 export interface PlanningRow {
   definition: CourseDefinition;
   offering: CourseOffering;
+  programSemester?: number;
   selection?: SelectedOffering;
   university?: University;
   professorNames: string;
@@ -73,6 +74,7 @@ export function PlanningPanel({
             key={row.offering.id}
             definition={row.definition}
             offering={row.offering}
+            programSemester={row.programSemester}
             selection={row.selection}
             university={row.university}
             professorNames={row.professorNames}

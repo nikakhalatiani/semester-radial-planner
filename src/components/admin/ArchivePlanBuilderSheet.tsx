@@ -202,6 +202,7 @@ export function ArchivePlanBuilderSheet({
       rows.push({
         definition,
         offering,
+        programSemester: draft.programSemester,
         selection: selectionByOfferingId.get(offering.id),
         university: definition.universityId
           ? universityById.get(definition.universityId)
@@ -220,6 +221,7 @@ export function ArchivePlanBuilderSheet({
   }, [
     categoryFilters,
     definitionById,
+    draft.programSemester,
     periodOfferings,
     professorById,
     searchQuery,

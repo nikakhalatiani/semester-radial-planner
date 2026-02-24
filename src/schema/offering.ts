@@ -21,6 +21,7 @@ export const courseOfferingSchema = z.object({
   courseDefinitionId: z.string().min(1),
   academicYear: z.number().int(),
   semesterType: z.enum(['winter', 'summer']),
+  programSemester: z.number().int().min(1).max(12).optional(),
   isAvailable: z.boolean(),
   startDate: z.string().min(1),
   endDate: z.string().min(1),

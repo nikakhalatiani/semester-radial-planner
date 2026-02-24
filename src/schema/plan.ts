@@ -12,6 +12,7 @@ export const userPlanSchema = z.object({
   name: z.string().min(1),
   academicYear: z.number().int(),
   semesterType: z.enum(['winter', 'summer']),
+  programSemester: z.number().int().min(1).max(12).optional(),
   programRuleId: z.string().min(1),
   selectedOfferings: z.array(selectedOfferingSchema),
   createdAt: z.string().min(1),

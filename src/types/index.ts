@@ -28,6 +28,7 @@ export interface CourseDefinition {
   name: string;
   shortCode: string;
   category?: CourseCategory;
+  recommendedSemester?: number;
   isMandatory: boolean;
   isSeminar: boolean;
   credits: number;
@@ -60,6 +61,7 @@ export interface CourseOffering {
   courseDefinitionId: string;
   academicYear: number;
   semesterType: SemesterType;
+  programSemester?: number;
   isAvailable: boolean;
   startDate: string;
   endDate: string;
@@ -84,6 +86,7 @@ export interface UserPlan {
   name: string;
   academicYear: number;
   semesterType: SemesterType;
+  programSemester?: number;
   programRuleId: string;
   selectedOfferings: SelectedOffering[];
   createdAt: string;

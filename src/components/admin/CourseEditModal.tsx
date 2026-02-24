@@ -33,6 +33,7 @@ export function CourseEditModal({
     name: '',
     shortCode: '',
     category: undefined,
+    recommendedSemester: undefined,
     isMandatory: false,
     isSeminar: false,
     credits: 6,
@@ -79,7 +80,7 @@ export function CourseEditModal({
           />
         </label>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <label className="block text-sm">
             Short Code
             <input
@@ -97,6 +98,28 @@ export function CourseEditModal({
               value={form.credits}
               onChange={(event) => setForm((prev) => ({ ...prev, credits: Number(event.target.value) }))}
             />
+          </label>
+
+          <label className="block text-sm">
+            Program Semester
+            <input
+              type="number"
+              min={1}
+              max={12}
+              className="mt-1 h-11 w-full rounded-xl border border-border px-3"
+              value={form.recommendedSemester ?? ''}
+              placeholder="e.g. 1"
+              onChange={(event) => {
+                const value = event.target.value.trim();
+                const parsed = Number(value);
+                setForm((prev) => ({
+                  ...prev,
+                  recommendedSemester:
+                    !value || Number.isNaN(parsed) ? undefined : Math.max(1, Math.min(12, Math.floor(parsed))),
+                }));
+              }}
+            />
+            <p className="mt-1 text-xs text-text-secondary">Odd semesters are winter, even semesters are summer.</p>
           </label>
         </div>
 

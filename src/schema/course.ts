@@ -7,6 +7,7 @@ export const courseDefinitionSchema = z.object({
   name: z.string().min(1),
   shortCode: z.string().min(1),
   category: courseCategorySchema.optional(),
+  recommendedSemester: z.number().int().min(1).max(12).optional(),
   isMandatory: z.boolean(),
   isSeminar: z.boolean(),
   credits: z.number().min(0),

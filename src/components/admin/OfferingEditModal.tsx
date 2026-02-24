@@ -22,6 +22,10 @@ interface OfferingEditModalProps {
   onSave: (offering: CourseOffering) => Promise<void>;
 }
 
+function semesterTypeFromProgramSemester(programSemester: number): 'winter' | 'summer' {
+  return programSemester % 2 === 1 ? 'winter' : 'summer';
+}
+
 export function OfferingEditModal({
   open,
   initial,
@@ -68,10 +72,19 @@ export function OfferingEditModal({
   });
 
   const localChangelog = changelog.filter((log) => log.entityType === 'courseOfferings' && log.entityId === form.id);
-  const courseOptions = definitions.map((definition) => ({
-    value: definition.id,
-    label: definition.name,
-  }));
+  const courseOptions = definitions
+    .filter(
+      (definition) =>
+        !definition.recommendedSemester ||
+        semesterTypeFromProgramSemester(definition.recommendedSemester) === semester ||
+        definition.id === form.courseDefinitionId,
+    )
+    .map((definition) => ({
+      value: definition.id,
+      label: definition.recommendedSemester
+        ? `${definition.name} (Sem ${definition.recommendedSemester})`
+        : definition.name,
+    }));
   const professorOptions = professors
     .filter((professor) => professor.isActive || (form.professorIds ?? []).includes(professor.id))
     .map((professor) => ({
@@ -94,6 +107,7 @@ export function OfferingEditModal({
             options={courseOptions}
             onChange={(courseDefinitionId) => setForm((prev) => ({ ...prev, courseDefinitionId }))}
           />
+          <p className="mt-1 text-xs text-text-secondary">Odd semesters map to winter offerings, even semesters to summer offerings.</p>
         </label>
 
         <div className="grid grid-cols-1 gap-3">
